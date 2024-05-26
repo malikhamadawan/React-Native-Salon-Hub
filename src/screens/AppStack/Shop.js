@@ -14,7 +14,6 @@ import Info from '../../components/info';
 import CustomButton from '../../components/customButton';
 const Shop = ({navigation}) => {
   const [button, setButton] = useState('info');
-  console.log('button', button);
 
   const data = [
     {

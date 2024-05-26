@@ -10,6 +10,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import CustomButton from '../../components/customButton';
+import {ProfileCard} from '../../components/profileCard';
 
 const BookNow = ({navigation}) => {
   const [internalDate, setInternalDate] = useState(new Date());
@@ -71,11 +72,6 @@ const BookNow = ({navigation}) => {
       }
     });
   };
-
-  console.log('selectedDate', selectedDate);
-
-  console.log('selectedTime', selectedTime);
-
   const handleBooking = () => {
     setSelectedDate(null);
     setSelectedTime(null);
@@ -88,120 +84,14 @@ const BookNow = ({navigation}) => {
         marginTop: Platform.OS === 'ios' ? 50 : 50,
         flex: 1,
         alignItems: 'center',
+        paddingHorizontal:5,
       }}>
-      <View
-        style={{
-          marginTop: 5,
-          maxWidth: '100%',
-          marginHorizontal: 10,
-          backgroundColor: 'white',
-          height: '20%',
-          borderRadius: 15,
-          justifyContent: 'center',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: '95%',
-            width: '100%',
-          }}>
-          <Image
-            source={require('../../assets/profile2.jpeg')}
-            style={{
-              height: '90%',
-              width: '40%',
-              borderRadius: 10,
-              marginLeft: '3%',
-              marginTop: '2%',
-            }}
-          />
-          <View
-            style={{
-              width: '55%',
-              paddingHorizontal: 15,
-              paddingVertical: 20,
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: 'black',
-                textAlign: 'center',
-                marginLeft: 20,
-              }}>
-              Usman{'\n'}
-              <Text
-                style={{
-                  fontSize: 12,
-                  fontWeight: '300',
-                  color: 'black',
-                }}>
-                Barber
-              </Text>
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: '20%',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginRight: '5%',
-              }}>
-              <TouchableOpacity
-                style={{
-                  height: '100%',
-                  width: '50%',
-                  backgroundColor: '#F5F5F5',
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  marginRight: 10,
-                }}>
-                <Image
-                  source={require('../../assets/phoneIcon.png')}
-                  style={{
-                    height: 27,
-                    width: 27,
-                  }}
-                />
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 14,
-                  }}>
-                  Call
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  height: '100%',
-                  width: '50%',
-                  backgroundColor: '#F5F5F5',
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                }}>
-                <Image
-                  source={require('../../assets/whatsappIcon.png')}
-                  style={{
-                    height: 38,
-                    width: 38,
-                  }}
-                />
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 14,
-                  }}>
-                  Call
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
+      <ProfileCard
+        showButton={true}
+        text1={'Usman\n'}
+        text2={'Barber'}
+        profileImg1={require('../../assets/profile2.jpeg')}
+      />
       <View
         style={{
           // backgroundColor: 'red',
@@ -333,7 +223,7 @@ const BookNow = ({navigation}) => {
         style={{
           // backgroundColor: 'black',
           height: '10%',
-          width: '95%',
+          width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
@@ -407,7 +297,7 @@ const BookNow = ({navigation}) => {
       <View
         style={{
           height: 80,
-          width: '95%',
+          width: '100%',
         }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -429,6 +319,7 @@ const BookNow = ({navigation}) => {
                 marginHorizontal: 7,
                 justifyContent: 'center',
                 alignItems: 'center',
+                // width: '50%',
               }}>
               <Text
                 style={{

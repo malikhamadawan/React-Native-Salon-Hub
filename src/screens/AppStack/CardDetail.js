@@ -1,20 +1,22 @@
-import {View, Text, Image} from 'react-native';
-import Input from '../../components/input';
+import {View, Text, TextInput, Image} from 'react-native';
 import React from 'react';
+import {Input} from '../../components/input';
+import CustomButton from '../../components/customButton';
+import { ProfileCard } from '../../components/profileCard';
 
-const CardDetail = () => {
+const CardDetail = ({navigation}) => {
   return (
     <View
       style={{
-        marginTop: Platform.OS === 'ios' ? 50 : 50,
+        marginTop: Platform.OS === 'ios' ? 50 : 40,
         flex: 1,
         paddingHorizontal: 10,
       }}>
-      <View
+      {/* <View
         style={{
           marginTop: 5,
           maxWidth: '100%',
-          marginHorizontal: 10,
+          // marginHorizontal: 5,
           backgroundColor: 'white',
           height: '20%',
           borderRadius: 15,
@@ -64,71 +66,142 @@ const CardDetail = () => {
                 Block F,PIA Housing Scheme,Lahore
               </Text>
             </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: '20%',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginRight: '5%',
-              }}></View>
           </View>
         </View>
-      </View>
+      </View> */}
+      <ProfileCard
+        showButton={false}
+        text1={'Mr Cuts Hair    Saloon\n'}
+        text2={'Block F,PIA Housing Scheme,Lahore'}
+        profileImg1={require('../../assets/mrCuts.jpeg')}
+      />
       <View
         style={{
-          // marginTop: 10,
-          height: 70,
+          height: 40,
           // backgroundColor:'red',
           justifyContent: 'center',
+          marginTop: Platform.OS === 'ios' ? 42 : 62,
         }}>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 20,
             color: 'black',
             fontWeight: '400',
-            color: 'black',
           }}>
           Card Holder Name
         </Text>
       </View>
-      <Input />
+      <Input width={'100%'} placeholder={'Enter holder name'} />
       <View
         style={{
-          height: 50,
-          // backgroundColor: 'red',
+          height: 40,
+          // backgroundColor:'red',
+          justifyContent: 'center',
+          marginTop: 20,
         }}>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 20,
             color: 'black',
             fontWeight: '400',
-            color: 'black',
           }}>
           Card Number
         </Text>
       </View>
-      <Input />
+      <Input
+        width={'100%'}
+        img={require('../../assets/paymentmethodicon.png')}
+        imgBorderRadius={6}
+        imgWidth={40}
+        leftIcon={true}
+        placeholder={'Enter card number'}
+        
+      />
       <View
-      style={{
-        flexDirection:'row',
-        justifyContent: 'center',
-
-      }}>
-        <Text
         style={{
-            fontSize: 18,
-            color: 'black',
-            fontWeight: '400',
-            color: 'black',
-          }}>Expiry Date</Text>
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          // backgroundColor: 'red',
+          marginTop: 20,
+        }}>
+        <View
+          style={{
+            width: '50%',
+          }}>
           <Text
+            style={{
+              fontSize: 20,
+              color: 'black',
+              fontWeight: '400',
+              color: 'black',
+              // marginLeft:5,
+            }}>
+            Expiry Date
+          </Text>
+        </View>
+        <View
+          style={{
+            width: '50%',
+            marginLeft: 13,
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: 'black',
+              fontWeight: '400',
+              color: 'black',
+            }}>
+            CVV
+          </Text>
+        </View>
+      </View>
+      <View
         style={{
-            fontSize: 18,
-            color: 'black',
-            fontWeight: '400',
-            color: 'black',
-          }}>CVV</Text>
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          // backgroundColor: 'red',
+          marginTop: 10,
+        }}>
+        <View
+          style={{
+            width: '50%',
+          }}>
+          <Input width={'100%'} placeholder={'Expiry Date'} />
+        </View>
+        <View
+          style={{
+            width: '46%',
+          }}>
+          <Input width={'100%'} placeholder={'Cvv'} />
+        </View>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          // backgroundColor:'red',
+          justifyContent: 'center',
+          height: 400,
+        }}>
+        <CustomButton
+          btnColor={'white'}
+          width={150}
+          borderColor={'black'}
+          borderWidth={true}
+          justi={'center'}
+          text={'Back'}
+          btnHeight={42}
+        />
+        <CustomButton
+          onPress={() => {
+            navigation.navigate('AppStack', {screen: 'PayNow'});
+          }}
+          btnColor={'#2158FF'}
+          width={150}
+          text={'Pay Now'}
+          justi={'center'}
+          txtColor={'white'}
+          btnHeight={42}
+        />
       </View>
     </View>
   );

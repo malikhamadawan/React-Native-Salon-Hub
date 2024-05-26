@@ -9,12 +9,11 @@ import {
   StatusBar,
 } from 'react-native';
 import React from 'react';
-import MainContainer from '../../components/mainContainer';
-import Input from '../../components/input';
 import CustomButton from '../../components/customButton';
 import OrSeprator from '../../components/orSeprator';
 import Header from '../../components/header';
 import HeaderDown from '../../components/headerDown';
+import {Input} from '../../components/input';
 
 const LogIn = ({navigation}) => {
   return (
@@ -30,12 +29,8 @@ const LogIn = ({navigation}) => {
           width: '100%',
           // backgroundColor:'red'
         }}>
-        <Input img={require('../../assets/icon2.png')} placeholder={'Email'} />
-        <Input
-          img={require('../../assets/icon3.png')}
-          placeholder={'Password'}
-          password={true}
-        />
+        <Input />
+        <Input />
       </View>
       <Text
         style={{

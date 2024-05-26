@@ -1,20 +1,16 @@
-/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   Text,
-  Platform,
   Image,
-  TouchableOpacity,
-  TextInput,
   FlatList,
-  ImageBackground,
   ScrollView,
+  ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import ScheduleCard from '../../components/scheduleCard';
-import Input from '../../components/input';
-import {Rating, AirbnbRating} from 'react-native-ratings';
 import {ProfileHeader} from '../../components/profileHeader';
+import {Input} from '../../components/input';
 const Home = () => {
   const newData = [
     {
@@ -165,70 +161,62 @@ const Home = () => {
   return (
     <ScrollView
       contentContainerStyle={{
-        marginTop: '10%',
         flexGrow: 1,
-        paddingBottom: 80,
+        paddingHorizontal:5,
       }}>
       <ProfileHeader />
       <Input
-        img={require('../../assets/searchIcon2.png')}
+        leftIcon={true}
+        rightIcon={true}
+        placeholder={'Search “Salon, Specialist...”'}
         img2={require('../../assets/icons5.png')}
-        password={false}
-        justifyContent={'space-between'}
+        img={require('../../assets/searchIcon2.png')}
       />
       <View
         style={{
-          flex: 1,
           marginHorizontal: '3%',
         }}>
-        <View
-          style={{
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
             alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 5,
-          }}>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              alignItems: 'center',
-            }}
-            horizontal={true}
-            data={newData}
-            renderItem={({item}) => (
-              <TouchableOpacity
+          }}
+          horizontal={true}
+          data={newData}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                width: 65,
+                height: 80,
+                alignItems: 'center',
+                // shadowColor: '#808080',
+                // shadowOpacity: 10,
+                // shadowOffset: {
+                //   width: 4,
+                //   height: 5,
+                // },
+              }}>
+              <Image
+                source={item.image}
                 style={{
-                  justifyContent: 'center',
-                  width: 65,
-                  height: 80,
-                  alignItems: 'center',
-                  // shadowColor: '#808080',
-                  // shadowOpacity: 10,
-                  // shadowOffset: {
-                  //   width: 4,
-                  //   height: 5,
-                  // },
+                  height: 50,
+                  width: 50,
+                  borderRadius: 30,
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: '400',
+                  marginVertical: 5,
+                  color: 'black',
                 }}>
-                <Image
-                  source={item.image}
-                  style={{
-                    height: 50,
-                    width: 50,
-                    borderRadius: 30,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 10,
-                    fontWeight: '400',
-                    marginVertical: 5,
-                    color: 'black',
-                  }}>
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
         <View
           style={{
             marginTop: 20,
@@ -254,6 +242,7 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 10,
+            width: '100%',
           }}>
           <FlatList
             showsHorizontalScrollIndicator={false}
@@ -263,21 +252,17 @@ const Home = () => {
             renderItem={({item}) => (
               <TouchableOpacity
                 style={{
-                  marginHorizontal: 10,
+                  marginHorizontal: 5,
                   marginBottom: 10,
-                  // shadowColor: '#808080',
-                  // shadowOpacity: 10,
-                  // shadowOffset: {
-                  //   width: 4,
-                  //   height: 5,
-                  // },
+                  // backgroundColor: 'red',
+                  // width: '100%',
                 }}>
                 <ImageBackground
                   source={item.image}
                   imageStyle={{borderRadius: 15}}
                   style={{
                     height: 180,
-                    width: 320,
+                    width: 333,
                   }}>
                   <View
                     style={{
@@ -373,6 +358,7 @@ const Home = () => {
             justifyContent: 'space-between',
             flexDirection: 'row',
             marginTop: 10,
+            width: '100%',
             // shadowColor: '#808080',
             // shadowOpacity: 10,
             // shadowOffset: {
@@ -398,6 +384,7 @@ const Home = () => {
               alignSelf: 'center',
               alignContent: 'center',
               alignItems: 'center',
+              elevation:6,
             }}>
             <Image
               source={require('../../assets/Icons6.png')}

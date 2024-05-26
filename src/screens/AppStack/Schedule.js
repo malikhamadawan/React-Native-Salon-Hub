@@ -1,20 +1,17 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
-import MainContainer from '../../components/mainContainer';
-import Input from '../../components/input';
+import {CustomView} from '../../components/mainContainer';
 import ScheduleCard from '../../components/scheduleCard';
+import {Input} from '../../components/input';
 
 const Schedule = ({navigation}) => {
   const [showInput, setShowInput] = useState(false);
   const [button, setButton] = useState('upComing');
-  console.log('button', button);
 
   const toggleInput = () => {
     setShowInput(!showInput);
   };
-  const handlePress = () => {
-    console.log('handlePress');
-  };
+  const handlePress = () => {};
 
   const data = [
     {
@@ -65,7 +62,7 @@ const Schedule = ({navigation}) => {
   ];
 
   return (
-    <MainContainer marginTop={'10%'}>
+    <CustomView marginTop={'10%'}>
       <View
         style={{
           alignItems: 'center',
@@ -201,7 +198,7 @@ const Schedule = ({navigation}) => {
           data={data}
         />
       )}
-    </MainContainer>
+    </CustomView>
   );
 };
 

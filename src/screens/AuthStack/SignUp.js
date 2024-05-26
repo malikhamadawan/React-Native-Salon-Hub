@@ -9,12 +9,11 @@ import {
   StatusBar,
 } from 'react-native';
 import React from 'react';
-import Input from '../../components/input';
 import CustomButton from '../../components/customButton';
 import OrSeprator from '../../components/orSeprator';
-import MainContainer from '../../components/mainContainer';
 import Header from '../../components/header';
 import HeaderDown from '../../components/headerDown';
+import {Input} from '../../components/input';
 
 const SignUp = ({navigation}) => {
   return (
@@ -31,17 +30,27 @@ const SignUp = ({navigation}) => {
           // backgroundColor:'red',
           width: '100%',
         }}>
-        <Input img={require('../../assets/icon1.png')} placeholder={'Name'} />
-        <Input img={require('../../assets/icon2.png')} placeholder={'Email'} />
         <Input
-          img={require('../../assets/icon3.png')}
-          placeholder={'Password'}
-          password={true}
+          img={require('../../assets/icon1.png')}
+          leftIcon={true}
+          placeholder={'Name'}
         />
         <Input
+          leftIcon={true}
+          placeholder={'Email'}
+          img={require('../../assets/icon2.png')}
+        />
+        <Input
+          leftIcon={true}
+          secureTextEntry={true}
+          placeholder={'Password'}
           img={require('../../assets/icon3.png')}
+        />
+        <Input
+          leftIcon={true}
+          secureTextEntry={true}
           placeholder={'Confirm Password'}
-          password={true}
+          img={require('../../assets/icon3.png')}
         />
         <Text
           style={{
@@ -77,9 +86,7 @@ const SignUp = ({navigation}) => {
         showImage={true}
         imgPath={require('../../assets/googleIcon.png')}
         borderWidth={true}
-        onPress={() => {
-          console.log('hello');
-        }}
+        onPress={() => {}}
       />
       <HeaderDown
         value={'signup'}

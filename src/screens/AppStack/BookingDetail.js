@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import CustomButton from '../../components/customButton';
+import {ProfileCard} from '../../components/profileCard';
 
 const BookingDetail = ({navigation}) => {
   const cost = [
@@ -29,133 +30,23 @@ const BookingDetail = ({navigation}) => {
   return (
     <ScrollView
       style={{
-        marginTop: Platform.OS === 'ios' ? 60 : 20,
+        marginTop: Platform.OS === 'ios' ? 50 : 35,
         flex: 1,
         paddingHorizontal: 10,
-      }}>
-      <View
-        style={{
-          marginTop: 5,
-          maxWidth: '100%',
-          marginHorizontal: 10,
-          backgroundColor: 'white',
-          height: '20%',
-          borderRadius: 15,
-          justifyContent: 'center',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: '95%',
-            width: '100%',
-          }}>
-          <Image
-            source={require('../../assets/mrCuts.jpeg')}
-            style={{
-              height: '90%',
-              width: '40%',
-              borderRadius: 10,
-              marginLeft: '3%',
-              marginTop: '2%',
-            }}
-          />
-          <View
-            style={{
-              width: '55%',
-              marginTop: 5,
-              paddingHorizontal: 15,
-              paddingVertical: 20,
-              //   backgroundColor:'red',
-              justifyContent: 'center',
-              alignSelf: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: 'black',
-                textAlign: 'center',
-                marginLeft: 20,
-              }}>
-              Mr Cuts Hair Saloon{'\n'}
-              <Text
-                style={{
-                  fontSize: 12,
-                  fontWeight: '300',
-                  color: 'black',
-                }}>
-                Block F,PIA Housing Scheme,Lahore
-              </Text>
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: '20%',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginRight: '5%',
-              }}>
-              {/* <TouchableOpacity
-                style={{
-                  height: '100%',
-                  width: '50%',
-                  backgroundColor: '#F5F5F5',
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  marginRight: 10,
-                }}>
-                <Image
-                  source={require('../../assets/phoneIcon.png')}
-                  style={{
-                    height: 27,
-                    width: 27,
-                  }}
-                />
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 14,
-                  }}>
-                  Call
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  height: '100%',
-                  width: '50%',
-                  backgroundColor: '#F5F5F5',
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                }}>
-                <Image
-                  source={require('../../assets/whatsappIcon.png')}
-                  style={{
-                    height: 38,
-                    width: 38,
-                  }}
-                />
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 14,
-                  }}>
-                  Call
-                </Text>
-              </TouchableOpacity> */}
-            </View>
-          </View>
-        </View>
-      </View>
+      }}
+      nestedScrollEnabled={true}>
+      <ProfileCard
+        showButton={false}
+        text1={'Mr Cuts Hair\nSaloon\n'}
+        text2={'Block F,PIA Housing Scheme,Lahore'}
+        profileImg1={require('../../assets/mrCuts.jpeg')}
+      />
       <View
         style={{
           //   backgroundColor: 'red',
           width: '90%',
           height: 50,
-          marginTop: 10,
+          marginTop: 5,
           justifyContent: 'center',
         }}>
         <Text
@@ -171,9 +62,9 @@ const BookingDetail = ({navigation}) => {
       <View
         style={{
           width: '90%',
-          height: 60,
+          height: 50,
           // backgroundColor: 'blue',
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
           flexDirection: 'row',
           alignItems: 'center',
           alignSelf: 'center',
@@ -234,9 +125,10 @@ const BookingDetail = ({navigation}) => {
       <View
         style={{
           width: '90%',
-          height: 50,
+          height: 45,
           //   marginTop:5,
           justifyContent: 'center',
+          // backgroundColor:'red',
         }}>
         <Text
           style={{
@@ -250,7 +142,7 @@ const BookingDetail = ({navigation}) => {
       </View>
       <FlatList
         scrollEnabled={false}
-        style={{flexGrow: 0.4,height:120,}}
+        style={{flexGrow: 0.4, height: 120}}
         data={cost}
         renderItem={({item}) => {
           return (
@@ -334,8 +226,8 @@ const BookingDetail = ({navigation}) => {
       />
       <View
         style={{
-          height: 50,
-          marginTop: Platform.OS === 'ios' ? -10 : 10,
+          height: 45,
+          marginTop: Platform.OS === 'ios' ? -10 : 5,
           width: '90%',
           justifyContent: 'center',
           // backgroundColor:'blue',
@@ -355,7 +247,6 @@ const BookingDetail = ({navigation}) => {
           justifyContent: 'space-between',
           width: '75%',
           alignSelf: 'center',
-          
         }}>
         <Text
           style={{
@@ -377,7 +268,7 @@ const BookingDetail = ({navigation}) => {
       <View
         style={{
           height: 60,
-          marginTop: Platform.OS === 'ios' ? -10 : 0,
+          marginTop: Platform.OS === 'ios' ? -10 : -10,
           width: '90%',
           justifyContent: 'center',
           // backgroundColor:'blue',
@@ -410,12 +301,13 @@ const BookingDetail = ({navigation}) => {
       </View>
       <FlatList
         data={paymentMethod}
-        style={{flexGrow: 1,height:140,}}
+        scrollEnabled={false}
+        style={{flexGrow: 1, height: 140}}
         renderItem={({item}) => (
           <TouchableOpacity
             style={{
               alignSelf: 'center',
-              width: '98%',
+              width: '100%',
               height: 50,
               backgroundColor: 'white',
               borderRadius: 15,
@@ -432,7 +324,7 @@ const BookingDetail = ({navigation}) => {
                 alignItems: 'center',
                 marginLeft: 10,
               }}>
-              <Image source={item.image} style={{height: 30, width: 30}} />
+              <Image source={item.image} style={{height: 30, width: 30,marginLeft:5}} />
               <Text
                 style={{fontSize: 18, color: 'black', paddingHorizontal: 10}}>
                 {item.title}
@@ -456,13 +348,13 @@ const BookingDetail = ({navigation}) => {
       <View
         style={{
           // marginTop: 10,
-          height:120,
+          height: 120,
         }}>
         <CustomButton
           onPress={() => {
             navigation.navigate('AppStack', {screen: 'CardDetail'});
           }}
-          style={{marginTop: Platform.OS === 'ios' ? 5 : 20,}}
+          style={{marginTop: Platform.OS === 'ios' ? 5 : 0}}
           width={159}
           text={'Book Now'}
           btnColor={selectedPaymentMethod ? '#2158FF' : '#BBE4FB'}

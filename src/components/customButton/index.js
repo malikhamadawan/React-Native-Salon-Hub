@@ -1,7 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
 
-
 const CustomButton = ({
   text,
   width,
@@ -20,6 +19,7 @@ const CustomButton = ({
   textmarginL,
   imgMarg,
   tintColor,
+  marginTop,
 }) => {
   // const handlePress = () => {
   //   press();
@@ -37,6 +37,7 @@ const CustomButton = ({
           width: width ? width : '90%',
           justifyContent: justi,
           height: btnHeight ? btnHeight : 48,
+          marginTop: marginTop,
         },
         style,
       ]}>

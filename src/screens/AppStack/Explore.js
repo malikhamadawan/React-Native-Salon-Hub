@@ -157,16 +157,9 @@ const Explore = () => {
             backgroundColor: '#FFFFFF',
             alignItems: 'center',
             marginRight: 10,
-            // alignItems: 'center',
             justifyContent: 'center',
-            // elevation: 10,
             borderRadius: 12,
-            // shadowOpacity: 10,
-            // shadowColor: (Platform.OS = 'ios' ? '#808080' : 'black'),
-            // shadowOffset: {
-            //   width: 4,
-            //   height: 5,
-            // },
+            elevation:6,
           }}>
           <Image
             source={require('../../assets/settingIcon.png')}
@@ -206,7 +199,6 @@ const Explore = () => {
             marginLeft: 7,
             fontSize: 12,
             color: '#000',
-            backgroundColor: '#00FF00',
           }}
           placeholder="Search Salon Specialist..."
           placeholderTextColor={'#000'}
@@ -226,16 +218,16 @@ const Explore = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: '30%',
-          paddingHorizontal: 15,
-          marginTop: 10,
+          paddingHorizontal: 10,
+          marginTop: 5,
         }}>
         <View style={{borderRadius: 15}}>
           {filteredData.map((item, index) => (
             <TouchableOpacity
               key={index}
               style={{
-                marginVertical: 10,
-                elevation: 5,
+                marginVertical: 5,
+                // elevation: 5,
               }}>
               <ImageBackground
                 source={item.image}

@@ -26,7 +26,7 @@ const index = ({
     <View
       style={{
         height: showBtn ? 200 : 180,
-        width: 370,
+        width: '100%',
         backgroundColor: '#fff',
         marginTop: 15,
         borderRadius: 15,
@@ -101,7 +101,7 @@ const index = ({
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: 15,
-          }}>
+            marginRight:10,          }}>
           <Image
             source={require('../../assets/phoneIcon1.png')}
             style={{

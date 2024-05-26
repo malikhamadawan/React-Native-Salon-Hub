@@ -6,10 +6,10 @@ import BottomTab from './BottomTab';
 import {SafeAreaView, StatusBar, View} from 'react-native';
 import Shop from '../screens/AppStack/Shop';
 import BookNow from '../screens/AppStack/BookNow';
-import NewScreen from '../screens/AppStack/NewScreen';
-import NewScreen2 from '../screens/AppStack/NewScreen2';
 import BookingDetail from '../screens/AppStack/BookingDetail';
 import CardDetail from '../screens/AppStack/CardDetail';
+import PayNow from '../screens/AppStack/PayNow';
+import CheckOut from '../screens/AppStack/CheckOut';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +18,7 @@ function AppStack() {
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
       <Stack.Navigator
-        initialRouteName="NewScreen2"
+        initialRouteName="BottomTab"
         screenOptions={{headerShown: false}}>
         {/* <Stack.Screen name="BottomTab" component={BottomTab} /> */}
         <Stack.Screen name="Home" component={Home} />
@@ -27,8 +27,8 @@ function AppStack() {
         <Stack.Screen name="BookNow" component={BookNow} />
         <Stack.Screen name="BookingDetail" component={BookingDetail} />
         <Stack.Screen name="CardDetail" component={CardDetail} />
-
-        <Stack.Screen name="NewScreen2" component={NewScreen2} />
+        <Stack.Screen name="PayNow" component={PayNow} />
+        <Stack.Screen name="CheckOut" component={CheckOut} />
       </Stack.Navigator>
     </>
   );

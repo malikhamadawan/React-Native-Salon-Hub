@@ -1,12 +1,12 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import MainContainer from '../../components/mainContainer';
 import {ProfileHeader} from '../../components/profileHeader';
 import CustomButton from '../../components/customButton';
+import { CustomView } from '../../components/mainContainer';
 
 const Setting = () => {
   return (
-    <MainContainer marginTop={'15%'}>
+    <CustomView marginTop={'15%'}>
       <ProfileHeader />
       {/* <View
         style={{
@@ -124,7 +124,7 @@ const Setting = () => {
           Logout
         </Text>
       </TouchableOpacity>
-    </MainContainer>
+    </CustomView>
   );
 };
 

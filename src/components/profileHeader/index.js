@@ -10,6 +10,8 @@ const ProfileHeader = () => {
         alignItems: 'center',
         width: '100%',
         paddingHorizontal: 10,
+        marginTop: Platform.OS === 'ios' ? '12%' : '8%',
+        marginBottom: 12,
       }}>
       <View
         style={{
@@ -74,7 +76,7 @@ const ProfileHeader = () => {
           alignItems: 'center',
           elevation: 5,
           shadowOpacity: 10,
-          shadowColor: (Platform.OS = 'ios' ? '#808080' : null),
+          // shadowColor: (Platform.OS = 'ios' ? '#808080' : null),
           shadowOffset: {
             width: 4,
             height: 5,

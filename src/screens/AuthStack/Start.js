@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, ImageBackground, StyleSheet, StatusBar} from 'react-native';
 import CustomButton from '../../components/customButton';
 import Header from '../../components/header';
-import MainContainer from '../../components/mainContainer';
 
 const Start = ({navigation}) => {
   const [splash, setSplash] = useState(0);

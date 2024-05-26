@@ -17,11 +17,10 @@ function MainStack() {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="BottomTab"
+          initialRouteName="AppStack"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="AuthStack" component={AuthStack} />
           <Stack.Screen name="AppStack" component={AppStack} />
-          <Stack.Screen name="BottomTab" component={BottomTab} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
