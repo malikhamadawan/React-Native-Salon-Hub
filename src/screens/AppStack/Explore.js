@@ -159,7 +159,7 @@ const Explore = () => {
             marginRight: 10,
             justifyContent: 'center',
             borderRadius: 12,
-            elevation:6,
+            elevation: 6,
           }}>
           <Image
             source={require('../../assets/settingIcon.png')}
@@ -174,12 +174,12 @@ const Explore = () => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          height: 40,
+          height: 60,
           width: '97%',
           alignSelf: 'center',
           alignItems: 'center',
           // alignContent: 'center',
-          backgroundColor: 'white',
+          // backgroundColor: 'white',
           marginTop: 10,
           borderRadius: 10,
         }}>
@@ -199,6 +199,7 @@ const Explore = () => {
             marginLeft: 7,
             fontSize: 12,
             color: '#000',
+            backgroundColor:'white',
           }}
           placeholder="Search Salon Specialist..."
           placeholderTextColor={'#000'}
@@ -218,7 +219,7 @@ const Explore = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: '30%',
-          paddingHorizontal: 10,
+          paddingHorizontal: 3,
           marginTop: 5,
         }}>
         <View style={{borderRadius: 15}}>

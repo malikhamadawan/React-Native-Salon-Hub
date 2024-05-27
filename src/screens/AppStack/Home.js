@@ -174,7 +174,7 @@ const Home = () => {
       />
       <View
         style={{
-          marginHorizontal: '3%',
+          // marginHorizontal: '3%',
         }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
