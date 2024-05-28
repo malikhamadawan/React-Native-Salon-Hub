@@ -20,6 +20,7 @@ const CustomButton = ({
   imgMarg,
   tintColor,
   marginTop,
+  marginBottom,
 }) => {
   // const handlePress = () => {
   //   press();
@@ -38,6 +39,7 @@ const CustomButton = ({
           justifyContent: justi,
           height: btnHeight ? btnHeight : 48,
           marginTop: marginTop,
+          marginBottom: marginBottom,
         },
         style,
       ]}>

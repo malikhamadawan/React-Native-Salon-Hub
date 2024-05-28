@@ -1,18 +1,23 @@
+import React from 'react';
 import {
   View,
   Text,
-  ScrollView,
   Image,
   Platform,
-  TouchableOpacity,
-  FlatList,
+  ScrollView,
   ImageBackground,
-  TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import MapView from 'react-native-maps';
+
+/** component */
+import {Input} from '../../components/input';
 
 const Explore = () => {
+  /** state */
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [filteredData, setFilteredData] = React.useState(newData3);
+
+  /** list */
   const newData3 = [
     {
       Id: 0,
@@ -111,12 +116,12 @@ const Explore = () => {
       status: 'Open',
     },
   ];
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [filteredData, setFilteredData] = React.useState(newData3);
+
+  /** search function */
   const handleSearch = text => {
     setSearchQuery(text);
-    const filtered = newData3.filter(item =>
-      item.shop.toLowerCase().includes(text.toLowerCase()),
+    const filtered = newData3?.filter(item =>
+      item?.shop?.toLowerCase()?.includes(text?.toLowerCase()),
     );
     setFilteredData(filtered);
   };
@@ -124,42 +129,40 @@ const Explore = () => {
   return (
     <View
       contentContainerStyle={{
-        marginTop: Platform.OS === 'ios' ? 50 : 30,
         flexGrow: 1,
-        // backgroundColor: '#F5F5F5',
-        marginHorizontal: '3%',
         paddingBottom: 80,
+        marginHorizontal: '3%',
+        marginTop: Platform.OS === 'ios' ? 50 : 30,
       }}>
       <View
         style={{
-          marginTop: '15%',
           height: 50,
           width: '100%',
-          backgroundColor: '#FFFFFF',
-          justifyContent: 'space-between',
+          borderRadius: 10,
+          marginTop: '15%',
           alignItems: 'center',
           flexDirection: 'row',
-          borderRadius: 10,
+          justifyContent: 'space-between',
         }}>
         <Text
           style={{
             fontSize: 28,
+            marginLeft: 5,
             color: '#0D1230',
             fontWeight: '600',
-            marginLeft: 5,
           }}>
           Explore
         </Text>
         <TouchableOpacity
           style={{
-            height: 35,
             width: 35,
-            backgroundColor: '#FFFFFF',
-            alignItems: 'center',
-            marginRight: 10,
-            justifyContent: 'center',
-            borderRadius: 12,
+            height: 35,
             elevation: 6,
+            marginRight: 10,
+            borderRadius: 12,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#FFFFFF',
           }}>
           <Image
             source={require('../../assets/settingIcon.png')}
@@ -172,55 +175,28 @@ const Explore = () => {
       </View>
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
           height: 60,
-          width: '97%',
-          alignSelf: 'center',
-          alignItems: 'center',
-          // alignContent: 'center',
-          // backgroundColor: 'white',
+          width: '100%',
           marginTop: 10,
           borderRadius: 10,
         }}>
-        <Image
-          source={require('../../assets/searchIcon2.png')}
-          style={{
-            height: 16,
-            width: 16,
-            marginLeft: 5,
-            // backgroundColor: 'black',
-          }}
-        />
-        <TextInput
-          style={{
-            width: '85%',
-            height: 40,
-            marginLeft: 7,
-            fontSize: 12,
-            color: '#000',
-            backgroundColor:'white',
-          }}
-          placeholder="Search Salon Specialist..."
-          placeholderTextColor={'#000'}
+        <Input
+          leftIcon={true}
+          rightIcon={true}
           value={searchQuery}
+          placeholderTextColor={'#000'}
+          placeholder="Search Salon Specialist..."
+          img2={require('../../assets/icons5.png')}
           onChangeText={text => handleSearch(text)}
-        />
-        <Image
-          source={require('../../assets/icons5.png')}
-          style={{
-            height: 16,
-            width: 16,
-            marginRight: 5,
-          }}
+          img={require('../../assets/searchIcon2.png')}
         />
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
+          marginTop: 5,
           paddingBottom: '30%',
           paddingHorizontal: 3,
-          marginTop: 5,
         }}>
         <View style={{borderRadius: 15}}>
           {filteredData.map((item, index) => (
@@ -228,21 +204,13 @@ const Explore = () => {
               key={index}
               style={{
                 marginVertical: 5,
-                // elevation: 5,
               }}>
               <ImageBackground
                 source={item.image}
                 imageStyle={{borderRadius: 15}}
                 style={{
                   height: 180,
-                  // elevation: 5,
                   width: '100%',
-                  // shadowColor: '#808080',
-                  // shadowOpacity: 10,
-                  // shadowOffset: {
-                  //   width: 4,
-                  //   height: 5,
-                  // },
                 }}>
                 <View
                   style={{
@@ -255,12 +223,6 @@ const Explore = () => {
                       fontSize: 19,
                       color: 'white',
                       fontWeight: '700',
-                      // elevation: 5,
-                      // shadowOpacity: 10,
-                      // shadowOffset: {
-                      //   width: 4,
-                      //   height: 5,
-                      // },
                     }}>
                     {item.shop}
                   </Text>
@@ -275,11 +237,11 @@ const Explore = () => {
                     style={{
                       width: 50,
                       height: 20,
-                      backgroundColor:
-                        item.status === 'Close' ? 'red' : 'green',
                       borderRadius: 40,
                       alignItems: 'center',
                       justifyContent: 'center',
+                      backgroundColor:
+                        item.status === 'Close' ? 'red' : 'green',
                     }}>
                     <Text
                       style={{

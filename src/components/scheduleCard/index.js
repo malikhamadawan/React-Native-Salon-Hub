@@ -26,10 +26,12 @@ const index = ({
     <View
       style={{
         height: showBtn ? 200 : 180,
-        width: '100%',
+        width: '98%',
         backgroundColor: '#fff',
         marginTop: 15,
         borderRadius: 15,
+        justifyContent: 'center',
+        alignSelf: 'center',
         // shadowColor: '#808080',
         // shadowOpacity: 10,
         // shadowOffset: {

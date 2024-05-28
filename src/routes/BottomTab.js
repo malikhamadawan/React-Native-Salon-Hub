@@ -1,34 +1,67 @@
-import React, {useRef, useState} from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Explore from '../screens/AppStack/Explore';
-import Home from '../screens/AppStack/Home';
+import React, {Fragment, useRef, useState} from 'react';
 import {
-  Button,
+  Text,
+  View,
+  Alert,
   Image,
   Modal,
-  Settings,
   StyleSheet,
-  Text,
   TouchableOpacity,
-  View,
+  ActivityIndicator,
 } from 'react-native';
-import Schedule from '../screens/AppStack/Schedule';
-import Settiing from '../screens/AppStack/Setting';
+
+/** camera library */
 import {RNCamera} from 'react-native-camera';
 
+/** screen */
+import Home from '../screens/AppStack/Home';
+import Explore from '../screens/AppStack/Explore';
+import Settiing from '../screens/AppStack/Setting';
+import Schedule from '../screens/AppStack/Schedule';
+import CustomButton from '../components/customButton';
+
+/** library */
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
+/** constant */
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
+  /** ref */
   const cameraRef = useRef();
+
+  /** state */
+  const [imei, setImei] = useState('');
+  const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+  /** async function */
+  const barcodeScanned = async barcode => {
+    if (!barcode || !barcode.data) {
+      setLoading(false);
+      setModalVisible(false);
+      return;
+    }
+    let barcodeData;
+    try {
+      barcodeData = JSON.parse(barcode.data);
+    } catch (error) {
+      barcodeData = barcode.data;
+    }
+    setLoading(false);
+    setModalVisible(false);
+    setImei(barcodeData.toString());
+    Alert.alert('Alert', barcode.data);
+  };
+
   return (
-    <>
+    <Fragment>
       <Tab.Navigator
         initialRouteName="BottomTab"
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: '#2158FF',
+          tabBarLabelStyle: {marginBottom: Platform.OS === 'ios' ? 0 : 6},
         }}>
         <Tab.Screen
           name="Home"
@@ -68,7 +101,7 @@ const BottomTab = () => {
           name="QR"
           component={Explore}
           options={{
-            tabBarLabel: ({focused, color, size}) => (
+            tabBarLabel: ({focused, color}) => (
               <Text
                 style={{
                   color: focused ? 'red' : color,
@@ -155,20 +188,28 @@ const BottomTab = () => {
               <RNCamera
                 ref={cameraRef}
                 style={styles.camera}
-                onBarCodeRead={barcode => {}}
+                onBarCodeRead={barcode => barcodeScanned(barcode)}
                 captureAudio={false}
               />
             </View>
-            <Button
+            <CustomButton
               title="Close"
+              btnColor={'#2158FF'}
+              width={150}
+              marginBottom={50}
+              text={'Close'}
+              justi={'center'}
+              txtColor={'white'}
+              btnHeight={42}
               onPress={() => {
                 setModalVisible(false);
               }}
             />
           </View>
         </View>
+        {loading && <ActivityIndicator size={'large'} />}
       </Modal>
-    </>
+    </Fragment>
   );
 };
 
@@ -180,15 +221,15 @@ const styles = StyleSheet.create({
   modalContent: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'white',
     borderRadius: 10,
+    backgroundColor: 'white',
   },
   camera: {
     flex: 0.67,
     width: '90%',
     borderRadius: 10,
-    overflow: 'hidden',
     marginBottom: 10,
+    overflow: 'hidden',
     backgroundColor: 'red',
   },
 });

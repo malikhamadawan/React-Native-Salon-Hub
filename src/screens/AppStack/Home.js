@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -7,11 +8,14 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+
+/** component */
+import {Input} from '../../components/input';
 import ScheduleCard from '../../components/scheduleCard';
 import {ProfileHeader} from '../../components/profileHeader';
-import {Input} from '../../components/input';
+
 const Home = () => {
+  /** list */
   const newData = [
     {
       image: require('../../assets/p1.png'),
@@ -38,6 +42,7 @@ const Home = () => {
       title: 'Nails',
     },
   ];
+
   const newData2 = [
     {
       image: require('../../assets/images2.jpeg'),
@@ -60,6 +65,7 @@ const Home = () => {
       discount: '20%',
     },
   ];
+
   const newData3 = [
     {
       Id: 0,
@@ -160,22 +166,19 @@ const Home = () => {
   ];
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         flexGrow: 1,
-        paddingHorizontal:5,
       }}>
       <ProfileHeader />
       <Input
         leftIcon={true}
         rightIcon={true}
-        placeholder={'Search “Salon, Specialist...”'}
         img2={require('../../assets/icons5.png')}
+        placeholder={'Search “Salon, Specialist...”'}
         img={require('../../assets/searchIcon2.png')}
       />
-      <View
-        style={{
-          // marginHorizontal: '3%',
-        }}>
+      <View>
         <FlatList
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
@@ -186,31 +189,25 @@ const Home = () => {
           renderItem={({item}) => (
             <TouchableOpacity
               style={{
-                justifyContent: 'center',
                 width: 65,
                 height: 80,
                 alignItems: 'center',
-                // shadowColor: '#808080',
-                // shadowOpacity: 10,
-                // shadowOffset: {
-                //   width: 4,
-                //   height: 5,
-                // },
+                justifyContent: 'center',
               }}>
               <Image
                 source={item.image}
                 style={{
-                  height: 50,
                   width: 50,
+                  height: 50,
                   borderRadius: 30,
                 }}
               />
               <Text
                 style={{
                   fontSize: 10,
+                  color: 'black',
                   fontWeight: '400',
                   marginVertical: 5,
-                  color: 'black',
                 }}>
                 {item.title}
               </Text>
@@ -219,30 +216,25 @@ const Home = () => {
         />
         <View
           style={{
-            marginTop: 20,
             elevation: 5,
-            // shadowColor: '#808080',
-            // shadowOpacity: 10,
-            // shadowOffset: {
-            //   width: 4,
-            //   height: 5,
-            // },
+            marginTop: 20,
+            marginHorizontal: 5,
           }}>
           <Text
             style={{
               fontSize: 23,
-              fontWeight: '300',
               color: '#0D1230',
+              fontWeight: '300',
             }}>
             #SpecialOffers
           </Text>
         </View>
         <View
           style={{
+            width: '100%',
+            marginTop: 10,
             alignItems: 'center',
             justifyContent: 'center',
-            marginTop: 10,
-            width: '100%',
           }}>
           <FlatList
             showsHorizontalScrollIndicator={false}
@@ -252,10 +244,8 @@ const Home = () => {
             renderItem={({item}) => (
               <TouchableOpacity
                 style={{
-                  marginHorizontal: 5,
                   marginBottom: 10,
-                  // backgroundColor: 'red',
-                  // width: '100%',
+                  marginHorizontal: 5,
                 }}>
                 <ImageBackground
                   source={item.image}
@@ -266,15 +256,14 @@ const Home = () => {
                   }}>
                   <View
                     style={{
-                      backgroundColor: '#BBE4FB',
-                      height: 20,
                       width: 83,
-                      borderRadius: 9,
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      height: 20,
                       marginTop: 9,
                       marginLeft: 9,
-                      // elevation: 10,
+                      borderRadius: 9,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: '#BBE4FB',
                     }}>
                     <Text
                       style={{
@@ -303,9 +292,9 @@ const Home = () => {
                     }}>
                     <View
                       style={{
-                        marginLeft: 10,
-                        marginTop: 3,
                         width: 50,
+                        marginTop: 3,
+                        marginLeft: 10,
                       }}>
                       <Text
                         style={{
@@ -330,15 +319,15 @@ const Home = () => {
                   </View>
                   <TouchableOpacity
                     style={{
-                      backgroundColor: '#2158FF',
-                      height: 28,
                       width: 70,
+                      height: 28,
+                      marginTop: 25,
+                      marginRight: 15,
+                      borderRadius: 5,
                       alignItems: 'center',
                       alignSelf: 'flex-end',
                       justifyContent: 'center',
-                      marginRight: 15,
-                      marginTop: 25,
-                      borderRadius: 5,
+                      backgroundColor: '#2158FF',
                     }}>
                     <Text
                       style={{
@@ -355,16 +344,11 @@ const Home = () => {
         </View>
         <View
           style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
+            width: '95%',
             marginTop: 10,
-            width: '100%',
-            // shadowColor: '#808080',
-            // shadowOpacity: 10,
-            // shadowOffset: {
-            //   width: 4,
-            //   height: 5,
-            // },
+            marginHorizontal: 5,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
           }}>
           <Text
             style={{
@@ -376,45 +360,41 @@ const Home = () => {
           </Text>
           <TouchableOpacity
             style={{
-              height: 26,
               width: 26,
-              backgroundColor: '#FFFFFF',
+              height: 26,
+              elevation: 6,
               borderRadius: 6,
-              justifyContent: 'center',
               alignSelf: 'center',
-              alignContent: 'center',
               alignItems: 'center',
-              elevation:6,
+              alignContent: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#FFFFFF',
             }}>
             <Image
               source={require('../../assets/Icons6.png')}
               style={{
-                height: 20,
                 width: 20,
+                height: 20,
               }}
             />
           </TouchableOpacity>
         </View>
         <ScheduleCard
-          title={'Nadeem Hair Saloon'}
           name={'Nadeem'}
-          date={'Monday,26 May'}
-          startTime={'09:00'}
           endTime={'10:00'}
+          startTime={'09:00'}
+          date={'Monday,26 May'}
+          title={'Nadeem Hair Saloon'}
           profileImage={require('../../assets/profile1.png')}
         />
         <View
           style={{
             marginTop: 5,
+            width: '95%',
+            marginHorizontal: 5,
             flexDirection: 'row',
-            justifyContent: 'space-between',
             alignItems: 'center',
-            // shadowColor: '#808080',
-            // shadowOpacity: 10,
-            // shadowOffset: {
-            //   width: 4,
-            //   height: 5,
-            // },
+            justifyContent: 'space-between',
           }}>
           <Text
             style={{
@@ -437,40 +417,29 @@ const Home = () => {
             <TouchableOpacity
               key={index}
               style={{
-                marginVertical: 10,
                 elevation: 5,
+                marginTop: 10,
+                marginVertical: 3,
+                marginHorizontal: 3,
               }}>
               <ImageBackground
                 source={item.image}
                 imageStyle={{borderRadius: 15}}
                 style={{
                   height: 180,
-                  // elevation: 5,
                   width: '100%',
-                  // shadowColor: '#808080',
-                  // shadowOpacity: 10,
-                  // shadowOffset: {
-                  //   width: 4,
-                  //   height: 5,
-                  // },
                 }}>
                 <View
                   style={{
-                    position: 'absolute',
-                    bottom: 10,
                     left: 10,
+                    bottom: 10,
+                    position: 'absolute',
                   }}>
                   <Text
                     style={{
                       fontSize: 19,
                       color: 'white',
                       fontWeight: '700',
-                      // elevation: 5,
-                      // shadowOpacity: 10,
-                      // shadowOffset: {
-                      //   width: 4,
-                      //   height: 5,
-                      // },
                     }}>
                     {item.shop}
                   </Text>
@@ -485,11 +454,11 @@ const Home = () => {
                     style={{
                       width: 50,
                       height: 20,
-                      backgroundColor:
-                        item.status === 'Close' ? 'red' : 'green',
                       borderRadius: 40,
                       alignItems: 'center',
                       justifyContent: 'center',
+                      backgroundColor:
+                        item.status === 'Close' ? 'red' : 'green',
                     }}>
                     <Text
                       style={{

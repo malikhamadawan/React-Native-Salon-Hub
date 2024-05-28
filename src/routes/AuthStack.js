@@ -1,28 +1,27 @@
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+/** screen */
 import Start from '../screens/AuthStack/Start';
-import SignUp from '../screens/AuthStack/SignUp';
 import LogIn from '../screens/AuthStack/LogIn';
-import { StatusBar } from 'react-native';
+import SignUp from '../screens/AuthStack/SignUp';
 
-// import OnboardingScreen from '../screens/AuthStack/OnboardingScreen';
+/** library */
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+/** constant */
 const Stack = createNativeStackNavigator();
+
 function AuthStack() {
   return (
-    <>
-    {/* <StatusBar translucent backgroundColor="transparent" barStyle="dark-content"/> */}
     <Stack.Navigator
-      InitialRouteName="Signup"
+      InitialRouteName="Start"
       screenOptions={{
         headerShown: false,
       }}>
       <Stack.Screen name="Start" component={Start} />
-      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="LogIn" component={LogIn} />
-      {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} /> */}
+      <Stack.Screen name="SignUp" component={SignUp} />
     </Stack.Navigator>
-    </>
   );
 }
 

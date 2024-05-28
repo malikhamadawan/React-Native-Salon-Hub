@@ -1,12 +1,17 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AuthStack from './AuthStack';
-import AppStack from './AppStack';
-import BottomTab from './BottomTab';
 import {StatusBar} from 'react-native';
 
+/** screen */
+import AppStack from './AppStack';
+import AuthStack from './AuthStack';
+
+/** library */
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+/** constant */
 const Stack = createNativeStackNavigator();
+
 function MainStack() {
   return (
     <>
@@ -17,10 +22,10 @@ function MainStack() {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="AppStack"
+          initialRouteName="AuthStack"
           screenOptions={{headerShown: false}}>
-          <Stack.Screen name="AuthStack" component={AuthStack} />
           <Stack.Screen name="AppStack" component={AppStack} />
+          <Stack.Screen name="AuthStack" component={AuthStack} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

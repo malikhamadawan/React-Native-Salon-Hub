@@ -1,106 +1,52 @@
-import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
 import React, {useState} from 'react';
+import {
+  View,
+  Image,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
 const Input = ({
   img,
-  placeholder,
-  onPressPassword,
-  password,
   img2,
-  justifyContent,
-  width,
-  rightIcon,
+  value,
   leftIcon,
-  imgBorderRadius,
   imgWidth,
+  rightIcon,
+  placeholder,
+  onChangeText,
+  imgBorderRadius,
   secureTextEntry,
+  marginHorizontal,
 }) => {
   const [show, setShow] = useState(secureTextEntry);
   return (
-    // <View
-    //   style={{
-    //     flexDirection: 'row',
-    //     justifyContent: justifyContent ? justifyContent : 'flex-start',
-    //     height: 40,
-    //     width: width ? width : '90%',
-    //     backgroundColor: 'white',
-    //     alignSelf: 'center',
-    //     borderRadius: 8,
-    //     alignItems: 'center',
-    //     marginVertical: '3%',
-    //   }}>
-    //   <Image
-    //     source={img}
-    //     style={{
-    //       height: password === true ? 20 : 24,
-    //       width: password === true ? 20 : imgWidth ? imgWidth : 24,
-    //       marginLeft: 10,
-    //       marginRight: 5,
-    //       borderRadius: imgBorderRadius,
-    //     }}
-    //   />
-    //   <TextInput
-    //     style={{
-    //       //   marginLeft: 10,
-    //       width: password === true ? '77%' : width ? width : '85%',
-    //       padding: 0,
-    //     }}
-    //     placeholder={placeholder}
-    //   />
-    //   {password === true && (
-    //     <TouchableOpacity onPress={press}>
-    //       <Image
-    //         source={require('../../assets/icon4.png')}
-    //         style={{
-    //           height: 24,
-    //           width: 24,
-    //           marginLeft: 10,
-    //         }}
-    //       />
-    //     </TouchableOpacity>
-    //   )}
-    //   <Image
-    //     source={img2}
-    //     style={{
-    //       height: password === true ? 20 : 24,
-    //       width: password === true ? 20 : 24,
-    //       marginLeft: 10,
-    //       marginRight: 5,
-    //     }}
-    //   />
-    // </View>
     <View
-      style={{
-        backgroundColor: 'white',
-        width: '100%',
-        alignSelf: 'center',
-        borderRadius: 10,
-        marginBottom: 15,
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}>
+      style={[
+        styles.mainContainer,
+        {
+          marginHorizontal: marginHorizontal,
+        },
+      ]}>
       {leftIcon && (
         <Image
           source={img}
-          style={{
-            height: 20,
-            width: imgWidth ? imgWidth : 20,
-            marginLeft: 5,
-            marginRight: 5,
-            borderRadius: imgBorderRadius,
-          }}
+          style={[
+            styles.leftIconStyle,
+            {
+              width: imgWidth ? imgWidth : 20,
+              borderRadius: imgBorderRadius,
+            },
+          ]}
         />
       )}
       <TextInput
-        placeholder={placeholder}
-        style={{
-          height: 40,
-          padding: 0,
-          width: '76%',
-          marginLeft: 10,
-        }}
+        value={value}
         secureTextEntry={show}
+        placeholder={placeholder}
+        style={styles.inputStyle}
+        onChangeText={onChangeText}
       />
       {show && (
         <TouchableOpacity
@@ -109,27 +55,48 @@ const Input = ({
           }}>
           <Image
             source={require('../../assets/icon4.png')}
-            style={{
-              height: 24,
-              width: 24,
-              marginLeft: 10,
-            }}
+            style={styles.eyeIconStyle}
           />
         </TouchableOpacity>
       )}
-      {rightIcon && (
-        <Image
-          source={img2}
-          style={{
-            height: 24,
-            width: 24,
-            marginLeft: 10,
-            marginRight: 5,
-          }}
-        />
-      )}
+      {rightIcon && <Image source={img2} style={styles.rightIconStyle} />}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    width: '98%',
+    borderRadius: 10,
+    marginBottom: 15,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    backgroundColor: 'white',
+  },
+  leftIconStyle: {
+    height: 20,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  inputStyle: {
+    height: 40,
+    padding: 0,
+    width: '76%',
+    marginLeft: 10,
+  },
+  eyeIconStyle: {
+    width: 24,
+    height: 24,
+    marginLeft: 10,
+  },
+  rightIconStyle: {
+    width: 24,
+    height: 24,
+    marginLeft: 10,
+    marginRight: 5,
+  },
+});
 
 export {Input};
