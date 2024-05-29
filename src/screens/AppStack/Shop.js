@@ -13,7 +13,7 @@ import Services from '../../components/services';
 import Info from '../../components/info';
 import CustomButton from '../../components/customButton';
 const Shop = ({navigation}) => {
-  const [button, setButton] = useState('info');
+  const [button, setButton] = useState('services');
 
   const data = [
     {
@@ -135,18 +135,43 @@ const Shop = ({navigation}) => {
       }}>
       <ImageBackground
         onPress={() => {
-          setButton('info');
+          setButton('services');
         }}
         onPressServices={() => {
-          setButton('services');
+          setButton('info');
         }}
         onPressReview={() => {
           setButton('review');
         }}
         info={button}
+        onPressArrow={() => {
+          navigation.goBack();
+        }}
       />
 
-      {button === 'info' ? (
+      {button === 'services' ? (
+        <View
+          style={{
+            width: '95%',
+            flex: 1,
+            borderRadius: 10,
+            marginTop: 5,
+          }}>
+          <FlatList
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <Services
+                  time={item.time}
+                  price={item.price}
+                  title={item.title}
+                  details={item.details}
+                />
+              );
+            }}
+          />
+        </View>
+      ) : button === 'info' ? (
         <View
           style={{
             width: '95%',
@@ -209,28 +234,6 @@ const Shop = ({navigation}) => {
               }}
             />
           </View>
-        </View>
-      ) : button === 'services' ? (
-        <View
-          style={{
-            width: '95%',
-            flex: 1,
-            borderRadius: 10,
-            marginTop: 5,
-          }}>
-          <FlatList
-            data={data}
-            renderItem={({item}) => {
-              return (
-                <Services
-                  time={item.time}
-                  price={item.price}
-                  title={item.title}
-                  details={item.details}
-                />
-              );
-            }}
-          />
         </View>
       ) : (
         <View

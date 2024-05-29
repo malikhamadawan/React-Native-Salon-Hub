@@ -1,19 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
+import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  Platform,
-  StatusBar,
 } from 'react-native';
-import React from 'react';
-import CustomButton from '../../components/customButton';
-import OrSeprator from '../../components/orSeprator';
-import Header from '../../components/header';
-import HeaderDown from '../../components/headerDown';
 import {Input} from '../../components/input';
+import Header from '../../components/header';
+import OrSeprator from '../../components/orSeprator';
+import HeaderDown from '../../components/headerDown';
+import CustomButton from '../../components/customButton';
 
 const LogIn = ({navigation}) => {
   return (
@@ -29,8 +24,17 @@ const LogIn = ({navigation}) => {
           width: '100%',
           // backgroundColor:'red'
         }}>
-        <Input />
-        <Input />
+        <Input
+          leftIcon={true}
+          placeholder={'Email'}
+          img={require('../../assets/icon2.png')}
+        />
+        <Input
+          leftIcon={true}
+          secureTextEntry={true}
+          placeholder={'Password'}
+          img={require('../../assets/icon3.png')}
+        />
       </View>
       <Text
         style={{
@@ -44,7 +48,6 @@ const LogIn = ({navigation}) => {
       <View
         style={{
           marginTop: 20,
-          // backgroundColor: 'red',
           width: '100%',
           alignItems: 'center',
         }}>

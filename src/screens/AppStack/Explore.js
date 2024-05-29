@@ -13,10 +13,7 @@ import {
 import {Input} from '../../components/input';
 
 const Explore = () => {
-  /** state */
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [filteredData, setFilteredData] = React.useState(newData3);
-
+  
   /** list */
   const newData3 = [
     {
@@ -116,7 +113,10 @@ const Explore = () => {
       status: 'Open',
     },
   ];
-
+  
+  /** state */
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [filteredData, setFilteredData] = React.useState(newData3);
   /** search function */
   const handleSearch = text => {
     setSearchQuery(text);

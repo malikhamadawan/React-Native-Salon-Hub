@@ -7,7 +7,13 @@ import {
 } from 'react-native';
 import React from 'react';
 
-const index = ({onPress, onPressReview, onPressServices, info}) => {
+const index = ({
+  info,
+  onPress,
+  onPressArrow,
+  onPressReview,
+  onPressServices,
+}) => {
   return (
     <ImageBackground
       source={require('../../assets/mrCuts.jpeg')}
@@ -26,7 +32,7 @@ const index = ({onPress, onPressReview, onPressServices, info}) => {
           style={{
             marginTop: 46,
           }}>
-          <TouchableOpacity activeOpacity={0.5}>
+          <TouchableOpacity activeOpacity={0.5} onPress={onPressArrow}>
             <Image
               source={require('../../assets/arrowicon2.png')}
               resizeMode={'contain'}
@@ -73,23 +79,6 @@ const index = ({onPress, onPressReview, onPressServices, info}) => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              borderBottomWidth: info === 'info' ? 5 : 0,
-              borderBottomColor: info === 'info' ? '#2158FF' : 'transparent',
-            }}>
-            <Text
-              style={{
-                fontSize: 19,
-                color: '#fff',
-                fontWeight: '600',
-              }}>
-              INFO
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={onPressServices}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
               borderBottomWidth: info === 'services' ? 5 : 0,
               borderBottomColor:
                 info === 'services' ? '#2158FF' : 'transparent',
@@ -101,6 +90,23 @@ const index = ({onPress, onPressReview, onPressServices, info}) => {
                 fontWeight: '600',
               }}>
               SERVICES
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onPressServices}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderBottomWidth: info === 'info' ? 5 : 0,
+              borderBottomColor: info === 'info' ? '#2158FF' : 'transparent',
+            }}>
+            <Text
+              style={{
+                fontSize: 19,
+                color: '#fff',
+                fontWeight: '600',
+              }}>
+              INFO
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
