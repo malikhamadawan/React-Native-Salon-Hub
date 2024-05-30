@@ -10,6 +10,7 @@ import BookingDetail from '../screens/AppStack/BookingDetail';
 import CardDetail from '../screens/AppStack/CardDetail';
 import PayNow from '../screens/AppStack/PayNow';
 import CheckOut from '../screens/AppStack/CheckOut';
+import Bonus from '../screens/AppStack/Bonus';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,7 @@ function AppStack() {
       <Stack.Navigator
         initialRouteName="BottomTab"
         screenOptions={{headerShown: false}}>
-        {/* <Stack.Screen name="BottomTab" component={BottomTab} /> */}
+        <Stack.Screen name="Bonus" component={Bonus} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="BottomTab" component={BottomTab} />
         <Stack.Screen name="Shop" component={Shop} />

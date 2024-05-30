@@ -22,6 +22,7 @@ import CustomButton from '../components/customButton';
 
 /** library */
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/native';
 
 /** constant */
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ const Tab = createBottomTabNavigator();
 const BottomTab = () => {
   /** ref */
   const cameraRef = useRef();
+  const navigation = useNavigation();
 
   /** state */
   const [imei, setImei] = useState('');
@@ -51,7 +53,7 @@ const BottomTab = () => {
     setLoading(false);
     setModalVisible(false);
     setImei(barcodeData.toString());
-    Alert.alert('Alert', barcode.data);
+    navigation.navigate('AppStack', {screen: 'Bonus'});
   };
 
   return (

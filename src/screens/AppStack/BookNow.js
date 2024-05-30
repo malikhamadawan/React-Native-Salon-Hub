@@ -11,6 +11,7 @@ import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
+import {useIsFocused} from '@react-navigation/native';
 
 const BookNow = ({navigation}) => {
   const [internalDate, setInternalDate] = useState(new Date());
@@ -32,35 +33,55 @@ const BookNow = ({navigation}) => {
   }
   const timeSlots = getHalfHourTimeSlots();
 
+  const isFocus = useIsFocused();
+
   useEffect(() => {
-    const currentMonth = internalDate.getMonth();
-    const currentYear = internalDate.getFullYear();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    if (isFocus) {
+      const currentMonth = internalDate.getMonth();
+      const currentYear = internalDate.getFullYear();
+      const daysInCurrentMonth = new Date(
+        currentYear,
+        currentMonth + 1,
+        0,
+      ).getDate();
+      const datesArray = Array.from(
+        {length: daysInCurrentMonth},
+        (_, index) => new Date(currentYear, currentMonth, index + 1),
+      );
 
-    const datesArray = Array.from(
-      {length: daysInMonth},
-      (_, index) => new Date(currentYear, currentMonth, index + 1),
-    );
+      const currentDate = new Date();
+      const currentDateOnly = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate(),
+      );
+      const nextMonth = (currentMonth + 1) % 12;
+      const nextMonthYear = nextMonth === 0 ? currentYear + 1 : currentYear;
+      const daysInNextMonth = new Date(
+        nextMonthYear,
+        nextMonth + 1,
+        0,
+      ).getDate();
 
-    const currentDate = new Date();
-    if (currentDate >= internalDate) {
-      datesArray.unshift(currentDate);
+      const nextMonthDatesArray = Array.from(
+        {length: daysInNextMonth},
+        (_, index) => new Date(nextMonthYear, nextMonth, index + 1),
+      );
+      let finalDatesArray = [...datesArray, ...nextMonthDatesArray];
+      const filteredDates = finalDatesArray.filter(
+        date => date >= currentDateOnly,
+      );
+
+      setAllDatesInMonth(filteredDates);
     }
-
-    const filteredDates = datesArray.filter(date => date >= new Date());
-    setAllDatesInMonth(filteredDates);
-  }, [internalDate]);
+  }, [internalDate, isFocus]);
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState([]);
   const toggleTimeSelection = time => {
-    setSelectedTime(prevSelectedTimes => {
-      if (prevSelectedTimes?.includes(time)) {
-        return prevSelectedTimes?.filter(selectedTime => selectedTime !== time);
-      } else {
-        return [...prevSelectedTimes, time];
-      }
-    });
+    setSelectedTime(prevSelectedTime =>
+      prevSelectedTime === time ? null : time,
+    );
   };
 
   const toggleDateSelection = time => {
@@ -84,7 +105,7 @@ const BookNow = ({navigation}) => {
         marginTop: Platform.OS === 'ios' ? 50 : 50,
         flex: 1,
         alignItems: 'center',
-        paddingHorizontal:5,
+        paddingHorizontal: 5,
       }}>
       <ProfileCard
         showButton={true}
@@ -249,7 +270,7 @@ const BookNow = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 19,
-                  color: 'black',
+                  color:selectedDate === item ? 'white' : 'black',
                 }}>
                 {
                   item
@@ -263,7 +284,7 @@ const BookNow = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 13,
-                  color: 'black',
+                  color:selectedDate === item ? 'white' : 'black',
                 }}>
                 {
                   item
@@ -324,7 +345,7 @@ const BookNow = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 17,
-                  color: 'black',
+                  color:selectedTime === item ? 'white' : 'black',
                 }}>
                 {item}
               </Text>

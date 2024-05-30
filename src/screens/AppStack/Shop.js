@@ -14,6 +14,7 @@ import Info from '../../components/info';
 import CustomButton from '../../components/customButton';
 const Shop = ({navigation}) => {
   const [button, setButton] = useState('services');
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const data = [
     {
@@ -127,6 +128,23 @@ const Shop = ({navigation}) => {
     },
   ];
 
+  const handleSelect = item => {
+    const itemId = item.id;
+    setSelectedItems(prevSelectedItems => {
+      if (prevSelectedItems.some(selectedItem => selectedItem.id === itemId)) {
+        // If the item is already selected, remove it from the selectedItems array
+        return prevSelectedItems.filter(
+          selectedItem => selectedItem.id !== itemId,
+        );
+      } else {
+        // If the item is not selected, add it to the selectedItems array
+        return [...prevSelectedItems, item];
+      }
+    });
+  };
+
+  console.log('selected', selectedItems);
+
   return (
     <View
       style={{
@@ -158,14 +176,20 @@ const Shop = ({navigation}) => {
             marginTop: 5,
           }}>
           <FlatList
+          showsVerticalScrollIndicator={false}
             data={data}
             renderItem={({item}) => {
+              const isSelected = selectedItems.some(
+                selectedItem => selectedItem.id === item.id,
+              );
               return (
                 <Services
+                  onPress={() => handleSelect(item)}
                   time={item.time}
                   price={item.price}
                   title={item.title}
                   details={item.details}
+                  isSelected={isSelected}
                 />
               );
             }}

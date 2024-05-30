@@ -1,68 +1,67 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const index = ({title, time, details, price}) => {
+const index = ({title, time, details, price, isSelected, onPress}) => {
   return (
-    <View>
-      <TouchableOpacity
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        width: '100%',
+        backgroundColor: isSelected ? '#2158FF' : '#fff',
+        marginTop: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        borderRadius: 10,
+      }}>
+      <View
         style={{
-          width: '100%',
-          backgroundColor: '#fff',
-          marginTop: 10,
-          paddingHorizontal: 10,
-          paddingVertical: 10,
-          borderRadius: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
+            alignSelf: 'center',
           }}>
-          <View
+          <Text
             style={{
-              justifyContent: 'center',
-              alignSelf: 'center',
+              color: isSelected ? '#fff' : 'black',
+              fontSize: 20,
+              fontWeight: '500',
             }}>
-            <Text
-              style={{
-                color: 'black',
-                fontSize: 20,
-                fontWeight: '500',
-              }}>
-              {title}
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                color: 'gray',
-                fontWeight: '400',
-              }}>
-              {time}
-            </Text>
-            <Text
-              style={{
-                color: 'black',
-                fontSize: 13,
-              }}>
-              {details}
-            </Text>
-          </View>
-          <View
+            {title}
+          </Text>
+          <Text
             style={{
-              alignSelf: 'center',
+              fontSize: 16,
+              color: isSelected ? '#fff' : 'gray',
+              fontWeight: '400',
             }}>
-            <Text
-              style={{
-                color: 'black',
-                fontSize: 14,
-                fontWeight: '500',
-              }}>
-              {price}
-            </Text>
-          </View>
+            {time}
+          </Text>
+          <Text
+            style={{
+              color: isSelected ? '#fff' : 'black',
+              fontSize: 13,
+            }}>
+            {details}
+          </Text>
         </View>
-      </TouchableOpacity>
-    </View>
+        <View
+          style={{
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              color: isSelected ? '#fff' : 'black',
+              fontSize: 14,
+              fontWeight: '500',
+            }}>
+            {price}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
