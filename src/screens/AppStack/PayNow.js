@@ -1,140 +1,66 @@
-import {View, Text, Image} from 'react-native';
 import React from 'react';
+import {View, Text, Image, TouchableOpacity, Platform} from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
 
 const PayNow = ({navigation}) => {
+  const renderProfile = () => (
+    <ProfileCard
+      showButton={false}
+      text1={'Mr Cuts Hair\nSaloon\n'}
+      text2={'Block F,PIA Housing Scheme,Lahore'}
+      profileImg1={require('../../assets/mrCuts.jpeg')}
+    />
+  );
+
+  const renderSchedule = () => (
+    <View style={styles.sectionContainer}>
+      <Text style={styles.sectionTitle}>Schedule</Text>
+      <View style={styles.scheduleContainer}>
+        {renderScheduleItem(
+          '18, March',
+          require('../../assets/calenderIcon2.png'),
+        )}
+        {renderScheduleItem('14:00', require('../../assets/clockIcon2.png'))}
+      </View>
+    </View>
+  );
+
+  const renderScheduleItem = (text, icon) => (
+    <View style={styles.scheduleItem}>
+      <Image source={icon} style={styles.scheduleIcon} />
+      <Text style={styles.scheduleText}>{text}</Text>
+    </View>
+  );
+
   return (
-    <View
-      style={{
-        marginTop: Platform.OS === 'ios' ? 56 : 35,
-        flex: 1,
-        paddingHorizontal: 10,
-      }}>
-      <ProfileCard
-        showButton={false}
-        text1={'Mr Cuts Hair\nSaloon\n'}
-        text2={'Block F,PIA Housing Scheme,Lahore'}
-        profileImg1={require('../../assets/mrCuts.jpeg')}
-      />
-      <View
-        style={{
-          width: '90%',
-          height: 50,
-          marginTop: 10,
-          justifyContent: 'center',
-        }}>
-        <Text
-          style={{
-            fontSize: 23,
-            color: 'black',
-            fontWeight: '600',
-            color: 'black',
-          }}>
-          Schedule
-        </Text>
-      </View>
-      <View
-        style={{
-          width: '95%',
-          height: 60,
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          alignSelf: 'center',
-          marginTop: 5,
-        }}>
-        <View
-          style={{
-            height: 40,
-            width: 150,
-            backgroundColor: 'white',
-            borderRadius: 10,
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={require('../../assets/calenderIcon2.png')}
-            style={{
-              height: 30,
-              width: 30,
-            }}
-          />
-          <Text
-            style={{
-              fontSize: 15,
-              color: 'black',
-              fontWeight: '500',
-            }}>
-            18, March
-          </Text>
-        </View>
-        <View
-          style={{
-            height: 40,
-            width: 150,
-            backgroundColor: 'white',
-            borderRadius: 10,
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={require('../../assets/clockIcon2.png')}
-            style={{
-              height: 30,
-              width: 30,
-            }}
-          />
-          <Text
-            style={{
-              fontSize: 15,
-              color: 'black',
-              fontWeight: '500',
-            }}>
-            14:00
-          </Text>
-        </View>
-      </View>
-      <View
-        style={{
-          width: '90%',
-          height: 50,
-          marginTop: Platform.OS === 'ios' ? 10 : 15,
-          justifyContent: 'center',
-        }}>
-        <Text
-          style={{
-            fontSize: 23,
-            color: 'black',
-            fontWeight: '600',
-            color: 'black',
-          }}>
-          Payment Method
-        </Text>
-      </View>
-      <View
-        style={{
-          justifyContent: 'center',
-          height: 180,
-        }}>
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('AppStack', {screen: 'BookingDetail'})
+        }>
+        <Image
+          source={require('../../assets/arrowicon2.png')}
+          style={styles.arrowIcon}
+        />
+      </TouchableOpacity>
+
+      {renderProfile()}
+      {renderSchedule()}
+
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Payment Method</Text>
         <Image
           source={require('../../assets/visaCard.png')}
-          style={{
-            height: '100%',
-            width: '100%',
-            borderRadius: 10,
-          }}
+          style={styles.paymentMethodImage}
         />
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          height: 400,
-        }}>
+
+      <View style={styles.buttonContainer}>
         <CustomButton
+          onPress={() =>
+            navigation.navigate('AppStack', {screen: 'BookingDetail'})
+          }
           btnColor={'white'}
           width={150}
           borderColor={'black'}
@@ -142,11 +68,10 @@ const PayNow = ({navigation}) => {
           justi={'center'}
           text={'Cancel'}
           btnHeight={42}
+          txtColor={'black'}
         />
         <CustomButton
-          onPress={() => {
-            navigation.navigate('AppStack', {screen: 'CheckOut'});
-          }}
+          onPress={() => navigation.navigate('AppStack', {screen: 'CheckOut'})}
           btnColor={'#2158FF'}
           width={150}
           text={'Check Out'}
@@ -157,6 +82,62 @@ const PayNow = ({navigation}) => {
       </View>
     </View>
   );
+};
+
+const styles = {
+  container: {
+    marginTop: Platform.OS === 'ios' ? 56 : 35,
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  arrowIcon: {
+    width: 24,
+    height: 24,
+    marginRight: '92%',
+  },
+  sectionContainer: {
+    width: '90%',
+    marginTop: 10,
+  },
+  sectionTitle: {
+    fontSize: 23,
+    color: 'black',
+    fontWeight: '600',
+  },
+  scheduleContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+    width: '95%',
+    alignSelf: 'center',
+  },
+  scheduleItem: {
+    height: 40,
+    width: 150,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+  },
+  scheduleIcon: {
+    height: 30,
+    width: 30,
+  },
+  scheduleText: {
+    fontSize: 15,
+    color: 'black',
+    fontWeight: '500',
+  },
+  paymentMethodImage: {
+    height: '100%',
+    width: '100%',
+    borderRadius: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    height: 330,
+  },
 };
 
 export default PayNow;

@@ -43,7 +43,7 @@ const ProfileCard = ({showButton, text1, text2, profileImg1}) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginTop: 5,
+    marginTop: 10,
     width: '100%',
     // marginHorizontal: 4,
     backgroundColor: 'white',
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     marginTop: '20%',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginRight:10,
   },
   callButton: {
     flex: 1, // Use flex to distribute space evenly
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 10, // Add padding for better touch area
+    paddingVertical: 10,// Add padding for better touch area
   },
   icon: {
     height: 27,
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
   whatsappIcon: {
     height: 38,
     width: 38,
-    marginRight: 2, // Add margin for spacing between icon and text
+    // marginRight: 2, // Add margin for spacing between icon and text
   },
   buttonText: {
     color: 'black',

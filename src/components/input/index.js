@@ -66,7 +66,7 @@ const Input = ({
 
 const styles = StyleSheet.create({
   mainContainer: {
-    width: '98%',
+    width: '95%',
     borderRadius: 10,
     marginBottom: 15,
     alignSelf: 'center',
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     height: 40,
     padding: 0,
-    width: '76%',
+    width: '78%',
     marginLeft: 10,
   },
   eyeIconStyle: {

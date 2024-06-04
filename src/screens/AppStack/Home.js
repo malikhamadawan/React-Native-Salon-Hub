@@ -224,7 +224,7 @@ const Home = () => {
             style={{
               fontSize: 23,
               color: '#0D1230',
-              fontWeight: '300',
+              fontWeight: '600',
             }}>
             #SpecialOffers
           </Text>
@@ -391,6 +391,7 @@ const Home = () => {
           style={{
             marginTop: 5,
             width: '95%',
+            height:40,
             marginHorizontal: 5,
             flexDirection: 'row',
             alignItems: 'center',

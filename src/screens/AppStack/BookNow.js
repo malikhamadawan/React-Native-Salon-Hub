@@ -1,13 +1,13 @@
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   Platform,
   Image,
   TouchableOpacity,
-  Button,
   FlatList,
+  StyleSheet,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
@@ -16,83 +16,48 @@ import {useIsFocused} from '@react-navigation/native';
 const BookNow = ({navigation}) => {
   const [internalDate, setInternalDate] = useState(new Date());
   const [allDatesInMonth, setAllDatesInMonth] = useState([]);
-  const [allTimesInMonth, setAllTimesInMonth] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
 
-  function getHalfHourTimeSlots() {
-    const timeFormat = 'HH:mm';
-    const currentTime = moment('00:00', timeFormat);
-    const endTime = moment('23:59', timeFormat);
-    const timeSlots = [];
-
-    while (currentTime.isSameOrBefore(endTime)) {
-      timeSlots.push(currentTime.format(timeFormat));
-      currentTime.add(30, 'minutes');
-    }
-
-    return timeSlots;
-  }
-  const timeSlots = getHalfHourTimeSlots();
-
+  const timeSlots = Array.from({length: 48}, (_, i) =>
+    moment('00:00', 'HH:mm')
+      .add(i * 30, 'minutes')
+      .format('HH:mm'),
+  );
   const isFocus = useIsFocused();
 
   useEffect(() => {
     if (isFocus) {
-      const currentMonth = internalDate.getMonth();
       const currentYear = internalDate.getFullYear();
-      const daysInCurrentMonth = new Date(
-        currentYear,
-        currentMonth + 1,
-        0,
-      ).getDate();
-      const datesArray = Array.from(
-        {length: daysInCurrentMonth},
-        (_, index) => new Date(currentYear, currentMonth, index + 1),
-      );
-
-      const currentDate = new Date();
+      const currentMonth = internalDate.getMonth();
       const currentDateOnly = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate(),
-      );
-      const nextMonth = (currentMonth + 1) % 12;
-      const nextMonthYear = nextMonth === 0 ? currentYear + 1 : currentYear;
-      const daysInNextMonth = new Date(
-        nextMonthYear,
-        nextMonth + 1,
-        0,
-      ).getDate();
-
-      const nextMonthDatesArray = Array.from(
-        {length: daysInNextMonth},
-        (_, index) => new Date(nextMonthYear, nextMonth, index + 1),
-      );
-      let finalDatesArray = [...datesArray, ...nextMonthDatesArray];
-      const filteredDates = finalDatesArray.filter(
-        date => date >= currentDateOnly,
+        currentYear,
+        currentMonth,
+        internalDate.getDate(),
       );
 
-      setAllDatesInMonth(filteredDates);
+      const generateDates = (year, month) => {
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        return Array.from(
+          {length: daysInMonth},
+          (_, i) => new Date(year, month, i + 1),
+        );
+      };
+
+      const thisMonthDates = generateDates(currentYear, currentMonth);
+      const nextMonthDates = generateDates(
+        currentYear + (currentMonth + 1 === 12 ? 1 : 0),
+        (currentMonth + 1) % 12,
+      );
+
+      setAllDatesInMonth(
+        [...thisMonthDates, ...nextMonthDates].filter(
+          date => date >= currentDateOnly,
+        ),
+      );
     }
   }, [internalDate, isFocus]);
 
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState([]);
-  const toggleTimeSelection = time => {
-    setSelectedTime(prevSelectedTime =>
-      prevSelectedTime === time ? null : time,
-    );
-  };
-
-  const toggleDateSelection = time => {
-    setSelectedDate(prevSelectedTime => {
-      if (prevSelectedTime === time) {
-        return null;
-      } else {
-        return time;
-      }
-    });
-  };
   const handleBooking = () => {
     setSelectedDate(null);
     setSelectedTime(null);
@@ -100,178 +65,65 @@ const BookNow = ({navigation}) => {
   };
 
   return (
-    <View
-      style={{
-        marginTop: Platform.OS === 'ios' ? 50 : 50,
-        flex: 1,
-        alignItems: 'center',
-        paddingHorizontal: 5,
-      }}>
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}>
+        <Image
+          source={require('../../assets/arrowicon2.png')}
+          style={styles.backIcon}
+        />
+      </TouchableOpacity>
       <ProfileCard
-        showButton={true}
-        text1={'Usman\n'}
-        text2={'Barber'}
+        showButton
+        text1="Usman\n"
+        text2="Barber"
         profileImg1={require('../../assets/profile2.jpeg')}
+        marginTop={5}
       />
-      <View
-        style={{
-          // backgroundColor: 'red',
-          height: '4%',
-          width: '95%',
-          marginVertical: '6%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingRight: 20,
-          paddingLeft: 10,
-        }}>
-        <Text
-          style={{
-            fontSize: 16,
-            color: 'black',
-            fontWeight: '500',
-            marginLeft: 5,
-          }}>
-          Customers
-        </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            color: 'black',
-            fontWeight: '500',
-            marginRight: 15,
-          }}>
-          Experience
-        </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            color: 'black',
-            fontWeight: '500',
-            marginRight: 10,
-          }}>
-          Ratings
-        </Text>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>Customers</Text>
+        <Text style={styles.infoText}>Experience</Text>
+        <Text style={styles.infoText}>Ratings</Text>
       </View>
-      <View
-        style={{
-          height: '8%',
-          width: '95%',
-          // backgroundColor: 'black',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <View
-          style={{
-            backgroundColor: 'white',
-            width: '30%',
-            height: '90%',
-            borderRadius: 15,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: '500',
-              color: '#2158FF',
-            }}>
-            150+
-          </Text>
+      <View style={styles.statsContainer}>
+        <View style={styles.statCard}>
+          <Text style={styles.statText}>150+</Text>
         </View>
-        <View
-          style={{
-            backgroundColor: 'white',
-            width: '30%',
-            height: '90%',
-            borderRadius: 15,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: '500',
-              color: '#2158FF',
-            }}>
-            3 years
-          </Text>
+        <View style={styles.statCard}>
+          <Text style={styles.statText}>3 years</Text>
         </View>
-        <View
-          style={{
-            backgroundColor: 'white',
-            width: '30%',
-            height: '90%',
-            borderRadius: 15,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}>
+        <View style={styles.statCard}>
           <Image
             source={require('../../assets/starIcon.png')}
-            style={{
-              height: 18,
-              width: 18,
-              marginRight: 5,
-            }}
+            style={styles.starIcon}
           />
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: '500',
-              color: '#2158FF',
-            }}>
-            4.7
-          </Text>
+          <Text style={styles.statText}>4.7</Text>
         </View>
       </View>
-      <View
-        style={{
-          width: '95%',
-          marginVertical: '5%',
-        }}>
-        <Text
-          style={{
-            fontSize: 23,
-            color: 'black',
-            fontWeight: '600',
-          }}>
-          Schedule
-        </Text>
-      </View>
-      <View
-        style={{
-          // backgroundColor: 'black',
-          height: '10%',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+      <Text style={styles.sectionTitle}>Schedule</Text>
+      <View style={styles.dateContainer}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           data={allDatesInMonth}
-          horizontal={true}
+          horizontal
           renderItem={({item}) => (
             <TouchableOpacity
               key={item.toString()}
-              onPress={() => {
-                toggleDateSelection(item);
-              }}
-              style={{
-                height: '90%',
-                width: 78,
-                backgroundColor: selectedDate === item ? '#2158FF' : '#BBE4FB',
-                borderRadius: 15,
-                marginHorizontal: 7,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+              onPress={() =>
+                setSelectedDate(selectedDate === item ? null : item)
+              }
+              style={[
+                styles.dateCard,
+                {
+                  backgroundColor:
+                    selectedDate === item ? '#2158FF' : '#BBE4FB',
+                },
+              ]}>
               <Text
-                style={{
-                  fontSize: 19,
-                  color:selectedDate === item ? 'white' : 'black',
-                }}>
+                style={[
+                  styles.dateText,
+                  {color: selectedDate === item ? 'white' : 'black'},
+                ]}>
                 {
                   item
                     .toLocaleDateString('en-US', {
@@ -282,10 +134,10 @@ const BookNow = ({navigation}) => {
                 }
               </Text>
               <Text
-                style={{
-                  fontSize: 13,
-                  color:selectedDate === item ? 'white' : 'black',
-                }}>
+                style={[
+                  styles.dateTextSmall,
+                  {color: selectedDate === item ? 'white' : 'black'},
+                ]}>
                 {
                   item
                     .toLocaleDateString('en-US', {
@@ -299,91 +151,159 @@ const BookNow = ({navigation}) => {
           )}
         />
       </View>
-      <View
-        style={{
-          width: '95%',
-          // backgroundColor: 'orange',
-          height: 30,
-          marginVertical: 20,
-        }}>
-        <Text
-          style={{
-            fontSize: 23,
-            color: 'black',
-            fontWeight: '600',
-          }}>
-          Time
-        </Text>
-      </View>
-      <View
-        style={{
-          height: 80,
-          width: '100%',
-        }}>
+      <Text style={styles.sectionTitle}>Time</Text>
+      <View style={styles.timeContainer}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           data={timeSlots}
-          horizontal={true}
+          horizontal
           renderItem={({item}) => (
             <TouchableOpacity
-              key={item.toString()}
-              onPress={() => {
-                toggleTimeSelection(item);
-              }}
-              style={{
-                height: '90%',
-                width: 78,
-                backgroundColor: selectedTime?.includes(item)
-                  ? '#2158FF'
-                  : '#BBE4FB',
-                borderRadius: 15,
-                marginHorizontal: 7,
-                justifyContent: 'center',
-                alignItems: 'center',
-                // width: '50%',
-              }}>
+              key={item}
+              onPress={() =>
+                setSelectedTime(selectedTime === item ? null : item)
+              }
+              style={[
+                styles.timeCard,
+                {
+                  backgroundColor:
+                    selectedTime === item ? '#2158FF' : '#BBE4FB',
+                },
+              ]}>
               <Text
-                style={{
-                  fontSize: 17,
-                  color:selectedTime === item ? 'white' : 'black',
-                }}>
+                style={[
+                  styles.timeText,
+                  {color: selectedTime === item ? 'white' : 'black'},
+                ]}>
                 {item}
               </Text>
             </TouchableOpacity>
           )}
         />
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          // backgroundColor:'black',
-          marginVertical: '15%',
-          justifyContent: 'space-evenly',
-          width: '95%',
-        }}>
+      <View style={styles.buttonContainer}>
         <CustomButton
+          onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}
           width={159}
-          text={'Back'}
-          btnColor={'white'}
-          justi={'center'}
-          txtColor={'black'}
+          text="Back"
+          btnColor="white"
+          justi="center"
+          txtColor="black"
         />
         <CustomButton
           onPress={handleBooking}
-          disabled={selectedDate === null || selectedTime?.length === 0}
+          disabled={!selectedDate || !selectedTime}
           width={159}
-          text={'Next'}
-          btnColor={
-            selectedDate === null || selectedTime?.length === 0
-              ? '#BBE4FB'
-              : '#2158FF'
-          }
-          justi={'center'}
-          txtColor={'white'}
+          text="Next"
+          btnColor={!selectedDate || !selectedTime ? '#BBE4FB' : '#2158FF'}
+          justi="center"
+          txtColor="white"
         />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: Platform.OS === 'ios' ? 40 : 40,
+    flex: 1,
+    alignItems: 'center',
+    paddingHorizontal: 5,
+  },
+  backIcon: {
+    width: 24,
+    height: 24,
+    marginRight: '92%',
+  },
+  infoContainer: {
+    height: '4%',
+    width: '95%',
+    marginVertical: '6%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
+    paddingLeft: 10,
+  },
+  infoText: {
+    fontSize: 16,
+    color: 'black',
+    fontWeight: '500',
+  },
+  statsContainer: {
+    height: '8%',
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  statCard: {
+    backgroundColor: 'white',
+    width: '30%',
+    height: '90%',
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  statText: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#2158FF',
+  },
+  starIcon: {
+    height: 18,
+    width: 18,
+    marginRight: 5,
+  },
+  sectionTitle: {
+    width: '95%',
+    fontSize: 23,
+    color: 'black',
+    fontWeight: '600',
+    marginVertical: 20,
+  },
+  dateContainer: {
+    height: '10%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dateCard: {
+    height: '90%',
+    width: 78,
+    borderRadius: 15,
+    marginHorizontal: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dateText: {
+    fontSize: 19,
+  },
+  dateTextSmall: {
+    fontSize: 13,
+  },
+  timeContainer: {
+    height: 80,
+    width: '100%',
+  },
+  timeCard: {
+    height: '90%',
+    width: 78,
+    borderRadius: 15,
+    marginHorizontal: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timeText: {
+    fontSize: 17,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginVertical: '15%',
+    justifyContent: 'space-evenly',
+    width: '95%',
+  },
+});
 
 export default BookNow;
