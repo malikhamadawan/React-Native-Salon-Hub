@@ -10,17 +10,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const LogIn = ({navigation}) => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
-      // Send a POST request to the login endpoint with email and password
+      // Send a POST request to the login endpoint with username and password
       const response = await axios.post('http://192.168.157.203:3000/login', {
-        email,
+        username,
         password,
       });
-      console.log('response: ' + response);
+      console.log('response: ', response);
+
       // If the request is successful, extract the token from the response data
       const token = response.data.token;
 
@@ -31,8 +32,8 @@ const LogIn = ({navigation}) => {
       navigation.navigate('AppStack', {screen: 'BottomTab'});
     } catch (error) {
       // If an error occurs during the login process, handle it here
-      // Display an alert indicating invalid email or password
-      Alert.alert('Error', 'Invalid email or password. Please try again.');
+      // Display an alert indicating invalid username or password
+      Alert.alert('Error', 'Invalid username or password. Please try again.');
       // Log the error for debugging purposes
       console.error(error);
     }
@@ -54,9 +55,9 @@ const LogIn = ({navigation}) => {
           placeholder={'Email'}
           img={require('../../assets/icon2.png')}
           onChangeText={text => {
-            setEmail(text);
+            setUsername(text);
           }}
-          value={email}
+          value={username}
         />
         <Input
           leftIcon={true}
