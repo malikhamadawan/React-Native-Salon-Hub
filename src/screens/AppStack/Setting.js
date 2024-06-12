@@ -2,9 +2,9 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ProfileHeader} from '../../components/profileHeader';
 import CustomButton from '../../components/customButton';
-import { CustomView } from '../../components/mainContainer';
+import {CustomView} from '../../components/mainContainer';
 
-const Setting = () => {
+const Setting = ({navigation}) => {
   return (
     <CustomView marginTop={'15%'}>
       <ProfileHeader />
@@ -120,7 +120,9 @@ const Setting = () => {
             tintColor: '#2158ff',
           }}
         />
-        <Text style={{color: '#000000', fontWeight: '500', fontSize: 15}}>
+        <Text
+          onPress={() => navigation.replace('AuthStack', {screen: 'LogIn'})}
+          style={{color: '#000000', fontWeight: '500', fontSize: 15}}>
           Logout
         </Text>
       </TouchableOpacity>

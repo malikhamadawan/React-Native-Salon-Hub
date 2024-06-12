@@ -10,14 +10,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const LogIn = ({navigation}) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       // Send a POST request to the login endpoint with username and password
-      const response = await axios.post('http://192.168.157.203:3000/login', {
-        username,
+      const response = await axios.post('http://192.168.225.203:3000/login', {
+        email,
         password,
       });
       console.log('response: ', response);
@@ -55,9 +55,9 @@ const LogIn = ({navigation}) => {
           placeholder={'Email'}
           img={require('../../assets/icon2.png')}
           onChangeText={text => {
-            setUsername(text);
+            setEmail(text);
           }}
-          value={username}
+          value={email}
         />
         <Input
           leftIcon={true}

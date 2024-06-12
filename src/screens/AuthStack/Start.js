@@ -31,7 +31,7 @@ const Start = ({navigation}) => {
             txtColor={'#fff'}
             onPress={() => {
               if (splash === 3) {
-                navigation.navigate('SignUp');
+                navigation.navigate('LogIn');
               } else {
                 setSplash(splash + 1);
               }
@@ -43,7 +43,7 @@ const Start = ({navigation}) => {
               text={'Skip'}
               justi={'center'}
               txtColor={'#2158FF'}
-              onPress={() => navigation.navigate('SignUp')}
+              onPress={() => navigation.navigate('LogIn')}
             />
           ) : null}
         </View>

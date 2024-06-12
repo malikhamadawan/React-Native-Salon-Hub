@@ -14,6 +14,7 @@ import OrSeprator from '../../components/orSeprator';
 import Header from '../../components/header';
 import HeaderDown from '../../components/headerDown';
 import {Input} from '../../components/input';
+import axios from 'axios';
 
 const SignUp = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -21,23 +22,29 @@ const SignUp = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     // Perform validation checks here before registering the user
     if (!username || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'Please fill in all fields.');
       return;
-    }
-    if (password !== confirmPassword) {
+    } else if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
       return;
-    }
+    } else {
+      const response = await axios.post(
+        'http://192.168.225.203:3000/register',
+        {
+          email,
+          username,
+          password,
+          confirmPassword,
+        },
+      );
+      console.log('response: ', response);
 
-    // Perform registration logic here (e.g., call an API)
-    // After successful registration, navigate to the desired screen
-    // Example:
-    navigation.navigate('AppStack', {screen: 'BottomTab'});
-    // You can also show a success message if needed
-    Alert.alert('Success', 'Registration successful!');
+      navigation.navigate('AppStack', {screen: 'BottomTab'});
+      Alert.alert('Success', 'Registration successful!');
+    }
   };
 
   return (
