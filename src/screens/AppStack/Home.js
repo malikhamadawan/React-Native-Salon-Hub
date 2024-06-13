@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {
 import {Input} from '../../components/input';
 import ScheduleCard from '../../components/scheduleCard';
 import {ProfileHeader} from '../../components/profileHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
   /** list */
@@ -164,6 +165,7 @@ const Home = () => {
       status: 'Open',
     },
   ];
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -391,7 +393,7 @@ const Home = () => {
           style={{
             marginTop: 5,
             width: '95%',
-            height:40,
+            height: 40,
             marginHorizontal: 5,
             flexDirection: 'row',
             alignItems: 'center',

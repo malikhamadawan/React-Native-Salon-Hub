@@ -20,7 +20,8 @@ const LogIn = ({navigation}) => {
         email,
         password,
       });
-      console.log('response: ', response);
+      AsyncStorage.setItem('userInfo',JSON.stringify(response.data.user))
+      console.log('response: ', response.data.user);
 
       // If the request is successful, extract the token from the response data
       const token = response.data.token;

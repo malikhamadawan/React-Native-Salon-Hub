@@ -1,7 +1,28 @@
 import {View, Text, TouchableOpacity, Platform, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileHeader = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await AsyncStorage.getItem('userInfo');
+        if (userData) {
+          const parsedUser = JSON.parse(userData);
+          setUser(parsedUser);
+        }
+      } catch (error) {
+        // Handle errors here
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log('User', user?.username);
   return (
     <View
       style={{
@@ -37,7 +58,7 @@ const ProfileHeader = () => {
               color: 'black',
               marginLeft: 10,
             }}>
-            Hi, Umair
+            Hi, {user?.username ? user?.username : 'Umair'}
           </Text>
           <View
             style={{
@@ -48,7 +69,11 @@ const ProfileHeader = () => {
               marginLeft: 10,
             }}>
             <Image
-              source={require('../../assets/mapIcon.png')}
+              source={
+                user?.image
+                  ? {uri: user?.image}
+                  : require('../../assets/mapIcon.png')
+              }
               style={{
                 height: 12,
                 width: 12,
