@@ -16,11 +16,11 @@ const CustomButton = ({
   fontWeight,
   fontSize,
   justi,
-  textmarginL,
   imgMarg,
   tintColor,
   marginTop,
   marginBottom,
+  backgroundColor,
 }) => {
   // const handlePress = () => {
   //   press();
@@ -52,6 +52,7 @@ const CustomButton = ({
             marginRight: 10,
             marginLeft: imgMarg,
             tintColor: tintColor,
+            backgroundColor: backgroundColor,
           }}
         />
       )}

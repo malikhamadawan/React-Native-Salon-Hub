@@ -16,7 +16,7 @@ const LogIn = ({navigation}) => {
   const handleLogin = async () => {
     try {
       // Send a POST request to the login endpoint with username and password
-      const response = await axios.post('http://192.168.225.203:3000/login', {
+      const response = await axios.post('http://192.168.41.203:3000/login', {
         email,
         password,
       });

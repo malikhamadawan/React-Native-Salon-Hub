@@ -22,7 +22,7 @@ function MainStack() {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="AuthStack"
+          initialRouteName="AppStack"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="AppStack" component={AppStack} />
           <Stack.Screen name="AuthStack" component={AuthStack} />

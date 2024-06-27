@@ -8,41 +8,6 @@ const Setting = ({navigation}) => {
   return (
     <CustomView marginTop={'15%'}>
       <ProfileHeader />
-      {/* <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingHorizontal: 10,
-        }}>
-        <Image
-          source={require('../../assets/umair1.jpg')}
-          style={{
-            height: 100,
-            width: 100,
-            borderRadius: 100,
-          }}
-        />
-        <View
-          style={{
-            marginLeft: 20,
-          }}>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '600',
-              color: '#000',
-            }}>
-            Umair Malik
-          </Text>
-          <Text
-            style={{
-              fontSize: 13,
-              fontWeight: '200',
-            }}>
-            talhabinumar004@gmail.com
-          </Text>
-        </View>
-      </View> */}
       <View
         style={{
           width: '100%',
