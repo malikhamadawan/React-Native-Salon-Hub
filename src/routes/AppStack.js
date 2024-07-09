@@ -12,6 +12,7 @@ import PayNow from '../screens/AppStack/PayNow';
 import CheckOut from '../screens/AppStack/CheckOut';
 import Bonus from '../screens/AppStack/Bonus';
 import Notifications from '../screens/AppStack/Notifications';
+import Animation from '../screens/AppStack/Animation';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,7 @@ function AppStack() {
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
       <Stack.Navigator
-        initialRouteName="Notifications"
+        initialRouteName="Animation"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Bonus" component={Bonus} />
         <Stack.Screen name="Home" component={Home} />
@@ -32,6 +33,7 @@ function AppStack() {
         <Stack.Screen name="PayNow" component={PayNow} />
         <Stack.Screen name="CheckOut" component={CheckOut} />
         <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="Animation" component={Animation} />
       </Stack.Navigator>
     </>
   );
