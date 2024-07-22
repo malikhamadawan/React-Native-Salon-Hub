@@ -15,7 +15,7 @@ import ScheduleCard from '../../components/scheduleCard';
 import {ProfileHeader} from '../../components/profileHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Home = () => {
+const Home = ({navigation}) => {
   /** list */
   const newData = [
     {
@@ -172,7 +172,11 @@ const Home = () => {
       contentContainerStyle={{
         flexGrow: 1,
       }}>
-      <ProfileHeader />
+      <ProfileHeader
+        onPress={() =>
+          navigation.navigate('AppStack', {screen: 'Notifications'})
+        }
+      />
       <Input
         leftIcon={true}
         rightIcon={true}

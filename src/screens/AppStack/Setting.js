@@ -7,7 +7,11 @@ import {CustomView} from '../../components/mainContainer';
 const Setting = ({navigation}) => {
   return (
     <CustomView marginTop={'15%'}>
-      <ProfileHeader />
+      <ProfileHeader
+        onPress={() =>
+          navigation.navigate('AppStack', {screen: 'Notifications'})
+        }
+      />
       <View
         style={{
           width: '100%',

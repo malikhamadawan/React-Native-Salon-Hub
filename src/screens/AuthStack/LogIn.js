@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, Text, Alert} from 'react-native';
+import {View, Text, Alert, KeyboardAvoidingView} from 'react-native';
 import {Input} from '../../components/input';
 import Header from '../../components/header';
 import OrSeprator from '../../components/orSeprator';
@@ -8,34 +8,33 @@ import HeaderDown from '../../components/headerDown';
 import CustomButton from '../../components/customButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import {LoadingLottie} from '../../components/loadingLottie';
 
 const LogIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
-      // Send a POST request to the login endpoint with username and password
-      const response = await axios.post('http://192.168.41.203:3000/login', {
+      const response = await axios.post('http://192.168.81.203:3000/login', {
         email,
         password,
       });
-      AsyncStorage.setItem('userInfo',JSON.stringify(response.data.user))
+      AsyncStorage.setItem('userInfo', JSON.stringify(response.data.user));
       console.log('response: ', response.data.user);
 
-      // If the request is successful, extract the token from the response data
       const token = response.data.token;
 
-      // Store the token securely using AsyncStorage
+      if (response.data.token) {
+        setLoading(false);
+      }
       await AsyncStorage.setItem('token', token);
-
-      // Redirect the user to the authenticated screen
       navigation.navigate('AppStack', {screen: 'BottomTab'});
     } catch (error) {
-      // If an error occurs during the login process, handle it here
-      // Display an alert indicating invalid username or password
+      setLoading(false);
       Alert.alert('Error', 'Invalid username or password. Please try again.');
-      // Log the error for debugging purposes
       console.error(error);
     }
   };
@@ -109,6 +108,7 @@ const LogIn = ({navigation}) => {
         value={'login'}
         press={() => navigation.navigate('AuthStack', {screen: 'SignUp'})}
       />
+      {loading && <LoadingLottie visible={loading} />}
     </View>
   );
 };

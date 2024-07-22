@@ -19,32 +19,30 @@ import axios from 'axios';
 const SignUp = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = async () => {
     // Perform validation checks here before registering the user
-    if (!username || !email || !password || !confirmPassword) {
-      Alert.alert('Error', 'Please fill in all fields.');
-      return;
-    } else if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match.');
-      return;
-    } else {
-      const response = await axios.post(
-        'http://192.168.225.203:3000/register',
-        {
-          email,
-          username,
-          password,
-          confirmPassword,
-        },
-      );
-      console.log('response: ', response);
-
-      navigation.navigate('AppStack', {screen: 'BottomTab'});
-      Alert.alert('Success', 'Registration successful!');
-    }
+    // if (!username || !email || !password || !confirmPassword) {
+    //   Alert.alert('Error', 'Please fill in all fields.');
+    //   return;
+    // } else if (password !== confirmPassword) {
+    //   Alert.alert('Error', 'Passwords do not match.');
+    //   return;
+    // } else {
+    const response = await axios.post('http://192.168.81.203:3000/register', {
+      email,
+      username,
+      phoneNumber,
+      password,
+      confirmPassword,
+    });
+    console.log('response: ', response);
+    navigation.navigate('AppStack', {screen: 'BottomTab'});
+    Alert.alert('Success', 'Registration successful!');
+    // }
   };
 
   return (
@@ -65,6 +63,14 @@ const SignUp = ({navigation}) => {
           img={require('../../assets/icon2.png')}
           value={email}
           onChangeText={setEmail}
+        />
+        <Input
+          leftIcon={true}
+          secureTextEntry={true}
+          placeholder={'Phone Number'}
+          img={require('../../assets/phoneIcon1.png')}
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
         />
         <Input
           leftIcon={true}

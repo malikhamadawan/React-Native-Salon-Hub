@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, Platform, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfileHeader = () => {
+const ProfileHeader = ({onPress}) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -91,6 +91,7 @@ const ProfileHeader = () => {
         </View>
       </View>
       <TouchableOpacity
+        onPress={onPress}
         style={{
           height: 45,
           width: 45,

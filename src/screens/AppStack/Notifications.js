@@ -1,49 +1,49 @@
-import { View, Text, Image, FlatList } from 'react-native'
-import React from 'react'
+import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
+import React from 'react';
 
-const Notifications = () => {
-    const notificat = [
-      {
-        id: 0,
-        name: 'Jennie Whang',
-        image: require('../../assets/Notifi1.png'),
-        ago: '2 days ago',
-        detail:
-          'The place was clean,great serivce,stall are friendly.I will certainly recommend to my friends and visit again',
-      },
-      {
-        id: 1,
-        name: 'Nathalie',
-        image: require('../../assets/Notifi2.png'),
-        ago: '1 weeks ago',
-        detail:
-          'Very nice service from the specialist. I always going here for my treatment.',
-      },
-      {
-        id: 2,
-        name: 'Julia Martha',
-        image: require('../../assets/Notifi3.png'),
-        ago: '2 weeks ago',
-        detail:
-          'Aku cocok menggunakan produk night cream white secret dari wardah ini. Buat kulit wajahku terasa lem',
-      },
-      {
-        id: 3,
-        name: 'Wade Warren',
-        image: require('../../assets/Notifi4.png'),
-        ago: '2 weeks ago',
-        detail:
-          'They should know that the car runs really well and gets great gas mileage.',
-      },
-      {
-        id: 4,
-        name: 'Jenny Wilson',
-        image: require('../../assets/Notifi5.png'),
-        ago: ' weeks ago',
-        detail:
-          'Aku cobain produk ini masih jaman sekolah, karna gak tau apa produk yg bagus. Dan alhamdulillah ini ',
-      },
-    ];
+const Notifications = ({navigation}) => {
+  const notificat = [
+    {
+      id: 0,
+      name: 'Jennie Whang',
+      image: require('../../assets/Notifi1.png'),
+      ago: '2 days ago',
+      detail:
+        'The place was clean,great serivce,stall are friendly.I will certainly recommend to my friends and visit again',
+    },
+    {
+      id: 1,
+      name: 'Nathalie',
+      image: require('../../assets/Notifi2.png'),
+      ago: '1 weeks ago',
+      detail:
+        'Very nice service from the specialist. I always going here for my treatment.',
+    },
+    {
+      id: 2,
+      name: 'Julia Martha',
+      image: require('../../assets/Notifi3.png'),
+      ago: '2 weeks ago',
+      detail:
+        'Aku cocok menggunakan produk night cream white secret dari wardah ini. Buat kulit wajahku terasa lem',
+    },
+    {
+      id: 3,
+      name: 'Wade Warren',
+      image: require('../../assets/Notifi4.png'),
+      ago: '2 weeks ago',
+      detail:
+        'They should know that the car runs really well and gets great gas mileage.',
+    },
+    {
+      id: 4,
+      name: 'Jenny Wilson',
+      image: require('../../assets/Notifi5.png'),
+      ago: ' weeks ago',
+      detail:
+        'Aku cobain produk ini masih jaman sekolah, karna gak tau apa produk yg bagus. Dan alhamdulillah ini ',
+    },
+  ];
   return (
     <View
       style={{
@@ -53,20 +53,36 @@ const Notifications = () => {
       }}>
       <View
         style={{
-          justifyContent: 'center',
+          // justifyContent: 'center',
+          alignItems: 'center',
+          // alignContent: 'space-between',
+          flexDirection: 'row',
         }}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('AppStack', {screen: 'BottomTab'})
+          }>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+            }}
+            source={require('../../assets/arrowicon2.png')}
+          />
+        </TouchableOpacity>
         <Text
           style={{
             fontSize: 23,
             color: 'black',
             fontWeight: '600',
+            marginLeft: 20,
           }}>
           Notifications
         </Text>
       </View>
       <FlatList
         style={{
-          marginTop:5,
+          marginTop: 5,
         }}
         data={notificat}
         renderItem={({item}) => {
@@ -99,8 +115,8 @@ const Notifications = () => {
                     style={{
                       height: 40,
                       width: 40,
-                      marginTop:5,
-                      marginLeft:5,
+                      marginTop: 5,
+                      marginLeft: 5,
                     }}
                   />
                   <Text

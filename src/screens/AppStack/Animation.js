@@ -6,11 +6,21 @@ const Animation = () => {
   const scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    Animated.sequence([
-      Animated.spring(progress, {toValue: 1, useNativeDriver: true}),
-      Animated.spring(progress, {toValue: 0.5, useNativeDriver: true}),
-    ]).start();
-  }, [progress]);
+    Animated.loop(
+      Animated.parallel([
+        Animated.sequence([
+          Animated.spring(progress, {toValue: 1, useNativeDriver: true}),
+          Animated.spring(progress, {toValue: 0.5, useNativeDriver: true}),
+        ]),
+
+        Animated.sequence([
+          Animated.spring(progress, {toValue: 2, useNativeDriver: true}),
+          Animated.spring(progress, {toValue: 1, useNativeDriver: true}),
+        ]),
+      ]),
+      {iterations: 100},
+    ).start();
+  }, []);
 
   return (
     <View style={styles.container}>
