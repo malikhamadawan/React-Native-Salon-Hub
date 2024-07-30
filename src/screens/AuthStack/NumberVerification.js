@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import CustomButton from '../../components/customButton';
+import auth from '@react-native-firebase/auth';
 
 const NumberVerification = ({navigation}) => {
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -24,12 +25,41 @@ const NumberVerification = ({navigation}) => {
     // Move focus to the next input only if it's a valid numeric character
     if (numericText && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].focus();
+    } else if (!numericText && index > 0) {
+      // Handle backspace on Android by focusing on the previous input
+      inputRefs.current[index - 1].focus();
     }
   };
+
+  const [confirm, setConfirm] = useState(null);
+
+  function onAuthStateChanged(user) {
+    if (user) {
+      // Some Android devices can automatically process the verification code (OTP) message, and the user would NOT need to enter the code.
+      // Actually, if he/she tries to enter it, he/she will get an error message because the code was already used in the background.
+      // In this function, make sure you hide the component(s) for entering the code and/or navigate away from this screen.
+      // It is also recommended to display a message to the user informing him/her that he/she has successfully logged in.
+    }
+  }
 
   const handleKeyPress = (e, index) => {
     if (e.nativeEvent.key === 'Backspace' && otp[index] === '' && index > 0) {
       inputRefs.current[index - 1].focus();
+    }
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber('+923044949459');
+      console.log('confirmation', confirmation);
+      setConfirm(confirmation);
+    } catch (error) {
+      console.error('Error signing in with phone number:', error);
     }
   };
 
@@ -68,7 +98,6 @@ const NumberVerification = ({navigation}) => {
       <View
         style={{
           marginTop: 10,
-          height: '6%',
           justifyContent: 'center',
           alignItems: 'center',
           // backgroundColor:'red',
@@ -133,7 +162,9 @@ const NumberVerification = ({navigation}) => {
           marginTop: '70%',
         }}>
         <CustomButton
-          onPress={() => navigation.navigate('AppStack', {screen: 'Home'})}
+          onPress={() => {
+            handleSubmit();
+          }}
           btnColor={'#2158ff'}
           width={150}
           borderColor={'transparent'}
