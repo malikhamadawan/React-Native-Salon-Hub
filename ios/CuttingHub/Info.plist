@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to choose an image.</string>
 	<key>CFBundleDisplayName</key>
 	<string>CuttingHub</string>
 	<key>CFBundleExecutable</key>

@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 function AuthStack() {
   return (
     <Stack.Navigator
-      initialRouteName="NumberVerification"
+      initialRouteName="Start"
       screenOptions={{
         headerShown: false,
       }}>

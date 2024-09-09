@@ -6,6 +6,7 @@ import Header from '../../components/header';
 import OrSeprator from '../../components/orSeprator';
 import HeaderDown from '../../components/headerDown';
 import CustomButton from '../../components/customButton';
+import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {LoadingLottie} from '../../components/loadingLottie';
@@ -18,19 +19,8 @@ const LogIn = ({navigation}) => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://192.168.81.203:3000/login', {
-        email,
-        password,
-      });
-      AsyncStorage.setItem('userInfo', JSON.stringify(response.data.user));
-      console.log('response: ', response.data.user);
-
-      const token = response.data.token;
-
-      if (response.data.token) {
-        setLoading(false);
-      }
-      await AsyncStorage.setItem('token', token);
+      const isUser = await auth().signInWithEmailAndPassword(email, password);
+      console.log('isUser', isUser);
       navigation.navigate('AppStack', {screen: 'BottomTab'});
     } catch (error) {
       setLoading(false);

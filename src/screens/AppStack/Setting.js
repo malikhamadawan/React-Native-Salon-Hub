@@ -18,6 +18,7 @@ const Setting = ({navigation}) => {
           marginTop: 40,
         }}>
         <CustomButton
+          onPress={() => navigation.navigate('AppStack', {screen: 'Profile'})}
           btnColor={'#fff'}
           text={'Profile'}
           txtColor={'#2158ff'}

@@ -14,6 +14,7 @@ import Bonus from '../screens/AppStack/Bonus';
 import Notifications from '../screens/AppStack/Notifications';
 import Animation from '../screens/AppStack/Animation';
 import Test from '../screens/AppStack/Test';
+import Profile from '../screens/AppStack/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ function AppStack() {
         <Stack.Screen name="CheckOut" component={CheckOut} />
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Animation" component={Animation} />
+        <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </>

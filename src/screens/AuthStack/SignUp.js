@@ -14,6 +14,7 @@ import OrSeprator from '../../components/orSeprator';
 import Header from '../../components/header';
 import HeaderDown from '../../components/headerDown';
 import {Input} from '../../components/input';
+import auth from '@react-native-firebase/auth';
 import axios from 'axios';
 
 const SignUp = ({navigation}) => {
@@ -22,27 +23,46 @@ const SignUp = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirm, setConfirm] = useState(null);
 
   const handleSignUp = async () => {
-    // Perform validation checks here before registering the user
-    // if (!username || !email || !password || !confirmPassword) {
-    //   Alert.alert('Error', 'Please fill in all fields.');
-    //   return;
-    // } else if (password !== confirmPassword) {
-    //   Alert.alert('Error', 'Passwords do not match.');
-    //   return;
-    // } else {
-    const response = await axios.post('http://192.168.81.203:3000/register', {
-      email,
-      username,
-      phoneNumber,
-      password,
-      confirmPassword,
-    });
-    console.log('response: ', response);
-    navigation.navigate('AppStack', {screen: 'BottomTab'});
-    Alert.alert('Success', 'Registration successful!');
-    // }
+    try {
+      const signUp = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      if (!signUp?.isAnonymous) {
+        updateUserProfile();
+        signInWithPhoneNumberr();
+      }
+      console.log('signUp', signUp);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+  const updateUserProfile = async () => {
+    const user = auth().currentUser;
+    if (user) {
+      await user.updateProfile({
+        displayName: username,
+        phoneNumber: phoneNumber,
+        email: email,
+      });
+      console.log('User profile updated:', user);
+    }
+  };
+
+  // Call this function after confirming the OTP
+  updateUserProfile();
+
+  const signInWithPhoneNumberr = async () => {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      navigation.navigate('NumberVerification', {confirm: confirmation});
+      setConfirm(confirmation);
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+    }
   };
 
   return (
@@ -66,7 +86,6 @@ const SignUp = ({navigation}) => {
         />
         <Input
           leftIcon={true}
-          secureTextEntry={true}
           placeholder={'Phone Number'}
           img={require('../../assets/phoneIcon1.png')}
           value={phoneNumber}

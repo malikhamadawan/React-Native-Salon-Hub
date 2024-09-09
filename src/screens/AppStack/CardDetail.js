@@ -126,8 +126,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    height: 330,
-    marginTop: 10,
+    height: 200,
   },
 });
 

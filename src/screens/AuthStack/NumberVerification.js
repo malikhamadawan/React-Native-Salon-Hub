@@ -10,12 +10,15 @@ import {
 import React, {useState, useRef, useEffect} from 'react';
 import CustomButton from '../../components/customButton';
 import auth from '@react-native-firebase/auth';
+import {useRoute} from '@react-navigation/native';
 
 const NumberVerification = ({navigation}) => {
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [focusedIndex, setFocusedIndex] = useState(null); // New state to track focus
   const inputRefs = useRef([]);
-
+  const route = useRoute();
+  const code = route.params.confirm;
+  console.log('code', code);
   const handleChange = (text, index) => {
     const newOtp = [...otp];
     const numericText = text.replace(/[^0-9]/g, ''); // Remove non-numeric characters
@@ -30,8 +33,6 @@ const NumberVerification = ({navigation}) => {
       inputRefs.current[index - 1].focus();
     }
   };
-
-  const [confirm, setConfirm] = useState(null);
 
   function onAuthStateChanged(user) {
     if (user) {
@@ -48,18 +49,24 @@ const NumberVerification = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
 
   const handleSubmit = async () => {
     try {
-      const confirmation = await auth().signInWithPhoneNumber('+923044949459');
-      console.log('confirmation', confirmation);
-      setConfirm(confirmation);
+      // Combine OTP digits into a single string
+      const otpString = otp.join('');
+
+      // Pass the combined OTP string to the confirm method
+      const userCredential = await code.confirm(otpString);
+      const user = userCredential.user;
+      console.log('User created successfully:', user);
+      navigation.navigate('AppStack', {screen: 'BottomTab'});
+      // You can also update the user's profile here if needed
     } catch (error) {
-      console.error('Error signing in with phone number:', error);
+      console.error('Invalid code:', error);
     }
   };
 

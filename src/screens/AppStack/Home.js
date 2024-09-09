@@ -13,6 +13,7 @@ import {
 import {Input} from '../../components/input';
 import ScheduleCard from '../../components/scheduleCard';
 import {ProfileHeader} from '../../components/profileHeader';
+import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}) => {
@@ -166,6 +167,8 @@ const Home = ({navigation}) => {
     },
   ];
 
+  const user = auth().currentUser;
+  console.log(user);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

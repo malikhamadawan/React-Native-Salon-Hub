@@ -12,7 +12,6 @@ const PayNow = ({navigation}) => {
       profileImg1={require('../../assets/mrCuts.jpeg')}
     />
   );
-
   const renderSchedule = () => (
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>Schedule</Text>
@@ -96,19 +95,24 @@ const styles = {
     marginRight: '92%',
   },
   sectionContainer: {
-    width: '90%',
+    width: '100%',
     marginTop: 10,
+    // backgroundColor:'blue',
   },
   sectionTitle: {
+    width: '100%',
+    height: 40,
     fontSize: 23,
     color: 'black',
     fontWeight: '600',
+    // backgroundColor:'red',
   },
   scheduleContainer: {
     flexDirection: 'row',
     marginTop: 5,
     width: '95%',
     alignSelf: 'center',
+    justifyContent: 'space-between',
   },
   scheduleItem: {
     height: 40,
@@ -129,14 +133,14 @@ const styles = {
     fontWeight: '500',
   },
   paymentMethodImage: {
-    height: '100%',
+    height: '46%',
     width: '100%',
     borderRadius: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    height: 330,
+    height: 30,
   },
 };
 
