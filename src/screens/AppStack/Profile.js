@@ -46,6 +46,10 @@ const Profile = () => {
           width: '100%',
           height: '25%',
           position: 'absolute',
+          backgroundColor: 'white',
+          borderColor: '#2158ff',
+          borderBottomWidth: 1,
+          borderBottomColor: 'red',
         }}>
         {imagebackgroundUri && (
           <ImageBackground
@@ -83,35 +87,103 @@ const Profile = () => {
       </View>
       <View
         style={{
-          marginTop: 60,
+          marginTop: 20,
           height: 25,
         }}>
-        <Text style={styles.textInput}>Name</Text>
-        <Input />
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          <Image
+            source={require('../../assets/icon1.png')}
+            style={{
+              height: 20,
+              width: 20,
+              marginLeft: 10,
+            }}
+          />
+          <Text style={styles.textInput}>Name</Text>
+        </View>
+        <Input
+          marginLeftImg2={45}
+          img2={require('../../assets/editIcon1.png')}
+          rightIcon={true}
+        />
       </View>
       <View
         style={{
           marginTop: 60,
           height: 25,
         }}>
-        <Text style={styles.textInput}>E mail</Text>
-        <Input />
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          <Image
+            source={require('../../assets/icon2.png')}
+            style={{
+              height: 20,
+              width: 20,
+              marginLeft: 10,
+            }}
+          />
+          <Text style={styles.textInput}>Email</Text>
+        </View>
+        <Input
+          marginLeftImg2={45}
+          img2={require('../../assets/editIcon1.png')}
+          rightIcon={true}
+        />
       </View>
       <View
         style={{
           marginTop: 60,
           height: 25,
         }}>
-        <Text style={styles.textInput}>Phone Number</Text>
-        <Input />
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          <Image
+            source={require('../../assets/phoneIcon1.png')}
+            style={{
+              height: 20,
+              width: 20,
+              marginLeft: 10,
+            }}
+          />
+          <Text style={styles.textInput}>Phone Number</Text>
+        </View>
+        <Input
+          img2={require('../../assets/editIcon1.png')}
+          rightIcon={true}
+          marginLeftImg2={45}
+        />
       </View>
       <View
         style={{
           marginTop: 60,
           height: 25,
         }}>
-        <Text style={styles.textInput}>Address</Text>
-        <Input />
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          <Image
+            source={require('../../assets/icon1.png')}
+            style={{
+              height: 20,
+              width: 20,
+              marginLeft: 10,
+            }}
+          />
+          <Text style={styles.textInput}>Address</Text>
+        </View>
+        <Input
+          img2={require('../../assets/editIcon1.png')}
+          rightIcon={true}
+          marginLeftImg2={45}
+        />
       </View>
     </View>
   );
@@ -125,14 +197,16 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     marginTop: 128,
-    width: 150,
-    height: 150,
+    width: 155,
+    height: 155,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
     alignSelf: 'center',
     backgroundColor: 'white',
-    borderRadius: 75,
+    borderRadius: 78,
+    borderColor: '#2158ff',
+    borderWidth: 1,
   },
   profileImage: {
     width: 150,
@@ -149,7 +223,7 @@ const styles = StyleSheet.create({
   textInput: {
     color: 'black',
     fontSize: 18,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     height: 25,
   },
 });

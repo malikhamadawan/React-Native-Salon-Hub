@@ -19,6 +19,7 @@ const Input = ({
   imgBorderRadius,
   secureTextEntry,
   marginHorizontal,
+  marginLeftImg2,
 }) => {
   const [show, setShow] = useState(secureTextEntry);
   return (
@@ -59,7 +60,17 @@ const Input = ({
           />
         </TouchableOpacity>
       )}
-      {rightIcon && <Image source={img2} style={styles.rightIconStyle} />}
+      {rightIcon && (
+        <TouchableOpacity>
+          <Image
+            source={img2}
+            style={[
+              styles.rightIconStyle,
+              {marginLeft: marginLeftImg2 ? marginLeftImg2 : 20},
+            ]}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -94,7 +105,7 @@ const styles = StyleSheet.create({
   rightIconStyle: {
     width: 24,
     height: 24,
-    marginLeft: 10,
+
     marginRight: 5,
   },
 });
