@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -63,7 +64,8 @@ const Profile = () => {
               width: '100%',
             }}
             blurRadius={3}
-            resizeMode="cover"></ImageBackground>
+            resizeMode="cover"
+          />
         )}
         <TouchableOpacity
           style={styles.cameraButton}

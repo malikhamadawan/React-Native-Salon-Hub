@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Alert, KeyboardAvoidingView} from 'react-native';
 import {Input} from '../../components/input';
 import Header from '../../components/header';
@@ -10,11 +10,26 @@ import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {LoadingLottie} from '../../components/loadingLottie';
+import {
+  GoogleOneTapSignIn,
+  statusCodes,
+  isErrorWithCode,
+  GoogleSignin,
+} from '@react-native-google-signin/google-signin';
 
 const LogIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['email', 'profile'],
+      webClientId:
+        '221263845442-mverfrfkmhknbv1b4oe6bqhdt3ibdd4k.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
+  }, []);
 
   const handleLogin = async () => {
     setLoading(true);
@@ -28,6 +43,28 @@ const LogIn = ({navigation}) => {
       console.error(error);
     }
   };
+
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      // Create a new credential with the token from Google
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        userInfo.idToken,
+      );
+
+      // Sign in the user with the credential
+      const user = await auth().signInWithCredential(googleCredential);
+
+      console.log('User signed in with Google:', user);
+      navigation.navigate('AppStack', {screen: 'BottomTab'});
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Google sign-in failed. Please try again.');
+    }
+  };
+
   return (
     <View
       style={{
@@ -84,6 +121,7 @@ const LogIn = ({navigation}) => {
         />
         <OrSeprator />
         <CustomButton
+          onPress={signInWithGoogle}
           text={'Sign In with Google'}
           txtColor={'#2158ff'}
           btnColor={'#fff'}
