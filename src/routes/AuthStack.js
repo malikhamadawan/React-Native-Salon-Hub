@@ -1,6 +1,8 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
+import {View, Text} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-/** screen */
+/** screens */
 import Start from '../screens/AuthStack/Start';
 import LogIn from '../screens/AuthStack/LogIn';
 import SignUp from '../screens/AuthStack/SignUp';
@@ -13,9 +15,31 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
+  const [isFirstTime, setIsFirstTime] = useState(null);
+
+  useEffect(() => {
+    const checkFirstLaunch = async () => {
+      const firstLaunch = await AsyncStorage.getItem('hasLaunched');
+      if (firstLaunch === null) {
+        // This is the first time the app is opened
+        setIsFirstTime(true);
+        await AsyncStorage.setItem('hasLaunched', 'true');
+      } else {
+        // App has been opened before
+        setIsFirstTime(false);
+      }
+    };
+
+    checkFirstLaunch();
+  }, []);
+
+  if (isFirstTime === null) {
+    return null; // Or a loading spinner while determining the first launch
+  }
+
   return (
     <Stack.Navigator
-      initialRouteName="Start"
+      initialRouteName={isFirstTime ? 'Start' : 'LogIn'}
       screenOptions={{
         headerShown: false,
       }}>

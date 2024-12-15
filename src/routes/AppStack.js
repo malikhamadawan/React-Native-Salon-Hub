@@ -15,6 +15,7 @@ import Notifications from '../screens/AppStack/Notifications';
 import Animation from '../screens/AppStack/Animation';
 import Test from '../screens/AppStack/Test';
 import Profile from '../screens/AppStack/Profile';
+import ShopDetail from '../screens/AppStack/ShopDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ function AppStack() {
         <Stack.Screen name="Animation" component={Animation} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="ShopDetail" component={ShopDetail} />
       </Stack.Navigator>
     </>
   );

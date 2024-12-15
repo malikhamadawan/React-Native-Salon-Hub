@@ -17,7 +17,24 @@ import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}) => {
-  /** list */
+  const [user1, setUser1] = useState(null);
+
+  useEffect(() => {
+    const checkUserSession = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken) {
+        const currentUser = await auth().currentUser;
+        setUser1(currentUser);
+      } else {
+        navigation.navigate('AuthStack', {screen: 'LogIn'}); // Redirect to login if not authenticated
+      }
+    };
+    checkUserSession();
+  }, [navigation]);
+
+  if (!user1) {
+    return null; // Show loading or placeholder until user state is fetched
+  }
   const newData = [
     {
       image: require('../../assets/p1.png'),

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>221263845442-mverfrfkmhknbv1b4oe6bqhdt3ibdd4k.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAmmgb-ULUENePzNE5Hv7pTbAcg-G9d4qE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>221263845442</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.CuttingHub</string>
+	<key>PROJECT_ID</key>
+	<string>cutting-hub</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cutting-hub.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:221263845442:ios:1744468f469f039875b5db</string>
+</dict>
+</plist>

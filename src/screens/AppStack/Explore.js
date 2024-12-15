@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Input} from '../../components/input';
 
-const Explore = () => {
+const Explore = ({navigation}) => {
   const newData3 = [
     {
       id: 0,
@@ -102,7 +102,12 @@ const Explore = () => {
         contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.listContainer}>
           {filteredData.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.listItem}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('AppStack', {screen: 'ShopDetail'});
+              }}
+              key={index}
+              style={styles.listItem}>
               <ImageBackground
                 source={item.image}
                 imageStyle={styles.listItemImage}
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%',
     borderRadius: 10,
-    marginTop: '15%',
+    // marginTop: '15%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',

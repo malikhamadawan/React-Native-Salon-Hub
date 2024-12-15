@@ -75,7 +75,7 @@ const BookNow = ({navigation}) => {
       </TouchableOpacity>
       <ProfileCard
         showButton
-        text1="Usman\n"
+        text1={`Usman\n`}
         text2="Barber"
         profileImg1={require('../../assets/profile2.jpeg')}
         marginTop={5}
