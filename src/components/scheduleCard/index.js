@@ -1,15 +1,10 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import CustomButton from '../../components/customButton';
 import {useNavigation} from '@react-navigation/native';
+import CustomModal from '../../components/modal'; // Import the modal
 
-const index = ({
+const Index = ({
   showBtn = false,
   title,
   name,
@@ -17,187 +12,64 @@ const index = ({
   date,
   endTime,
   startTime,
-  onPress,
   id,
 }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const navigation = useNavigation();
 
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
-    <View
-      style={{
-        height: showBtn ? 200 : 180,
-        width: '98%',
-        backgroundColor: '#fff',
-        marginTop: 15,
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignSelf: 'center',
-        // shadowColor: '#808080',
-        // shadowOpacity: 10,
-        // shadowOffset: {
-        //   width: 4,
-        //   height: 5,
-        // },
-        // backgroundColor: 'blue',
-      }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-around',
-          borderRadius: 12,
-        }}>
-        <View
-          style={{
-            height: '45%',
-            width: '75%',
-            marginTop: 10,
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={profileImage}
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 80,
-            }}
-          />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.profileSection}>
+          <Image source={profileImage} style={styles.profileImage} />
           <View>
-            <Text
-              style={{
-                fontSize: 19,
-                fontWeight: '600',
-                color: '#0D1230',
-                marginTop: 7,
-                marginLeft: 7,
-              }}>
-              {title}
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '400',
-                color: '#0D1230',
-                marginLeft: 7,
-                marginTop: 7,
-              }}>
-              {name}
-            </Text>
-            <Text
-              style={{
-                fontSize: 13,
-                fontWeight: '300',
-                color: '#737687',
-                marginLeft: 7,
-              }}>
-              Barber
-            </Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.role}>Barber</Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            height: 30,
-            width: 30,
-            backgroundColor: '#BBE4FB',
-            borderRadius: 7,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 15,
-            marginRight:10,          }}>
+        <TouchableOpacity style={styles.callButton}>
           <Image
             source={require('../../assets/phoneIcon1.png')}
-            style={{
-              height: 20,
-              width: 20,
-            }}
+            style={styles.icon}
           />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          backgroundColor: '#fff',
-          height: '25%',
-          width: '95%',
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          alignSelf: 'center',
-          alignItems: 'center',
-          // marginTop: 7,
-          borderRadius: 10,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            alignSelf: 'center',
-            width: '50%',
-          }}>
+
+      <View style={styles.details}>
+        <View style={styles.detailItem}>
           <Image
             source={require('../../assets/calendarIcon.png')}
-            style={{
-              height: 24,
-              width: 24,
-              marginLeft: 15,
-            }}
+            style={styles.icon}
           />
-          <Text
-            style={{
-              fontSize: 13,
-              color: '#363A53',
-              marginLeft: 10,
-            }}>
-            {date}
-          </Text>
+          <Text style={styles.detailText}>{date}</Text>
         </View>
         <Image
           source={require('../../assets/Icons7.png')}
-          style={{
-            height: 24,
-            width: 2,
-          }}
+          style={styles.dividerIcon}
         />
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            alignSelf: 'center',
-            width: '50%',
-          }}>
+        <View style={styles.detailItem}>
           <Image
             source={require('../../assets/clockIcon.png')}
-            style={{
-              height: 24,
-              width: 24,
-              marginLeft: 25,
-            }}
+            style={styles.icon}
           />
-          <Text
-            style={{
-              fontSize: 13,
-              color: '#363A53',
-              marginLeft: 10,
-            }}>
+          <Text style={styles.detailText}>
             {startTime} - {endTime}
           </Text>
         </View>
       </View>
-      <View>
-        {showBtn && (
+
+      {showBtn && (
+        <View>
           <Image
             source={require('../../assets/divider1.png')}
-            style={{
-              width: '100%',
-            }}
+            style={styles.divider}
           />
-        )}
-
-        {showBtn && (
-          <View
-            style={{
-              // backgroundColor: 'red',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
+          <View style={styles.buttonContainer}>
             <CustomButton
               btnColor={'#fff'}
               borderWidth={1}
@@ -210,9 +82,7 @@ const index = ({
               btnHeight={35}
             />
             <CustomButton
-              onPress={() => {
-                navigation.navigate('AppStack', {screen: 'Shop'});
-              }}
+              onPress={toggleModal}
               imgPath={require('../../assets/editIcon.png')}
               btnColor={'#2158FF'}
               width={130}
@@ -224,10 +94,118 @@ const index = ({
               showImage={true}
             />
           </View>
-        )}
-      </View>
+        </View>
+      )}
+
+      {/* Custom Modal */}
+      <CustomModal
+        isVisible={isModalVisible}
+        onClose={toggleModal}
+        title="Edit Booking"
+        onPressButton={() => {
+          navigation.navigate('BookNow');
+          setIsModalVisible(false);
+        }}>
+        <Text>Here you can edit the Booking details for {title} booking</Text>
+      </CustomModal>
     </View>
   );
 };
 
-export default index;
+const styles = StyleSheet.create({
+  container: {
+    height: 200,
+    width: '98%',
+    backgroundColor: '#fff',
+    marginTop: 15,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+    borderRadius: 12,
+  },
+  profileSection: {
+    height: '45%',
+    width: '75%',
+    marginTop: 10,
+    flexDirection: 'row',
+  },
+  profileImage: {
+    height: 80,
+    width: 80,
+    borderRadius: 80,
+  },
+  title: {
+    fontSize: 19,
+    fontWeight: '600',
+    color: '#0D1230',
+    marginTop: 7,
+    marginLeft: 7,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#0D1230',
+    marginLeft: 7,
+    marginTop: 7,
+  },
+  role: {
+    fontSize: 13,
+    fontWeight: '300',
+    color: '#737687',
+    marginLeft: 7,
+  },
+  callButton: {
+    height: 30,
+    width: 30,
+    backgroundColor: '#BBE4FB',
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+    marginRight: 10,
+  },
+  icon: {
+    height: 20,
+    width: 20,
+  },
+  details: {
+    backgroundColor: '#fff',
+    height: '25%',
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignSelf: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  detailItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: '50%',
+    justifyContent: 'center',
+  },
+  detailText: {
+    fontSize: 13,
+    color: '#363A53',
+    marginLeft: 10,
+  },
+  dividerIcon: {
+    height: 24,
+    width: 2,
+  },
+  divider: {
+    width: '100%',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+});
+
+export default Index;

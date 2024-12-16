@@ -104,7 +104,7 @@ const Explore = ({navigation}) => {
           {filteredData.map((item, index) => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('AppStack', {screen: 'ShopDetail'});
+                navigation.navigate('AppStack', {screen: 'Shop'});
               }}
               key={index}
               style={styles.listItem}>
