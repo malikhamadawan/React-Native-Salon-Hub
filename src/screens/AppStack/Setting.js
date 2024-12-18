@@ -45,6 +45,9 @@ const Setting = ({navigation}) => {
           imgMarg={10}
         />
         <CustomButton
+          onPress={() =>
+            navigation.navigate('AppStack', {screen: 'Appointments'})
+          }
           btnColor={'#fff'}
           text={'Appointments'}
           txtColor={'#2158ff'}

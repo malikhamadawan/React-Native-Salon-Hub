@@ -100,6 +100,10 @@ const Index = ({
       {/* Custom Modal */}
       <CustomModal
         isVisible={isModalVisible}
+        onServices={() => {
+          navigation.navigate('Shop');
+          setIsModalVisible(false);
+        }}
         onClose={toggleModal}
         title="Edit Booking"
         onPressButton={() => {

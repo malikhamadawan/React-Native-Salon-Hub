@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Input} from '../../components/input';
+import CustomButton from '../../components/customButton';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const [imageUri, setImageUri] = React.useState(null);
 
   const pickImage = async () => {
@@ -48,10 +49,35 @@ const Profile = () => {
           height: '25%',
           position: 'absolute',
           backgroundColor: 'white',
-          borderColor: '#2158ff',
+          // borderColor: '#2158ff',
           borderBottomWidth: 1,
-          borderBottomColor: 'red',
+          borderBottomColor: '#2158ff',
         }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          activeOpacity={0.5}
+          style={{
+            backgroundColor: '#2158ff',
+            width: 27,
+            alignItems: 'center',
+            justifyContent: 'center',
+            alignContent: 'center',
+            borderRadius: 5,
+            height: 27,
+            marginTop: 7,
+            marginLeft: 7,
+          }}>
+          <Image
+            source={require('../../assets/arrowicon2.png')}
+            resizeMode={'contain'}
+            style={{
+              width: 24,
+              height: 24,
+              marginRight: 1,
+              marginBottom: 1,
+            }}
+          />
+        </TouchableOpacity>
         {imagebackgroundUri && (
           <ImageBackground
             source={
@@ -185,6 +211,20 @@ const Profile = () => {
           img2={require('../../assets/editIcon1.png')}
           rightIcon={true}
           marginLeftImg2={45}
+        />
+      </View>
+      <View
+        style={{
+          marginTop: '25%',
+        }}>
+        <CustomButton
+          onPress={() => navigation.goBack()}
+          btnColor="#2158FF"
+          width={150}
+          text="Save"
+          justi="center"
+          txtColor="white"
+          btnHeight={42}
         />
       </View>
     </View>

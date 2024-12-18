@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-native/no-inline-styles */
 import React, {Fragment, useRef, useState} from 'react';
 import {
   Text,
@@ -8,6 +10,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 
 /** camera library */
@@ -103,12 +106,14 @@ const BottomTab = () => {
           name="QR"
           component={Explore}
           options={{
+            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarLabel: ({focused, color}) => (
               <Text
                 style={{
                   color: focused ? 'red' : color,
                   marginBottom: 8,
-                }}></Text>
+                }}
+              />
             ),
             tabBarIcon: ({focused, color}) => (
               <Image

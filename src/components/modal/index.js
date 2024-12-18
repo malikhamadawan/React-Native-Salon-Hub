@@ -10,7 +10,14 @@ import CustomButton from '../customButton';
 import BookingDetail from '../../screens/AppStack/BookingDetail';
 import {useNavigation} from '@react-navigation/native';
 
-const CustomModal = ({isVisible, onClose, title, children, onPressButton}) => {
+const CustomModal = ({
+  isVisible,
+  onClose,
+  title,
+  children,
+  onPressButton,
+  onServices,
+}) => {
   return (
     <Modal
       transparent={true}
@@ -30,7 +37,7 @@ const CustomModal = ({isVisible, onClose, title, children, onPressButton}) => {
                   flexDirection: 'row',
                 }}>
                 <CustomButton
-                  onPress={onClose}
+                  onPress={onServices}
                   btnColor={'#2158FF'}
                   width={130}
                   text={'Services'}

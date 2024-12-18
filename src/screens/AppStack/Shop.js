@@ -176,7 +176,7 @@ const Shop = ({navigation}) => {
             marginTop: 5,
           }}>
           <FlatList
-          showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             data={data}
             renderItem={({item}) => {
               const isSelected = selectedItems.some(
