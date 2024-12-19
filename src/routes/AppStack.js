@@ -16,6 +16,7 @@ import Animation from '../screens/AppStack/Animation';
 import Test from '../screens/AppStack/Test';
 import Profile from '../screens/AppStack/Profile';
 import Appointments from '../screens/AppStack/Appointments';
+import StoryScreen from '../screens/AppStack/StoryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,7 @@ function AppStack() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Test" component={Test} />
         <Stack.Screen name="Appointments" component={Appointments} />
+        <Stack.Screen name="StoryScreen" component={StoryScreen} />
       </Stack.Navigator>
     </>
   );

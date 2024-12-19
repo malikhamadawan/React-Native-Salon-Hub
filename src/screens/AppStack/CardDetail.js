@@ -25,7 +25,7 @@ const CardDetail = ({navigation}) => {
       </TouchableOpacity>
       <ProfileCard
         showButton={false}
-        text1="Mr Cuts Hair    Saloon\n"
+        text1={'Mr Cuts Hair\nSaloon'}
         text2="Block F,PIA Housing Scheme,Lahore"
         profileImg1={require('../../assets/mrCuts.jpeg')}
       />
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     marginLeft: 13,
   },
   cvvInput: {
-    width: '46%',
+    width: '49%',
   },
   buttonContainer: {
     flexDirection: 'row',
