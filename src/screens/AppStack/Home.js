@@ -1,6 +1,6 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,9 @@ import {
   TouchableOpacity,
   Modal,
   Platform,
+  StyleSheet,
+  Animated,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 /** component */
@@ -24,6 +27,7 @@ const Home = ({navigation}) => {
   const [user1, setUser1] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const checkUserSession = async () => {
@@ -48,10 +52,18 @@ const Home = ({navigation}) => {
     },
     {
       image: require('../../assets/p2.png'),
+      title: 'Much',
+    },
+    {
+      image: require('../../assets/p4.png'),
       title: 'Coloring',
     },
     {
-      image: require('../../assets/p3.png'),
+      image: require('../../assets/p2.png'),
+      title: 'Beard',
+    },
+    {
+      image: require('../../assets/p1.png'),
       title: 'Spa',
     },
     {
@@ -72,18 +84,32 @@ const Home = ({navigation}) => {
     setSelectedImage(image);
     setIsModalVisible(true);
 
-    setTimeout(() => {
+    // Reset progress bar
+    progress.setValue(0);
+
+    // Start progress bar animation (10 seconds)
+    Animated.timing(progress, {
+      toValue: 1,
+      duration: 10000, // 10 seconds
+      useNativeDriver: false, // Needed for width animations
+    }).start(() => {
+      // Auto-close modal after progress completes
       setIsModalVisible(false);
       setSelectedImage(null);
-    }, 30000);
-    // Optionally, clear the timeout if the modal is hidden before 30 seconds
+    });
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
     setSelectedImage(null);
+    progress.setValue(0); // Reset progress bar
   };
 
+  // Interpolated progress bar width
+  const progressWidth = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+  });
   const newData2 = [
     {
       image: require('../../assets/images2.jpeg'),
@@ -230,7 +256,8 @@ const Home = ({navigation}) => {
         <FlatList
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            alignItems: 'center',
+            // alignContent: 'center',
+            width: '100%',
           }}
           horizontal={true}
           data={newData}
@@ -528,49 +555,80 @@ const Home = ({navigation}) => {
       <Modal
         visible={isModalVisible}
         transparent={true}
-        animationType="a"
+        animationType="fade"
         onRequestClose={closeModal}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          }}>
-          <View
-            style={{
-              width: '100%',
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              height: '92%',
-            }}>
-            <TouchableOpacity
-              style={{
-                marginTop: Platform.OS === 'ios' ? 30 : 15,
-                marginLeft: 20,
-                marginBottom: '10%',
-              }}
-              onPress={closeModal}>
-              <Image
-                source={require('../../assets/arrowicon2.png')}
-                style={{
-                  width: 24,
-                  height: 24,
-                  marginRight: '92%',
-                }}
-              />
-            </TouchableOpacity>
-            {selectedImage && (
-              <ImageBackground
-                source={selectedImage}
-                style={{
-                  width: '100%',
-                  height: '95%',
-                }}
-                resizeMode="contain"></ImageBackground>
-            )}
+        <TouchableWithoutFeedback onPress={closeModal}>
+          <View style={styles.overlay}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+                <Image
+                  source={require('../../assets/crossIcon.png')}
+                  style={styles.closeIcon}
+                />
+              </TouchableOpacity>
+              {selectedImage && (
+                <TouchableWithoutFeedback>
+                  <View style={styles.imageContainer}>
+                    {/* Progress Line */}
+                    <Animated.View
+                      style={[styles.progressLine, {width: progressWidth}]}
+                    />
+                    {/* Image */}
+                    <ImageBackground
+                      source={selectedImage}
+                      style={styles.imageBackground}
+                      resizeMode="contain"
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+              )}
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    height: '10%',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalContent: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  closeButton: {
+    marginTop: Platform.OS === 'ios' ? 42 : 15,
+    marginLeft: 20,
+    // marginBottom: '30%',
+  },
+  closeIcon: {
+    width: 24,
+    height: 24,
+    marginRight: '92%',
+    // marginTop: 10,
+  },
+  imageContainer: {
+    flex: 1,
+    width: '100%',
+    // position: 'relative',
+  },
+  progressLine: {
+    position: 'absolute',
+    top: 43,
+    left: 0,
+    height: 4,
+    backgroundColor: '#2158FF', // Progress line color
+    zIndex: 20,
+  },
+  imageBackground: {
+    width: '100%',
+    height: '100%',
+  },
+});
 
 export default Home;
