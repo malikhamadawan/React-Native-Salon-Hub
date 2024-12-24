@@ -75,7 +75,7 @@ const Home = ({navigation}) => {
     setTimeout(() => {
       setIsModalVisible(false);
       setSelectedImage(null);
-    }, 3000);
+    }, 30000);
     // Optionally, clear the timeout if the modal is hidden before 30 seconds
   };
 
