@@ -93,7 +93,6 @@ const Home = ({navigation}) => {
       duration: 10000, // 10 seconds
       useNativeDriver: false, // Needed for width animations
     }).start(() => {
-      // Auto-close modal after progress completes
       setIsModalVisible(false);
       setSelectedImage(null);
     });
