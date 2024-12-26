@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>GlobalTrackingApp.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>2</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>BFA7772B2486050CA58C25F8F3A03ED6730DB83C</string>
+				<key>dateExpires</key>
+				<string>30/04/2025</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>YKN5V44292.com.b2b.tracking</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>YKN5V44292</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>GlobalTrackingApp.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>8f2735a0-64ca-4b01-9f7f-cbb08ae63f53</string>
+				<key>dateExpires</key>
+				<string>30/04/2025</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.b2b.tracking</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>YKN5V44292</string>
+				<key>name</key>
+				<string>QUAID VENTURES CONSULTANCY SMC-PRIVATE LIMITED</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.15.5</string>
+		</dict>
+	</array>
+</dict>
+</plist>
