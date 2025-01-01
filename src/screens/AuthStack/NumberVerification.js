@@ -118,7 +118,7 @@ const NumberVerification = ({navigation}) => {
           <Text
             style={{
               fontSize: 17,
-              color: '#2158ff',
+              color: '#2158FF',
             }}>
             {' '}
             (+923044949459)
@@ -157,7 +157,7 @@ const NumberVerification = ({navigation}) => {
         <Text
           style={{
             fontSize: 12,
-            color: '#2158ff',
+            color: '#2158FF',
           }}>
           Resend OTP
         </Text>
@@ -172,7 +172,7 @@ const NumberVerification = ({navigation}) => {
           onPress={() => {
             handleSubmit();
           }}
-          btnColor={'#2158ff'}
+          btnColor={'#2158FF'}
           width={150}
           borderColor={'transparent'}
           borderWidth={true}

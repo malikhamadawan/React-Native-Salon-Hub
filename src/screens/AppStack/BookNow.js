@@ -28,35 +28,19 @@ const BookNow = ({navigation}) => {
 
   useEffect(() => {
     if (isFocus) {
-      const currentYear = internalDate.getFullYear();
-      const currentMonth = internalDate.getMonth();
-      const currentDateOnly = new Date(
-        currentYear,
-        currentMonth,
-        internalDate.getDate(),
-      );
-
-      const generateDates = (year, month) => {
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        return Array.from(
-          {length: daysInMonth},
-          (_, i) => new Date(year, month, i + 1),
-        );
+      const currentDate = new Date();
+      const generateNext30Days = startDate => {
+        return Array.from({length: 31}, (_, i) => {
+          const date = new Date(startDate);
+          date.setDate(startDate.getDate() + i);
+          return date;
+        });
       };
 
-      const thisMonthDates = generateDates(currentYear, currentMonth);
-      const nextMonthDates = generateDates(
-        currentYear + (currentMonth + 1 === 12 ? 1 : 0),
-        (currentMonth + 1) % 12,
-      );
-
-      setAllDatesInMonth(
-        [...thisMonthDates, ...nextMonthDates].filter(
-          date => date >= currentDateOnly,
-        ),
-      );
+      const datesForNext30Days = generateNext30Days(currentDate);
+      setAllDatesInMonth(datesForNext30Days);
     }
-  }, [internalDate, isFocus]);
+  }, [isFocus]);
 
   const handleBooking = () => {
     setSelectedDate(null);
@@ -210,6 +194,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: 5,
+    // backgroundColor: 'red',
   },
   backIcon: {
     width: 24,

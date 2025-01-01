@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity, Platform, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,6 +34,7 @@ const ProfileHeader = ({onPress}) => {
         paddingHorizontal: 10,
         marginTop: Platform.OS === 'ios' ? '12%' : '8%',
         marginBottom: 12,
+        // backgroundColor: 'red',
       }}>
       <View
         style={{
@@ -47,7 +49,7 @@ const ProfileHeader = ({onPress}) => {
             width: 60,
             marginTop: 5,
             borderRadius: 100,
-            marginLeft: 10,
+            // marginLeft: 5,
           }}
         />
         <View>
@@ -69,6 +71,7 @@ const ProfileHeader = ({onPress}) => {
               marginLeft: 10,
             }}>
             <Image
+              tintColor={'#2158FF'}
               source={
                 user?.image
                   ? {uri: user?.image}
@@ -108,7 +111,10 @@ const ProfileHeader = ({onPress}) => {
             height: 5,
           },
         }}>
-        <Image source={require('../../assets/bellIcon1.png')} />
+        <Image
+          tintColor={'#2158FF'}
+          source={require('../../assets/bellIcon1.png')}
+        />
       </TouchableOpacity>
     </View>
   );

@@ -49,15 +49,15 @@ const Profile = ({navigation}) => {
           height: '25%',
           position: 'absolute',
           backgroundColor: 'white',
-          // borderColor: '#2158ff',
+          // borderColor: '#2158FF',
           borderBottomWidth: 1,
-          borderBottomColor: '#2158ff',
+          borderBottomColor: '#2158FF',
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           activeOpacity={0.5}
           style={{
-            backgroundColor: '#2158ff',
+            backgroundColor: '#2158FF',
             width: 27,
             alignItems: 'center',
             justifyContent: 'center',
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 78,
-    borderColor: '#2158ff',
+    borderColor: '#2158FF',
     borderWidth: 1,
   },
   profileImage: {

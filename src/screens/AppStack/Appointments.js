@@ -86,7 +86,7 @@ const Appointments = ({navigation}) => {
           width: '100%',
           justifyContent: 'center',
           marginTop: 10,
-          marginBottom:15,
+          marginBottom: 15,
         }}>
         <Text
           style={{

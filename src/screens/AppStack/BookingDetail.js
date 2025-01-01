@@ -124,13 +124,16 @@ const BookingDetail = ({navigation}) => {
             <View style={styles.paymentItemContent}>
               <Image source={item.image} style={styles.paymentIcon} />
               <Text style={styles.paymentText}>{item.title}</Text>
+              {/* Reserve space for the checkbox to avoid layout shifts */}
+              <View style={styles.checkBoxContainer}>
+                {selectedPaymentMethod === item.id && (
+                  <Image
+                    source={require('../../assets/checkBoxIcon.png')}
+                    style={styles.checkBox}
+                  />
+                )}
+              </View>
             </View>
-            {selectedPaymentMethod === item.id && (
-              <Image
-                source={require('../../assets/checkBoxIcon.png')}
-                style={styles.checkBox}
-              />
-            )}
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id.toString()}
@@ -237,16 +240,18 @@ const styles = StyleSheet.create({
     width: '90%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 18,
   },
   divider: {
-    width: '80%',
+    width: '90%',
     height: 1,
   },
   totalContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '75%',
+    width: '70%',
     alignSelf: 'center',
+    // marginLeft: '10',
   },
   totalText: {
     fontSize: 18,
@@ -265,24 +270,24 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginTop: 10,
+    paddingHorizontal: 10,
   },
   paymentItemContent: {
-    width: '85%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 10,
+    flex: 1,
   },
   paymentIcon: {
     height: 30,
     width: 30,
-    marginLeft: 5,
+    marginRight: 10,
   },
   paymentText: {
     fontSize: 18,
     color: 'black',
-    paddingHorizontal: 10,
+    flex: 1,
   },
   checkBox: {
     height: 30,
@@ -290,6 +295,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 120,
+  },
+  checkBoxContainer: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bookButton: {
     marginTop: Platform.OS === 'ios' ? 5 : 0,

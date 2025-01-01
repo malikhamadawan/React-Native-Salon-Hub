@@ -123,14 +123,14 @@ const SignUp = ({navigation}) => {
         text={'Sign Up'}
         txtColor={'#fff'}
         justi={'center'}
-        btnColor={'#2158ff'}
+        btnColor={'#2158FF'}
         onPress={handleSignUp} // Call handleSignUp function when Sign Up button is pressed
       />
       <OrSeprator />
       <CustomButton
         text={'Sign Up with Google'}
-        txtColor={'#2158ff'}
-        borderColor={'#2158ff'}
+        txtColor={'#2158FF'}
+        borderColor={'#2158FF'}
         justi={'center'}
         showImage={true}
         imgPath={require('../../assets/googleIcon.png')}

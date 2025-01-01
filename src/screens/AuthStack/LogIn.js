@@ -107,18 +107,18 @@ const LogIn = ({navigation}) => {
           text={'Sign In'}
           txtColor={'#fff'}
           justi={'center'}
-          btnColor={'#2158ff'}
+          btnColor={'#2158FF'}
         />
         <OrSeprator />
         <CustomButton
           onPress={signInWithGoogle}
           text={'Sign In with Google'}
-          txtColor={'#2158ff'}
+          txtColor={'#2158FF'}
           btnColor={'#fff'}
           justi={'center'}
           showImage={true}
           imgPath={require('../../assets/googleIcon.png')}
-          borderColor={'#2158ff'}
+          borderColor={'#2158FF'}
           borderWidth={true}
         />
       </View>

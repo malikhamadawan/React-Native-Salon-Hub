@@ -33,10 +33,11 @@ const Input = ({
       {leftIcon && (
         <Image
           source={img}
+          tintColor={'#2158FF'}
           style={[
             styles.leftIconStyle,
             {
-              width: imgWidth ? imgWidth : 20,
+              width: imgWidth ? imgWidth : 18,
               borderRadius: imgBorderRadius,
             },
           ]}
@@ -64,9 +65,10 @@ const Input = ({
         <TouchableOpacity>
           <Image
             source={img2}
+            tintColor={'#2158FF'}
             style={[
               styles.rightIconStyle,
-              {marginLeft: marginLeftImg2 ? marginLeftImg2 : 20},
+              {marginLeft: marginLeftImg2 ? marginLeftImg2 : 15},
             ]}
           />
         </TouchableOpacity>

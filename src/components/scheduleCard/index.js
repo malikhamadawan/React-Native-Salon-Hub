@@ -1,8 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from 'react-native';
 import CustomButton from '../../components/customButton';
 import {useNavigation} from '@react-navigation/native';
-import CustomModal from '../../components/modal'; // Import the modal
+import CustomModal from '../../components/modal';
 
 const Index = ({
   showBtn = false,
@@ -13,12 +20,29 @@ const Index = ({
   endTime,
   startTime,
   id,
+  phoneNo, // Add phone number prop
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigation = useNavigation();
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
+  };
+  console.log('phoneNo', phoneNo);
+
+  const handleCallPress = () => {
+    const phoneUrl = `tel:${phoneNo}`;
+    console.log('Phone number:', phoneNo);
+    console.log('URL to open:', phoneUrl);
+
+    // Check if the device can handle the tel: URL
+    Linking.openURL(phoneUrl)
+      .then(supported => {
+        console.log(supported);
+      })
+      .catch(err => {
+        console.error('Error checking URL support:', err);
+      });
   };
 
   return (
@@ -32,7 +56,7 @@ const Index = ({
             <Text style={styles.role}>Barber</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.callButton}>
+        <TouchableOpacity style={styles.callButton} onPress={handleCallPress}>
           <Image
             source={require('../../assets/phoneIcon1.png')}
             style={styles.icon}
@@ -43,6 +67,7 @@ const Index = ({
       <View style={styles.details}>
         <View style={styles.detailItem}>
           <Image
+            tintColor={'#2158FF'}
             source={require('../../assets/calendarIcon.png')}
             style={styles.icon}
           />
@@ -54,6 +79,7 @@ const Index = ({
         />
         <View style={styles.detailItem}>
           <Image
+            // tintColor={'#2158FF'}
             source={require('../../assets/clockIcon.png')}
             style={styles.icon}
           />
@@ -97,7 +123,6 @@ const Index = ({
         </View>
       )}
 
-      {/* Custom Modal */}
       <CustomModal
         isVisible={isModalVisible}
         onServices={() => {
@@ -119,7 +144,7 @@ const Index = ({
 const styles = StyleSheet.create({
   container: {
     height: 200,
-    width: '98%',
+    width: '97%',
     backgroundColor: '#fff',
     marginTop: 15,
     borderRadius: 15,

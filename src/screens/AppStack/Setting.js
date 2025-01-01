@@ -37,7 +37,7 @@ const Setting = ({navigation}) => {
           onPress={() => navigation.navigate('AppStack', {screen: 'Profile'})}
           btnColor={'#fff'}
           text={'Profile'}
-          txtColor={'#2158ff'}
+          txtColor={'#2158FF'}
           imgPath={require('../../assets/icon1.png')}
           showImage={true}
           width={'95%'}
@@ -50,7 +50,7 @@ const Setting = ({navigation}) => {
           }
           btnColor={'#fff'}
           text={'Appointments'}
-          txtColor={'#2158ff'}
+          txtColor={'#2158FF'}
           imgPath={require('../../assets/appoinment2.png')}
           showImage={true}
           width={'95%'}
@@ -60,7 +60,7 @@ const Setting = ({navigation}) => {
         <CustomButton
           btnColor={'#fff'}
           text={'Language Region'}
-          txtColor={'#2158ff'}
+          txtColor={'#2158FF'}
           imgPath={require('../../assets/languageIcon.png')}
           showImage={true}
           width={'95%'}
@@ -70,7 +70,7 @@ const Setting = ({navigation}) => {
         <CustomButton
           btnColor={'#fff'}
           text={'Privacy and Security'}
-          txtColor={'#2158ff'}
+          txtColor={'#2158FF'}
           imgPath={require('../../assets/securityIcon.png')}
           showImage={true}
           width={'95%'}
@@ -80,7 +80,7 @@ const Setting = ({navigation}) => {
         <CustomButton
           btnColor={'#fff'}
           text={'Feed Back and Support'}
-          txtColor={'#2158ff'}
+          txtColor={'#2158FF'}
           imgPath={require('../../assets/feedbackIcon.png')}
           showImage={true}
           width={'95%'}
@@ -107,7 +107,7 @@ const Setting = ({navigation}) => {
             height: 20,
             width: 20,
             marginRight: 3,
-            tintColor: '#2158ff',
+            tintColor: '#2158FF',
           }}
         />
         <Text style={{color: '#000000', fontWeight: '500', fontSize: 15}}>

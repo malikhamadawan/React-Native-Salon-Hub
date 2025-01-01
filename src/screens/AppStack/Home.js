@@ -25,6 +25,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}) => {
   const [user1, setUser1] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const progress = useRef(new Animated.Value(0)).current;
@@ -109,6 +110,10 @@ const Home = ({navigation}) => {
     inputRange: [0, 1],
     outputRange: ['0%', '100%'],
   });
+  const handleLike = () => {
+    setIsLiked(!isLiked); // Toggle the like state
+    console.log('Liked state:', !isLiked); // Log the new state
+  };
   const newData2 = [
     {
       image: require('../../assets/images2.jpeg'),
@@ -238,6 +243,7 @@ const Home = ({navigation}) => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         flexGrow: 1,
+        marginTop: 10,
       }}>
       <ProfileHeader
         onPress={() =>
@@ -251,15 +257,17 @@ const Home = ({navigation}) => {
         placeholder={'Search “Salon, Specialist...”'}
         img={require('../../assets/searchIcon2.png')}
       />
-      <View>
+      <View style={{flexDirection: 'row', width: '100%'}}>
         <FlatList
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            // alignContent: 'center',
-            width: '100%',
-          }}
-          horizontal={true}
-          data={newData}
+          horizontal={true} // Ensures horizontal scrolling
+          showsHorizontalScrollIndicator={false} // Hides scroll indicator
+          contentContainerStyle={
+            {
+              // paddingHorizontal: 10, // Adds padding to the list
+            }
+          }
+          data={newData} // Data source for FlatList
+          keyExtractor={(item, index) => index.toString()} // Ensures each item has a unique key
           renderItem={({item}) => (
             <TouchableOpacity
               style={{
@@ -267,6 +275,7 @@ const Home = ({navigation}) => {
                 height: 80,
                 alignItems: 'center',
                 justifyContent: 'center',
+                // marginHorizontal: 5, // Adds spacing between items
               }}
               onPress={() => openModal(item.image)} // Open modal with the selected image
             >
@@ -275,7 +284,7 @@ const Home = ({navigation}) => {
                 style={{
                   width: 50,
                   height: 50,
-                  borderRadius: 30,
+                  borderRadius: 25, // Ensures the image has rounded edges
                 }}
               />
               <Text
@@ -284,6 +293,7 @@ const Home = ({navigation}) => {
                   color: 'black',
                   fontWeight: '400',
                   marginVertical: 5,
+                  textAlign: 'center', // Aligns text below the image
                 }}>
                 {item.title}
               </Text>
@@ -291,6 +301,7 @@ const Home = ({navigation}) => {
           )}
         />
       </View>
+
       <View
         style={{
           elevation: 5,
@@ -302,6 +313,7 @@ const Home = ({navigation}) => {
             fontSize: 23,
             color: '#0D1230',
             fontWeight: '600',
+            marginLeft: 5,
           }}>
           #SpecialOffers
         </Text>
@@ -432,6 +444,7 @@ const Home = ({navigation}) => {
             fontSize: 23,
             color: '#0D1230',
             fontWeight: '600',
+            marginLeft: 5,
           }}>
           Upcoming Schedule
         </Text>
@@ -453,17 +466,26 @@ const Home = ({navigation}) => {
               width: 20,
               height: 20,
             }}
+            onPress={() =>
+              navigation.navigate('AppStack', {screen: 'Schedule'})
+            }
           />
         </TouchableOpacity>
       </View>
-      <ScheduleCard
-        name={'Nadeem'}
-        endTime={'10:00'}
-        startTime={'09:00'}
-        date={'Monday,26 May'}
-        title={'Nadeem Hair Saloon'}
-        profileImage={require('../../assets/profile1.png')}
-      />
+      <View
+        style={{
+          width: '97%',
+          alignSelf: 'center',
+        }}>
+        <ScheduleCard
+          name={'Nadeem'}
+          endTime={'10:00'}
+          startTime={'09:00'}
+          date={'Monday,26 May'}
+          title={'Nadeem Hair Saloon'}
+          profileImage={require('../../assets/profile1.png')}
+        />
+      </View>
       <View
         style={{
           marginTop: 5,
@@ -479,6 +501,7 @@ const Home = ({navigation}) => {
             fontSize: 26,
             color: '#0D1230',
             fontWeight: '600',
+            marginLeft: 5,
           }}>
           Popular Shops near you
         </Text>
@@ -490,14 +513,18 @@ const Home = ({navigation}) => {
           More
         </Text>
       </View>
-      <View style={{borderRadius: 15}}>
+      <View
+        style={{
+          borderRadius: 15,
+          // backgroundColor: 'red',
+        }}>
         {newData3.map((item, index) => (
           <TouchableOpacity
             key={index}
             style={{
               elevation: 5,
               marginTop: 10,
-              marginVertical: 3,
+              marginVertical: 1,
               marginHorizontal: 3,
             }}>
             <ImageBackground
@@ -505,7 +532,8 @@ const Home = ({navigation}) => {
               imageStyle={{borderRadius: 15}}
               style={{
                 height: 180,
-                width: '100%',
+                width: '98%',
+                marginLeft: '2%',
               }}>
               <View
                 style={{
@@ -576,8 +604,38 @@ const Home = ({navigation}) => {
                     <ImageBackground
                       source={selectedImage}
                       style={styles.imageBackground}
-                      resizeMode="contain"
-                    />
+                      resizeMode="contain">
+                      {/* Like Button */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: 1,
+                          marginVertical: -20,
+                          elevation: 70,
+                          // backgroundColor: 'red',
+                          width: '85%',
+                        }}>
+                        <Input
+                          img2={require('../../assets/iconsend.png')}
+                          rightIcon={true}
+                          // leftIcon={true}
+                          placeholder={'Comments........'}
+                          marginLeftImg2={25}
+                        />
+                      </View>
+                      <TouchableOpacity
+                        style={styles.likeButton}
+                        onPress={handleLike}>
+                        <Image
+                          source={
+                            isLiked
+                              ? require('../../assets//redHeart.png')
+                              : require('../../assets/HeartIcon.png')
+                          }
+                          style={[styles.likeIcon]}
+                        />
+                      </TouchableOpacity>
+                    </ImageBackground>
                   </View>
                 </TouchableWithoutFeedback>
               )}
@@ -592,7 +650,6 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    height: '10%',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   modalContent: {
@@ -601,32 +658,54 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   closeButton: {
-    marginTop: Platform.OS === 'ios' ? 42 : 15,
+    marginTop: Platform.OS === 'ios' ? 40 : 15,
     marginLeft: 20,
     // marginBottom: '30%',
+    // backgroundColor: 'red',
+    // height: 40,
+    justifyContent: 'center',
+    // alignSelf: 'center',
   },
   closeIcon: {
     width: 24,
     height: 24,
     marginRight: '92%',
-    // marginTop: 10,
+    // margisnTop: 10,
   },
   imageContainer: {
     flex: 1,
     width: '100%',
-    // position: 'relative',
   },
   progressLine: {
     position: 'absolute',
-    top: 43,
+    top: Platform.OS === 'ios' ? 3 : 12,
     left: 0,
     height: 4,
-    backgroundColor: '#2158FF', // Progress line color
+    backgroundColor: '#2158FF',
     zIndex: 20,
   },
   imageBackground: {
     width: '100%',
-    height: '100%',
+    height: '95%',
+    // bottom: 10,
+  },
+  likeButton: {
+    position: 'absolute',
+    // marginTop: '95%',
+    bottom: -4,
+    right: 10,
+    width: 40,
+    height: 40,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+  },
+  likeIcon: {
+    width: 40,
+    height: 40,
+    marginTop: 5,
   },
 });
 

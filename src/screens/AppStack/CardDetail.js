@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -6,6 +7,7 @@ import {
   TouchableOpacity,
   Platform,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import {Input} from '../../components/input';
 import CustomButton from '../../components/customButton';
@@ -17,18 +19,27 @@ const CardDetail = ({navigation}) => {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('AppStack', {screen: 'BookingDetail'})
-        }>
+        }
+        style={{
+          marginLeft: 5,
+        }}>
         <Image
           source={require('../../assets/arrowicon2.png')}
           style={styles.backIcon}
         />
       </TouchableOpacity>
-      <ProfileCard
-        showButton={false}
-        text1={'Mr Cuts Hair\nSaloon'}
-        text2="Block F,PIA Housing Scheme,Lahore"
-        profileImg1={require('../../assets/mrCuts.jpeg')}
-      />
+      <View
+        style={{
+          width: '95%',
+          alignSelf: 'center',
+        }}>
+        <ProfileCard
+          showButton={false}
+          text1={'Mr Cuts Hair\nSaloon'}
+          text2="Block F,PIA Housing Scheme,Lahore"
+          profileImg1={require('../../assets/mrCuts.jpeg')}
+        />
+      </View>
       <View style={styles.inputLabelContainer}>
         <Text style={styles.inputLabelText}>Card Holder Name</Text>
       </View>
@@ -42,7 +53,7 @@ const CardDetail = ({navigation}) => {
         imgBorderRadius={6}
         imgWidth={40}
         leftIcon
-        placeholder="Enter card number"
+        placeholder="XXXX-XXXX-XXXX-XXXX"
       />
       <View style={styles.row}>
         <View style={styles.column}>
@@ -53,11 +64,11 @@ const CardDetail = ({navigation}) => {
         </View>
       </View>
       <View style={styles.row}>
-        <View style={styles.column}>
-          <Input width="100%" placeholder="Expiry Date" />
+        <View style={styles.column1}>
+          <Input width="100%" placeholder="XX/XX" />
         </View>
         <View style={styles.cvvInput}>
-          <Input width="100%" placeholder="Cvv" />
+          <Input width="100%" placeholder="Xxx" />
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -92,7 +103,8 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'ios' ? 50 : 40,
     flex: 1,
-    paddingHorizontal: 10,
+    // backgroundColor: 'red',
+    // paddingHorizontal: 5,
   },
   backIcon: {
     width: 24,
@@ -102,31 +114,46 @@ const styles = StyleSheet.create({
   inputLabelContainer: {
     height: 40,
     justifyContent: 'center',
-    marginTop: Platform.OS === 'ios' ? 42 : 62,
+    // marginTop: Platform.OS === 'ios' ? 42 : 62,
   },
   inputLabelText: {
     fontSize: 20,
     color: 'black',
     fontWeight: '400',
+    marginLeft: 7,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
+    marginHorizontal: 5,
   },
   column: {
     width: '50%',
+    // marginBottom: 5,
+    // backgroundColor: 'orange',
+  },
+  column1: {
+    width: '50%',
+    marginTop: 5,
+    // backgroundColor: 'orange',
   },
   cvvColumn: {
     marginLeft: 13,
+    // backgroundColor: 'orange',
   },
   cvvInput: {
     width: '49%',
+    // backgroundColor: 'pink',
+    height: '97%',
+    marginTop: 5,
+    // justifyContent: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     height: 200,
+    marginTop: '38%',
   },
 });
 

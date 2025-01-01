@@ -1,5 +1,13 @@
-import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  PermissionsAndroid,
+} from 'react-native';
 import {CustomView} from '../../components/mainContainer';
 import ScheduleCard from '../../components/scheduleCard';
 import {Input} from '../../components/input';
@@ -11,7 +19,26 @@ const Schedule = ({navigation}) => {
   const toggleInput = () => {
     setShowInput(!showInput);
   };
-  const handlePress = () => {};
+  useEffect(() => {
+    requestCallPermission();
+  }, []);
+
+  const requestCallPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CALL_PHONE,
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Phone call permission granted');
+      } else {
+        console.log('Phone call permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  // Call the function before attempting to make the call
 
   const data = [
     {
@@ -22,6 +49,7 @@ const Schedule = ({navigation}) => {
       date: 'Monday,26 May',
       startTime: '10:00',
       endTime: '10:30',
+      phoneNo: '+923000000000',
     },
     {
       id: 1,
@@ -31,6 +59,7 @@ const Schedule = ({navigation}) => {
       date: 'Tuesday,26 June',
       startTime: '09:00',
       endTime: '10:00',
+      phoneNo: '+923000000001',
     },
     {
       id: 2,
@@ -40,6 +69,7 @@ const Schedule = ({navigation}) => {
       date: 'Saturday,16 Feb',
       startTime: '12:00',
       endTime: '13:00',
+      phoneNo: '+923000000002',
     },
     {
       id: 3,
@@ -49,6 +79,7 @@ const Schedule = ({navigation}) => {
       date: 'Sunday,21 Nov',
       startTime: '20:00',
       endTime: '21:00',
+      phoneNo: '+923000000003',
     },
     {
       id: 4,
@@ -58,6 +89,7 @@ const Schedule = ({navigation}) => {
       date: 'Wednesday,19 March',
       startTime: '22:00',
       endTime: '23:00',
+      phoneNo: '+923000000004',
     },
   ];
 
@@ -162,6 +194,7 @@ const Schedule = ({navigation}) => {
             alignItems: 'center',
           }}
           renderItem={({item}) => {
+            console.log(item.phoneNo);
             return (
               <ScheduleCard
                 name={item.name}
@@ -170,6 +203,7 @@ const Schedule = ({navigation}) => {
                 startTime={item.startTime}
                 endTime={item.endTime}
                 profileImage={item.profileImage}
+                phoneNo={item.phoneNo}
                 showBtn={true}
               />
             );
@@ -181,16 +215,16 @@ const Schedule = ({navigation}) => {
           contentContainerStyle={{
             alignItems: 'center',
           }}
-          renderItem={({item, index}) => {
+          renderItem={({item}) => {
             return (
               <ScheduleCard
-                id={index}
                 name={item.name}
                 title={item.title}
                 date={item.date}
                 startTime={item.startTime}
                 endTime={item.endTime}
                 profileImage={item.profileImage}
+                phoneNo={item.phoneNo} // Pass phone number
                 showBtn={false}
               />
             );

@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   innerContainer: {
     flexDirection: 'row',
@@ -85,11 +88,11 @@ const styles = StyleSheet.create({
     marginTop: '20%',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginRight:10,
+    marginRight: 10,
   },
   callButton: {
     flex: 1, // Use flex to distribute space evenly
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#BBE4FB',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 10,// Add padding for better touch area
+    paddingVertical: 10, // Add padding for better touch area
   },
   icon: {
     height: 27,

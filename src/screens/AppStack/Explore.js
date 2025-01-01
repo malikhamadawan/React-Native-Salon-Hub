@@ -78,12 +78,6 @@ const Explore = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Explore</Text>
-        <TouchableOpacity style={styles.settingsButton}>
-          <Image
-            source={require('../../assets/settingIcon.png')}
-            style={styles.settingsIcon}
-          />
-        </TouchableOpacity>
       </View>
       <View style={styles.searchContainer}>
         <Input
@@ -139,7 +133,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingBottom: 80,
-    marginHorizontal: '3%',
+    // marginHorizontal: '1%',
     marginTop: Platform.OS === 'ios' ? 50 : 30,
   },
   headerContainer: {
@@ -179,7 +173,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     marginTop: 5,
-    paddingBottom: '30%',
+    paddingBottom: '15%',
     paddingHorizontal: 3,
   },
   listContainer: {
@@ -193,7 +187,8 @@ const styles = StyleSheet.create({
   },
   listItemImageBackground: {
     height: 180,
-    width: '100%',
+    width: '98%',
+    marginLeft: '2%',
   },
   listItemTextContainer: {
     position: 'absolute',
