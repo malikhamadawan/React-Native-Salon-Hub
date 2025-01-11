@@ -20,6 +20,8 @@ const Input = ({
   secureTextEntry,
   marginHorizontal,
   marginLeftImg2,
+  height,
+  marginBottom,
 }) => {
   const [show, setShow] = useState(secureTextEntry);
   return (
@@ -28,12 +30,13 @@ const Input = ({
         styles.mainContainer,
         {
           marginHorizontal: marginHorizontal,
+          marginBottom: marginBottom,
         },
       ]}>
       {leftIcon && (
         <Image
           source={img}
-          tintColor={'#2158FF'}
+          // tintColor={'#2158FF'}
           style={[
             styles.leftIconStyle,
             {

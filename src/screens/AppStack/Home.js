@@ -26,8 +26,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({navigation}) => {
   const [user1, setUser1] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(''); //
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [width, setWidth] = useState(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -52,37 +55,41 @@ const Home = ({navigation}) => {
       title: 'Hair Cut',
     },
     {
-      image: require('../../assets/p2.png'),
+      image: require('../../assets/story1.jpeg'),
       title: 'Much',
     },
     {
-      image: require('../../assets/p4.png'),
+      image: require('../../assets/story2.jpeg'),
       title: 'Coloring',
     },
     {
-      image: require('../../assets/p2.png'),
+      image: require('../../assets/story3.jpeg'),
       title: 'Beard',
     },
     {
-      image: require('../../assets/p1.png'),
+      image: require('../../assets/story4.jpg'),
       title: 'Spa',
     },
     {
-      image: require('../../assets/p4.png'),
+      image: require('../../assets/story5.jpeg'),
       title: 'Makeup',
     },
     {
-      image: require('../../assets/p5.png'),
+      image: require('../../assets/story1.jpeg'),
       title: 'Styling',
     },
     {
-      image: require('../../assets/p6.png'),
+      image: require('../../assets/story1.jpeg'),
       title: 'Nails',
     },
   ];
-
+  const filteredData = newData.filter(item =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
   const openModal = image => {
+    const imageIndex = newData.findIndex(item => item.image === image);
     setSelectedImage(image);
+    setSelectedImageIndex(imageIndex); // Store the index of the selected image
     setIsModalVisible(true);
 
     // Reset progress bar
@@ -102,14 +109,53 @@ const Home = ({navigation}) => {
   const closeModal = () => {
     setIsModalVisible(false);
     setSelectedImage(null);
+    setSelectedImageIndex(null); // Reset index when modal is closed
     progress.setValue(0); // Reset progress bar
   };
 
-  // Interpolated progress bar width
+  const showNextImage = () => {
+    console.log('Starting to show next image...');
+    if (
+      selectedImageIndex !== null &&
+      selectedImageIndex < newData.length - 1
+    ) {
+      console.log('Image index:', selectedImageIndex);
+      progress.setValue(0);
+      setIsModalVisible(true);
+      setSelectedImage(newData[selectedImageIndex + 1].image);
+      setSelectedImageIndex(selectedImageIndex + 1);
+
+      // Reset progress bar
+
+      // Restart animation
+      Animated.timing(progress, {
+        toValue: 1,
+        duration: 10000, // 10 seconds
+        useNativeDriver: false, // Needed for width animations
+      }).start();
+    }
+    //
+  };
+
   const progressWidth = progress.interpolate({
     inputRange: [0, 1],
     outputRange: ['0%', '100%'],
   });
+
+  const showPreviousImage = () => {
+    if (selectedImageIndex !== null && selectedImageIndex > 0) {
+      progress.setValue(0);
+      setIsModalVisible(true);
+      setSelectedImage(newData[selectedImageIndex - 1].image);
+      setSelectedImageIndex(selectedImageIndex - 1);
+      Animated.timing(progress, {
+        toValue: 1,
+        duration: 10000, // 10 seconds
+        useNativeDriver: false, // Needed for width animations
+      }).start();
+    }
+  };
+
   const handleLike = () => {
     setIsLiked(!isLiked); // Toggle the like state
     console.log('Liked state:', !isLiked); // Log the new state
@@ -136,7 +182,11 @@ const Home = ({navigation}) => {
       discount: '20%',
     },
   ];
-
+  const filteredData2 = newData2.filter(
+    item =>
+      item.time.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.discount.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
   const newData3 = [
     {
       Id: 0,
@@ -238,6 +288,21 @@ const Home = ({navigation}) => {
 
   const user = auth().currentUser;
   console.log(user);
+
+  const onLayout = e => {
+    const {width} = e.nativeEvent.layout;
+    setWidth(width);
+  };
+  const onResponderRelease = e => {
+    const touchX = e.nativeEvent.locationX;
+
+    if (width && touchX > width / 2) {
+      showNextImage(); // Right side clicked
+    } else {
+      showPreviousImage(); // Left side clicked
+    }
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -252,22 +317,20 @@ const Home = ({navigation}) => {
       />
       <Input
         leftIcon={true}
+        marginBottom={15}
         rightIcon={true}
         img2={require('../../assets/icons5.png')}
         placeholder={'Search “Salon, Specialist...”'}
         img={require('../../assets/searchIcon2.png')}
+        value={searchQuery} // Bind the input value to the state
+        onChangeText={text => setSearchQuery(text)} // Update the search query as user types
       />
       <View style={{flexDirection: 'row', width: '100%'}}>
         <FlatList
-          horizontal={true} // Ensures horizontal scrolling
-          showsHorizontalScrollIndicator={false} // Hides scroll indicator
-          contentContainerStyle={
-            {
-              // paddingHorizontal: 10, // Adds padding to the list
-            }
-          }
-          data={newData} // Data source for FlatList
-          keyExtractor={(item, index) => index.toString()} // Ensures each item has a unique key
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={filteredData} // Use the filtered data here
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity
               style={{
@@ -275,16 +338,14 @@ const Home = ({navigation}) => {
                 height: 80,
                 alignItems: 'center',
                 justifyContent: 'center',
-                // marginHorizontal: 5, // Adds spacing between items
               }}
-              onPress={() => openModal(item.image)} // Open modal with the selected image
-            >
+              onPress={() => openModal(item.image)}>
               <Image
                 source={item.image}
                 style={{
                   width: 50,
                   height: 50,
-                  borderRadius: 25, // Ensures the image has rounded edges
+                  borderRadius: 25,
                 }}
               />
               <Text
@@ -293,7 +354,7 @@ const Home = ({navigation}) => {
                   color: 'black',
                   fontWeight: '400',
                   marginVertical: 5,
-                  textAlign: 'center', // Aligns text below the image
+                  textAlign: 'center',
                 }}>
                 {item.title}
               </Text>
@@ -329,7 +390,8 @@ const Home = ({navigation}) => {
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           style={{borderRadius: 15}}
-          data={newData2}
+          data={filteredData2} // Use the filtered data here
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity
               style={{
@@ -587,55 +649,156 @@ const Home = ({navigation}) => {
         <TouchableWithoutFeedback onPress={closeModal}>
           <View style={styles.overlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
-                <Image
-                  source={require('../../assets/crossIcon.png')}
-                  style={styles.closeIcon}
-                />
-              </TouchableOpacity>
+              <Animated.View
+                style={[styles.progressLine, {width: progressWidth}]}
+              />
+
               {selectedImage && (
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback style={{flex: 1}}>
                   <View style={styles.imageContainer}>
                     {/* Progress Line */}
-                    <Animated.View
-                      style={[styles.progressLine, {width: progressWidth}]}
-                    />
-                    {/* Image */}
-                    <ImageBackground
-                      source={selectedImage}
-                      style={styles.imageBackground}
-                      resizeMode="contain">
-                      {/* Like Button */}
-                      <View
-                        style={{
-                          position: 'absolute',
-                          bottom: 1,
-                          marginVertical: -20,
-                          elevation: 70,
-                          // backgroundColor: 'red',
-                          width: '85%',
-                        }}>
-                        <Input
-                          img2={require('../../assets/iconsend.png')}
-                          rightIcon={true}
-                          // leftIcon={true}
-                          placeholder={'Comments........'}
-                          marginLeftImg2={25}
-                        />
-                      </View>
+                    <View
+                      style={{
+                        position: 'absolute',
+                        top: 10,
+                        flexDirection: 'row',
+                        // backgroundColor: '#2158FF',
+                        // justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 70,
+                        width: '100%',
+                        // backgroundColor: 'yellow',
+                        height: '8%',
+                        zIndex: 999,
+                        // paddingLeft: 30,
+                      }}>
                       <TouchableOpacity
-                        style={styles.likeButton}
-                        onPress={handleLike}>
+                        style={styles.closeButton}
+                        onPress={closeModal}>
                         <Image
-                          source={
-                            isLiked
-                              ? require('../../assets//redHeart.png')
-                              : require('../../assets/HeartIcon.png')
-                          }
-                          style={[styles.likeIcon]}
+                          source={require('../../assets/leftIcon22.png')}
+                          style={styles.closeIcon}
                         />
                       </TouchableOpacity>
-                    </ImageBackground>
+                      <Image
+                        source={selectedImage}
+                        style={{
+                          height: 50,
+                          width: 50,
+                          borderRadius: 50,
+                          marginLeft: 10,
+                          borderWidth: 1,
+                          borderColor: '#fff',
+                        }}
+                      />
+                      <View
+                        style={{
+                          flexDirection: 'column',
+                          paddingLeft: 15,
+                        }}>
+                        <Text
+                          style={{
+                            color: '#fff',
+                            fontSize: 20,
+                            fontWeight: '600',
+                          }}>
+                          Umair
+                        </Text>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                          }}>
+                          <Text
+                            style={{
+                              color: '#fff',
+                              fontSize: 10,
+                              // fontWeight: '600',
+                            }}>
+                            Today,
+                          </Text>
+                          <Text
+                            style={{
+                              color: '#fff',
+                              fontSize: 10,
+                              // fontWeight: '600',
+                            }}>
+                            12:13AM
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                    {/* Image */}
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        // alignItems: 'center',
+                      }}>
+                      <ImageBackground
+                        source={selectedImage}
+                        style={styles.imageBackground}
+                        resizeMode="contain"
+                        onStartShouldSetResponder={() => true}
+                        onLayout={onLayout}
+                        onResponderRelease={onResponderRelease}>
+                        {/* Like Button */}
+                        <View
+                          style={{
+                            width: '100%',
+                            position: 'absolute',
+                            bottom: 10,
+                            // alignSelf: 'flex-end',
+                            // backgroundColor: 'red',
+                            // bottom: 40,
+                            // height: '100%',
+                            // flexDirection: 'row',
+                            // top: '100%',
+                          }}>
+                          <View
+                            style={{
+                              marginBottom: 20,
+                              height: 80,
+                              alignItems: 'center',
+                              justifyContent: 'space-around',
+                              flexDirection: 'row',
+                              width: '100%',
+                              // bottom: 20,
+                            }}>
+                            <View
+                              style={{
+                                height: 60,
+                                flexDirection: 'row',
+                                width: '80%',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                // alignContent: 'center',
+                                // alignSelf: 'center',
+                                // top: '100%',
+                              }}>
+                              <Input
+                                marginBottom={0}
+                                img2={require('../../assets/iconsend.png')}
+                                rightIcon={true}
+                                placeholder={'Comments........'}
+                                marginLeftImg2={25}
+                              />
+                            </View>
+                            <TouchableOpacity
+                              style={styles.likeButton}
+                              onPress={handleLike}>
+                              <Image
+                                source={
+                                  isLiked
+                                    ? require('../../assets//redHeart.png')
+                                    : require('../../assets/HeartIcon.png')
+                                }
+                                style={[styles.likeIcon]}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </ImageBackground>
+                    </View>
                   </View>
                 </TouchableWithoutFeedback>
               )}
@@ -650,27 +813,29 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   closeButton: {
-    marginTop: Platform.OS === 'ios' ? 40 : 15,
+    // marginTop: Platform.OS === 'ios' ? 70 : 15,
     marginLeft: 20,
     // marginBottom: '30%',
     // backgroundColor: 'red',
     // height: 40,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     // alignSelf: 'center',
+    marginTop: 10,
   },
   closeIcon: {
     width: 24,
     height: 24,
-    marginRight: '92%',
-    // margisnTop: 10,
+    // marginRight: '32%',
+    tintColor: '#2158FF',
+    // backgroundColor:'red',
   },
   imageContainer: {
     flex: 1,
@@ -678,28 +843,25 @@ const styles = StyleSheet.create({
   },
   progressLine: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 3 : 12,
+    top: Platform.OS === 'ios' ? 60 : 30,
     left: 0,
     height: 4,
     backgroundColor: '#2158FF',
     zIndex: 20,
   },
   imageBackground: {
-    width: '100%',
-    height: '95%',
-    // bottom: 10,
+    flex: 1,
+    // alignSelf: 'center',
   },
   likeButton: {
-    position: 'absolute',
-    // marginTop: '95%',
-    bottom: -4,
-    right: 10,
-    width: 40,
+    width: '10%',
     height: 40,
     backgroundColor: 'white',
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
     elevation: 5,
   },
   likeIcon: {

@@ -103,12 +103,12 @@ const ProfileHeader = ({onPress}) => {
           justifyContent: 'center',
           alignContent: 'center',
           alignItems: 'center',
-          elevation: 5,
-          shadowOpacity: 10,
+          elevation: 1,
+          shadowOpacity: 0.5,
           // shadowColor: (Platform.OS = 'ios' ? '#808080' : null),
           shadowOffset: {
-            width: 4,
-            height: 5,
+            width: 2,
+            height: 3,
           },
         }}>
         <Image

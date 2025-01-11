@@ -1,7 +1,21 @@
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Linking,
+  Alert,
+} from 'react-native';
 import React from 'react';
 
 const ProfileCard = ({showButton, text1, text2, profileImg1}) => {
+  const openWhatsApp = phoneNumber => {
+    Linking.openURL(`https://wa.me/${phoneNumber}`).catch(() =>
+      Alert.alert('Error', 'Unable to open WhatsApp'),
+    );
+  };
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.innerContainer}>
@@ -25,6 +39,7 @@ const ProfileCard = ({showButton, text1, text2, profileImg1}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.whatsappButton}
+                onPress={() => openWhatsApp('923044949459')} // Replace with a valid phone number
                 accessible={true}
                 accessibilityLabel="WhatsApp Call Usman">
                 <Image
@@ -45,7 +60,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 10,
     width: '100%',
-    // marginHorizontal: 4,
     backgroundColor: 'white',
     borderRadius: 15,
     justifyContent: 'center',
@@ -55,9 +69,8 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flexDirection: 'row',
-    height: 160, // Ensure the inner container takes up full height
+    height: 160,
     width: '100%',
-    // backgroundColor:'blue',
   },
   profileImage: {
     height: 140,
@@ -91,35 +104,34 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   callButton: {
-    flex: 1, // Use flex to distribute space evenly
-    backgroundColor: '#BBE4FB',
+    flex: 1,
+    backgroundColor: '#F5F5F5',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     marginRight: 10,
     height: 45,
-    paddingVertical: 10, // Add padding for better touch area
+    paddingVertical: 10,
   },
   whatsappButton: {
-    flex: 1, // Use flex to distribute space evenly
+    flex: 1,
     backgroundColor: '#F5F5F5',
     borderRadius: 10,
     height: 45,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 10, // Add padding for better touch area
+    paddingVertical: 10,
   },
   icon: {
     height: 27,
     width: 27,
-    marginRight: 2, // Add margin for spacing between icon and text
+    marginRight: 2,
   },
   whatsappIcon: {
     height: 38,
     width: 38,
-    // marginRight: 2, // Add margin for spacing between icon and text
   },
   buttonText: {
     color: 'black',
