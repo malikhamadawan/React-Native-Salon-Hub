@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
@@ -33,26 +32,50 @@ const Home = ({navigation}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [width, setWidth] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  const [more, setMore] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
   const pan = useRef(new Animated.ValueXY()).current;
+  const backgroundOpacity = useRef(new Animated.Value(1)).current; // Initialize opacity at 1
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) =>
         Math.abs(gestureState.dy) > 5, // Activate pan responder for vertical movement
-      onPanResponderMove: Animated.event(
-        [null, {dy: pan.y}],
-        {useNativeDriver: false}, // Update position as user drags
-      ),
+      onPanResponderMove: (evt, gestureState) => {
+        Animated.event([null, {dy: pan.y}], {useNativeDriver: false})(
+          evt,
+          gestureState,
+        );
+
+        // Adjust background opacity based on vertical drag
+        const opacityValue = 1 - Math.min(gestureState.dy / 300, 1);
+        backgroundOpacity.setValue(opacityValue);
+      },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 100) {
           // Threshold for downward swipe
-          closeModal();
+          setIsModalVisible(false);
+          setSelectedImage(null);
+          setSelectedImageIndex(null); // Reset index when modal is closed
+          progress.setValue(0); // Reset progress
+
+          // Ensure background fades out completely
+          Animated.timing(backgroundOpacity, {
+            toValue: 0,
+            duration: 200,
+            useNativeDriver: true,
+          }).start();
         } else {
-          // Reset position if not swiped far enough
+          // Reset position and background opacity if not swiped far enough
           Animated.spring(pan, {
             toValue: {x: 0, y: 0},
             useNativeDriver: false,
+          }).start();
+
+          Animated.timing(backgroundOpacity, {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true,
           }).start();
         }
       },
@@ -61,7 +84,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     pan.setValue({x: 0, y: 0}); // Reset pan position when modal opens
-  }, [isModalVisible]);
+  });
 
   useEffect(() => {
     const checkUserSession = async () => {
@@ -131,15 +154,31 @@ const Home = ({navigation}) => {
       duration: 10000, // 10 seconds
       useNativeDriver: false, // Needed for width animations
     }).start(() => {
+      // Close modal when progress completes
       setIsModalVisible(false);
       setSelectedImage(null);
+      setSelectedImageIndex(null);
     });
+
+    // Set background opacity to full
+    Animated.timing(backgroundOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   };
+
   const closeModal = () => {
-    setIsModalVisible(false);
-    setSelectedImage(null);
-    setSelectedImageIndex(null);
-    progress.setValue(0); // Reset progress bar
+    Animated.timing(backgroundOpacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsModalVisible(false);
+      setSelectedImage(null);
+      setSelectedImageIndex(null); // Reset index when modal is closed
+      progress.setValue(0); // Reset progress bar
+    });
   };
 
   const showNextImage = () => {
@@ -332,6 +371,9 @@ const Home = ({navigation}) => {
     }
   };
 
+  const handleMorePress = () => {
+    setMore(!more);
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -596,78 +638,93 @@ const Home = ({navigation}) => {
           }}>
           Popular Shops near you
         </Text>
-        <Text
-          style={{
-            fontSize: 11,
-            color: '#2158FF',
-          }}>
-          More
-        </Text>
+        {!more ? (
+          <Text
+            onPress={handleMorePress}
+            style={{
+              fontSize: 11,
+              color: '#2158FF',
+            }}>
+            show more
+          </Text>
+        ) : (
+          <Text
+            onPress={handleMorePress}
+            style={{
+              fontSize: 11,
+              color: '#2158FF',
+            }}>
+            show less
+          </Text>
+        )}
       </View>
       <View
         style={{
           borderRadius: 15,
           // backgroundColor: 'red',
         }}>
-        {newData3.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={{
-              elevation: 5,
-              marginTop: 10,
-              marginVertical: 1,
-              marginHorizontal: 3,
-            }}>
-            <ImageBackground
-              source={item.image}
-              imageStyle={{borderRadius: 15}}
+        {newData3
+          .filter((_, index) => more || index < 2) // Show all items if `more` is true, otherwise limit to the first 3
+          .map((item, index) => (
+            <TouchableOpacity
+              key={index}
               style={{
-                height: 180,
-                width: '98%',
-                marginLeft: '2%',
+                elevation: 5,
+                marginTop: 10,
+                marginVertical: 1,
+                marginHorizontal: 3,
               }}>
-              <View
+              <ImageBackground
+                source={item.image}
+                imageStyle={{borderRadius: 15}}
                 style={{
-                  left: 10,
-                  bottom: 10,
-                  position: 'absolute',
+                  height: 180,
+                  width: '98%',
+                  marginLeft: '2%',
                 }}>
-                <Text
-                  style={{
-                    fontSize: 19,
-                    color: 'white',
-                    fontWeight: '700',
-                  }}>
-                  {item.shop}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: '#FAFAFA',
-                  }}>
-                  {item.location}
-                </Text>
                 <View
                   style={{
-                    width: 50,
-                    height: 20,
-                    borderRadius: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: item.status === 'Close' ? 'red' : 'green',
+                    left: 10,
+                    bottom: 10,
+                    position: 'absolute',
                   }}>
                   <Text
                     style={{
-                      fontSize: 13,
-                      color: '#fff',
+                      fontSize: 19,
+                      color: 'white',
+                      fontWeight: '700',
                     }}>
-                    {item.status}
+                    {item.shop}
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: '#FAFAFA',
+                    }}>
+                    {item.location}
+                  </Text>
+                  <View
+                    style={{
+                      width: 50,
+                      height: 20,
+                      borderRadius: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor:
+                        item.status === 'Close' ? 'red' : 'green',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        color: '#fff',
+                      }}>
+                      {item.status}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-        ))}
+              </ImageBackground>
+            </TouchableOpacity>
+          ))}
       </View>
 
       <Modal
@@ -676,36 +733,177 @@ const Home = ({navigation}) => {
         animationType="fade"
         onRequestClose={closeModal}>
         <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={styles.overlay}>
-            <Animated.View
-              {...panResponder.panHandlers}
-              style={[
-                styles.modalContent,
-                {
-                  transform: pan.getTranslateTransform(),
-                },
-              ]}>
+          <Animated.View
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              opacity: backgroundOpacity, // Bind to animated value
+            }}>
+            <View style={styles.modalContent}>
               <Animated.View
-                style={[styles.progressLine, {width: progressWidth}]}
-              />
-              {selectedImage && (
-                <TouchableWithoutFeedback style={{flex: 1}}>
-                  <View style={styles.imageContainer}>
-                    {/* Your modal content */}
-                    <ImageBackground
-                      source={selectedImage}
-                      style={styles.imageBackground}
-                      resizeMode="contain"
-                      onStartShouldSetResponder={() => true}
-                      onLayout={onLayout}
-                      onResponderRelease={onResponderRelease}>
-                      {/* Your other modal elements */}
-                    </ImageBackground>
-                  </View>
-                </TouchableWithoutFeedback>
-              )}
-            </Animated.View>
-          </View>
+                {...panResponder.panHandlers}
+                style={[
+                  styles.modalContent,
+                  {
+                    transform: pan.getTranslateTransform(),
+                  },
+                ]}>
+                <Animated.View
+                  style={[styles.progressLine, {width: progressWidth}]}
+                />
+
+                {selectedImage && (
+                  <TouchableWithoutFeedback style={{flex: 1}}>
+                    <View style={styles.imageContainer}>
+                      {/* Progress Line */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          top: 10,
+                          flexDirection: 'row',
+                          // backgroundColor: '#2158FF',
+                          // justifyContent: 'center',
+                          alignItems: 'center',
+                          marginTop: 70,
+                          width: '100%',
+                          // backgroundColor: 'yellow',
+                          height: '8%',
+                          zIndex: 999,
+                          // paddingLeft: 30,
+                        }}>
+                        <TouchableOpacity
+                          style={styles.closeButton}
+                          onPress={closeModal}>
+                          <Image
+                            source={require('../../assets/leftIcon22.png')}
+                            style={styles.closeIcon}
+                          />
+                        </TouchableOpacity>
+                        <Image
+                          source={selectedImage}
+                          style={{
+                            height: 50,
+                            width: 50,
+                            borderRadius: 50,
+                            marginLeft: 10,
+                            borderWidth: 1,
+                            borderColor: '#fff',
+                          }}
+                        />
+                        <View
+                          style={{
+                            flexDirection: 'column',
+                            paddingLeft: 15,
+                          }}>
+                          <Text
+                            style={{
+                              color: '#fff',
+                              fontSize: 20,
+                              fontWeight: '600',
+                            }}>
+                            Umair
+                          </Text>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                            }}>
+                            <Text
+                              style={{
+                                color: '#fff',
+                                fontSize: 10,
+                                // fontWeight: '600',
+                              }}>
+                              Today,
+                            </Text>
+                            <Text
+                              style={{
+                                color: '#fff',
+                                fontSize: 10,
+                                // fontWeight: '600',
+                              }}>
+                              12:13AM
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                      {/* Image */}
+                      <View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                          // alignItems: 'center',
+                        }}>
+                        <ImageBackground
+                          source={selectedImage}
+                          style={styles.imageBackground}
+                          resizeMode="contain"
+                          onStartShouldSetResponder={() => true}
+                          onLayout={onLayout}
+                          onResponderRelease={onResponderRelease}>
+                          {/* Like Button */}
+                          <View
+                            style={{
+                              width: '100%',
+                              position: 'absolute',
+                              bottom: 10,
+                              // alignSelf: 'flex-end',
+                              // backgroundColor: 'red',
+                              // bottom: 40,
+                              // height: '100%',
+                              // flexDirection: 'row',
+                              // top: '100%',
+                            }}>
+                            <View
+                              style={{
+                                marginBottom: 20,
+                                height: 80,
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                                flexDirection: 'row',
+                                width: '100%',
+                                // bottom: 20,
+                              }}>
+                              <View
+                                style={{
+                                  height: 60,
+                                  flexDirection: 'row',
+                                  width: '80%',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  // alignContent: 'center',
+                                  // alignSelf: 'center',
+                                  // top: '100%',
+                                }}>
+                                <Input
+                                  marginBottom={0}
+                                  img2={require('../../assets/iconsend.png')}
+                                  rightIcon={true}
+                                  placeholder={'Comments........'}
+                                  marginLeftImg2={25}
+                                />
+                              </View>
+                              <TouchableOpacity
+                                style={styles.likeButton}
+                                onPress={handleLike}>
+                                <Image
+                                  source={
+                                    isLiked
+                                      ? require('../../assets//redHeart.png')
+                                      : require('../../assets/HeartIcon.png')
+                                  }
+                                  style={[styles.likeIcon]}
+                                />
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        </ImageBackground>
+                      </View>
+                    </View>
+                  </TouchableWithoutFeedback>
+                )}
+              </Animated.View>
+            </View>
+          </Animated.View>
         </TouchableWithoutFeedback>
       </Modal>
     </ScrollView>
@@ -715,7 +913,7 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
     width: '100%',

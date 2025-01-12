@@ -3,7 +3,6 @@ import * as React from 'react';
 import Home from '../screens/AppStack/Home';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTab from './BottomTab';
-import {SafeAreaView, StatusBar, View} from 'react-native';
 import Shop from '../screens/AppStack/Shop';
 import BookNow from '../screens/AppStack/BookNow';
 import BookingDetail from '../screens/AppStack/BookingDetail';
@@ -13,7 +12,6 @@ import CheckOut from '../screens/AppStack/CheckOut';
 import Bonus from '../screens/AppStack/Bonus';
 import Notifications from '../screens/AppStack/Notifications';
 import Animation from '../screens/AppStack/Animation';
-import Test from '../screens/AppStack/Test';
 import Profile from '../screens/AppStack/Profile';
 import Appointments from '../screens/AppStack/Appointments';
 import StoryScreen from '../screens/AppStack/StoryScreen';
@@ -39,7 +37,6 @@ function AppStack() {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Animation" component={Animation} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Test" component={Test} />
         <Stack.Screen name="Appointments" component={Appointments} />
         <Stack.Screen name="StoryScreen" component={StoryScreen} />
       </Stack.Navigator>
