@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   View,
@@ -22,6 +23,8 @@ const Input = ({
   marginLeftImg2,
   height,
   marginBottom,
+  onBlur,
+  onFocus,
 }) => {
   const [show, setShow] = useState(secureTextEntry);
   return (
@@ -36,7 +39,6 @@ const Input = ({
       {leftIcon && (
         <Image
           source={img}
-          // tintColor={'#2158FF'}
           style={[
             styles.leftIconStyle,
             {
@@ -52,6 +54,8 @@ const Input = ({
         placeholder={placeholder}
         style={styles.inputStyle}
         onChangeText={onChangeText}
+        onBlur={onBlur}
+        onFocus={onFocus}
       />
       {show && (
         <TouchableOpacity

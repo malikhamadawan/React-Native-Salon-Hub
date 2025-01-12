@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
+    // flexDirection: 'row',
   },
   statText: {
     fontSize: 18,
@@ -239,7 +240,6 @@ const styles = StyleSheet.create({
   starIcon: {
     height: 18,
     width: 18,
-    marginRight: 5,
   },
   sectionTitle: {
     width: '95%',

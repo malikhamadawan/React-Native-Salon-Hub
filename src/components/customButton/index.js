@@ -20,6 +20,7 @@ const CustomButton = ({
   tintColor,
   marginTop,
   marginBottom,
+  disabled,
   backgroundColor,
 }) => {
   // const handlePress = () => {
@@ -28,6 +29,7 @@ const CustomButton = ({
 
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
       style={[
         styles.button,

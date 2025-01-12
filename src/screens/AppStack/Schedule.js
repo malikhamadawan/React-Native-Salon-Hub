@@ -132,6 +132,7 @@ const Schedule = ({navigation}) => {
             img2={require('../../assets/icons5.png')}
             password={false}
             marginBottom={15}
+            placeholder={'Search...'}
             justifyContent={'space-between'}
           />
         )}

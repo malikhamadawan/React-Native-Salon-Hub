@@ -126,7 +126,7 @@ const BottomTab = () => {
                   backgroundColor: '#2158FF',
                   borderRadius: 50,
                   borderWidth: 2,
-                  borderColor: 'blue',
+                  borderColor: '#ffff',
                   tintColor: 'white',
                 }}
               />

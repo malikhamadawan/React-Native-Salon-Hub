@@ -35,7 +35,7 @@ const CardDetail = ({navigation}) => {
         }}>
         <ProfileCard
           showButton={false}
-          text1={'Mr Cuts Hair\nSaloon'}
+          text1={'Mr Cuts Hair\nSaloon\n'}
           text2="Block F,PIA Housing Scheme,Lahore"
           profileImg1={require('../../assets/mrCuts.jpeg')}
         />

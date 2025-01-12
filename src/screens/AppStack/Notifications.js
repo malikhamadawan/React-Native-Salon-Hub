@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
 

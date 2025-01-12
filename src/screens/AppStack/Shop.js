@@ -142,6 +142,7 @@ const Shop = ({navigation}) => {
         return [...prevSelectedItems, item];
       }
     });
+    console.log(selectedItems);
   };
 
   console.log('selected', selectedItems);
@@ -326,7 +327,8 @@ const Shop = ({navigation}) => {
             navigation.navigate('AppStack', {screen: 'BookNow'});
           }}
           width={'95%'}
-          btnColor={'#2158FF'}
+          disabled={selectedItems.length > 0 ? false : true}
+          btnColor={selectedItems.length > 0 ? '#2158FF' : '#BBE4FB'}
           text={'Book Now'}
           txtColor={'white'}
           justi={'center'}

@@ -32,7 +32,10 @@ const BookingDetail = ({navigation}) => {
   };
 
   return (
-    <ScrollView style={styles.container} nestedScrollEnabled={true}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={styles.container}
+      nestedScrollEnabled={true}>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('AppStack', {screen: 'BookNow'});
@@ -146,6 +149,7 @@ const BookingDetail = ({navigation}) => {
           style={styles.bookButton}
           width={159}
           text={'Book Now'}
+          disabled={selectedPaymentMethod ? false : true}
           btnColor={selectedPaymentMethod ? '#2158FF' : '#BBE4FB'}
           justi={'center'}
           txtColor={'white'}

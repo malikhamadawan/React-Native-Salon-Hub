@@ -33,6 +33,7 @@ const Home = ({navigation}) => {
   const [width, setWidth] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [more, setMore] = useState(false);
+  const [search, setSearch] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
   const pan = useRef(new Animated.ValueXY()).current;
   const backgroundOpacity = useRef(new Animated.Value(1)).current; // Initialize opacity at 1
@@ -136,9 +137,6 @@ const Home = ({navigation}) => {
       title: 'Nails',
     },
   ];
-  const filteredData = newData.filter(item =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
   const openModal = image => {
     const imageIndex = newData.findIndex(item => item.image === image);
     setSelectedImage(image);
@@ -250,11 +248,6 @@ const Home = ({navigation}) => {
       discount: '20%',
     },
   ];
-  const filteredData2 = newData2.filter(
-    item =>
-      item.time.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.discount.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
   const newData3 = [
     {
       Id: 0,
@@ -353,7 +346,11 @@ const Home = ({navigation}) => {
       status: 'Open',
     },
   ];
-
+  const filteredData3 = newData3.filter(
+    item =>
+      item.shop.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.location.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
   const user = auth().currentUser;
   console.log(user);
 
@@ -393,277 +390,290 @@ const Home = ({navigation}) => {
         img2={require('../../assets/icons5.png')}
         placeholder={'Search “Salon, Specialist...”'}
         img={require('../../assets/searchIcon2.png')}
-        value={searchQuery} // Bind the input value to the state
-        onChangeText={text => setSearchQuery(text)} // Update the search query as user types
+        value={searchQuery}
+        // onFocus={() => setSearch(false)}
+        // onBlur={() => setSearch(true)}
+        onChangeText={text => {
+          if (text !== '') {
+            setSearch(true);
+          } else {
+            setSearch(false);
+          }
+          setSearchQuery(text);
+        }}
       />
-      <View style={{flexDirection: 'row', width: '100%'}}>
-        <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          data={filteredData} // Use the filtered data here
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={{
-                width: 65,
-                height: 80,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={() => openModal(item.image)}>
-              <Image
-                source={item.image}
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 25,
-                }}
-              />
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: 'black',
-                  fontWeight: '400',
-                  marginVertical: 5,
-                  textAlign: 'center',
-                }}>
-                {item.title}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
-      <View
-        style={{
-          elevation: 5,
-          marginTop: 20,
-          marginHorizontal: 5,
-        }}>
-        <Text
-          style={{
-            fontSize: 23,
-            color: '#0D1230',
-            fontWeight: '600',
-            marginLeft: 5,
-          }}>
-          #SpecialOffers
-        </Text>
-      </View>
-      <View
-        style={{
-          width: '100%',
-          marginTop: 10,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          style={{borderRadius: 15}}
-          data={filteredData2} // Use the filtered data here
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={{
-                marginBottom: 10,
-                marginHorizontal: 5,
-              }}>
-              <ImageBackground
-                source={item.image}
-                imageStyle={{borderRadius: 15}}
-                style={{
-                  height: 180,
-                  width: 333,
-                }}>
-                <View
-                  style={{
-                    width: 83,
-                    height: 20,
-                    marginTop: 9,
-                    marginLeft: 9,
-                    borderRadius: 9,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#BBE4FB',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 11,
-                      color: '#0D1230',
-                    }}>
-                    {item.time}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    marginTop: 20,
-                    marginLeft: 10,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 19,
-                      color: '#FAFAFA',
-                    }}>
-                    Get Special Discount
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      width: 50,
-                      marginTop: 3,
-                      marginLeft: 10,
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        color: '#FAFAFA',
-                      }}>
-                      Up to
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      marginTop: 7,
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 28,
-                        color: '#FAFAFA',
-                      }}>
-                      {item.discount}
-                    </Text>
-                  </View>
-                </View>
+      {!search && (
+        <>
+          <View style={{flexDirection: 'row', width: '100%'}}>
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={newData} // Use the filtered data here
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => (
                 <TouchableOpacity
                   style={{
-                    width: 70,
-                    height: 28,
-                    marginTop: 25,
-                    marginRight: 15,
-                    borderRadius: 5,
+                    width: 65,
+                    height: 80,
                     alignItems: 'center',
-                    alignSelf: 'flex-end',
                     justifyContent: 'center',
-                    backgroundColor: '#2158FF',
-                  }}>
+                  }}
+                  onPress={() => openModal(item.image)}>
+                  <Image
+                    source={item.image}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
+                    }}
+                  />
                   <Text
                     style={{
-                      fontSize: 13,
-                      color: '#FAFAFA',
+                      fontSize: 10,
+                      color: 'black',
+                      fontWeight: '400',
+                      marginVertical: 5,
+                      textAlign: 'center',
                     }}>
-                    Claim
+                    {item.title}
                   </Text>
                 </TouchableOpacity>
-              </ImageBackground>
+              )}
+            />
+          </View>
+          <View
+            style={{
+              elevation: 5,
+              marginTop: 20,
+              marginHorizontal: 5,
+            }}>
+            <Text
+              style={{
+                fontSize: 23,
+                color: '#0D1230',
+                fontWeight: '600',
+                marginLeft: 5,
+              }}>
+              #SpecialOffers
+            </Text>
+          </View>
+          <View
+            style={{
+              width: '100%',
+              marginTop: 10,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              style={{borderRadius: 15}}
+              data={newData2} // Use the filtered data here
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  style={{
+                    marginBottom: 10,
+                    marginHorizontal: 5,
+                  }}>
+                  <ImageBackground
+                    source={item.image}
+                    imageStyle={{borderRadius: 15}}
+                    style={{
+                      height: 180,
+                      width: 333,
+                    }}>
+                    <View
+                      style={{
+                        width: 83,
+                        height: 20,
+                        marginTop: 9,
+                        marginLeft: 9,
+                        borderRadius: 9,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: '#BBE4FB',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 11,
+                          color: '#0D1230',
+                        }}>
+                        {item.time}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        marginTop: 20,
+                        marginLeft: 10,
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 19,
+                          color: '#FAFAFA',
+                        }}>
+                        Get Special Discount
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <View
+                        style={{
+                          width: 50,
+                          marginTop: 3,
+                          marginLeft: 10,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: '#FAFAFA',
+                          }}>
+                          Up to
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          marginTop: 7,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 28,
+                            color: '#FAFAFA',
+                          }}>
+                          {item.discount}
+                        </Text>
+                      </View>
+                    </View>
+                    <TouchableOpacity
+                      style={{
+                        width: 70,
+                        height: 28,
+                        marginTop: 25,
+                        marginRight: 15,
+                        borderRadius: 5,
+                        alignItems: 'center',
+                        alignSelf: 'flex-end',
+                        justifyContent: 'center',
+                        backgroundColor: '#2158FF',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 13,
+                          color: '#FAFAFA',
+                        }}>
+                        Claim
+                      </Text>
+                    </TouchableOpacity>
+                  </ImageBackground>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+          <View
+            style={{
+              width: '95%',
+              marginTop: 10,
+              marginHorizontal: 5,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <Text
+              style={{
+                fontSize: 23,
+                color: '#0D1230',
+                fontWeight: '600',
+                marginLeft: 5,
+              }}>
+              Upcoming Schedule
+            </Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('BottomTab', {screen: 'Schedule'})
+              }
+              style={{
+                width: 26,
+                height: 26,
+                elevation: 6,
+                borderRadius: 6,
+                alignSelf: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#FFFFFF',
+              }}>
+              <Image
+                source={require('../../assets/Icons6.png')}
+                style={{
+                  width: 20,
+                  height: 20,
+                }}
+              />
             </TouchableOpacity>
-          )}
-        />
-      </View>
-      <View
-        style={{
-          width: '95%',
-          marginTop: 10,
-          marginHorizontal: 5,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <Text
-          style={{
-            fontSize: 23,
-            color: '#0D1230',
-            fontWeight: '600',
-            marginLeft: 5,
-          }}>
-          Upcoming Schedule
-        </Text>
-        <TouchableOpacity
-          style={{
-            width: 26,
-            height: 26,
-            elevation: 6,
-            borderRadius: 6,
-            alignSelf: 'center',
-            alignItems: 'center',
-            alignContent: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#FFFFFF',
-          }}>
-          <Image
-            source={require('../../assets/Icons6.png')}
+          </View>
+          <View
             style={{
-              width: 20,
-              height: 20,
-            }}
-            onPress={() =>
-              navigation.navigate('AppStack', {screen: 'Schedule'})
-            }
-          />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          width: '97%',
-          alignSelf: 'center',
-        }}>
-        <ScheduleCard
-          name={'Nadeem'}
-          endTime={'10:00'}
-          startTime={'09:00'}
-          date={'Monday,26 May'}
-          title={'Nadeem Hair Saloon'}
-          profileImage={require('../../assets/profile1.png')}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: 5,
-          width: '95%',
-          height: 40,
-          marginHorizontal: 5,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-        <Text
-          style={{
-            fontSize: 26,
-            color: '#0D1230',
-            fontWeight: '600',
-            marginLeft: 5,
-          }}>
-          Popular Shops near you
-        </Text>
-        {!more ? (
-          <Text
-            onPress={handleMorePress}
-            style={{
-              fontSize: 11,
-              color: '#2158FF',
+              width: '97%',
+              alignSelf: 'center',
             }}>
-            show more
-          </Text>
-        ) : (
-          <Text
-            onPress={handleMorePress}
+            <ScheduleCard
+              name={'Nadeem'}
+              endTime={'10:00'}
+              startTime={'09:00'}
+              date={'Monday,26 May'}
+              title={'Nadeem Hair Saloon'}
+              profileImage={require('../../assets/profile1.png')}
+            />
+          </View>
+
+          <View
             style={{
-              fontSize: 11,
-              color: '#2158FF',
+              marginTop: 5,
+              width: '95%',
+              height: 40,
+              marginHorizontal: 5,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
             }}>
-            show less
-          </Text>
-        )}
-      </View>
+            <Text
+              style={{
+                fontSize: 26,
+                color: '#0D1230',
+                fontWeight: '600',
+                marginLeft: 5,
+              }}>
+              Popular Shops near you
+            </Text>
+            {!more ? (
+              <Text
+                onPress={handleMorePress}
+                style={{
+                  fontSize: 11,
+                  color: '#2158FF',
+                }}>
+                show more
+              </Text>
+            ) : (
+              <Text
+                onPress={handleMorePress}
+                style={{
+                  fontSize: 11,
+                  color: '#2158FF',
+                }}>
+                show less
+              </Text>
+            )}
+          </View>
+        </>
+      )}
       <View
         style={{
           borderRadius: 15,
           // backgroundColor: 'red',
         }}>
-        {newData3
+        {filteredData3
           .filter((_, index) => more || index < 2) // Show all items if `more` is true, otherwise limit to the first 3
           .map((item, index) => (
             <TouchableOpacity
