@@ -1,4 +1,3 @@
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
 import {
@@ -391,8 +390,6 @@ const Home = ({navigation}) => {
         placeholder={'Search “Salon, Specialist...”'}
         img={require('../../assets/searchIcon2.png')}
         value={searchQuery}
-        // onFocus={() => setSearch(false)}
-        // onBlur={() => setSearch(true)}
         onChangeText={text => {
           if (text !== '') {
             setSearch(true);
@@ -408,7 +405,7 @@ const Home = ({navigation}) => {
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              data={newData} // Use the filtered data here
+              data={newData}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <TouchableOpacity
@@ -468,7 +465,7 @@ const Home = ({navigation}) => {
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               style={{borderRadius: 15}}
-              data={newData2} // Use the filtered data here
+              data={newData2}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <TouchableOpacity
@@ -671,7 +668,6 @@ const Home = ({navigation}) => {
       <View
         style={{
           borderRadius: 15,
-          // backgroundColor: 'red',
         }}>
         {filteredData3
           .filter((_, index) => more || index < 2) // Show all items if `more` is true, otherwise limit to the first 3
@@ -769,17 +765,12 @@ const Home = ({navigation}) => {
                       <View
                         style={{
                           position: 'absolute',
-                          top: 10,
                           flexDirection: 'row',
-                          // backgroundColor: '#2158FF',
-                          // justifyContent: 'center',
                           alignItems: 'center',
-                          marginTop: 70,
+                          marginTop: Platform.OS === 'ios' ? 70 : 40,
                           width: '100%',
-                          // backgroundColor: 'yellow',
-                          height: '8%',
+                          height: Platform.OS === 'ios' ? '6%' : '3%',
                           zIndex: 999,
-                          // paddingLeft: 30,
                         }}>
                         <TouchableOpacity
                           style={styles.closeButton}
@@ -821,7 +812,6 @@ const Home = ({navigation}) => {
                               style={{
                                 color: '#fff',
                                 fontSize: 10,
-                                // fontWeight: '600',
                               }}>
                               Today,
                             </Text>
@@ -829,7 +819,6 @@ const Home = ({navigation}) => {
                               style={{
                                 color: '#fff',
                                 fontSize: 10,
-                                // fontWeight: '600',
                               }}>
                               12:13AM
                             </Text>
@@ -841,7 +830,6 @@ const Home = ({navigation}) => {
                         style={{
                           flex: 1,
                           justifyContent: 'center',
-                          // alignItems: 'center',
                         }}>
                         <ImageBackground
                           source={selectedImage}
@@ -856,12 +844,6 @@ const Home = ({navigation}) => {
                               width: '100%',
                               position: 'absolute',
                               bottom: 10,
-                              // alignSelf: 'flex-end',
-                              // backgroundColor: 'red',
-                              // bottom: 40,
-                              // height: '100%',
-                              // flexDirection: 'row',
-                              // top: '100%',
                             }}>
                             <View
                               style={{
@@ -871,7 +853,7 @@ const Home = ({navigation}) => {
                                 justifyContent: 'space-around',
                                 flexDirection: 'row',
                                 width: '100%',
-                                // bottom: 20,
+                                top: Platform.OS === 'ios' ? '1%' : '6%',
                               }}>
                               <View
                                 style={{
@@ -880,9 +862,6 @@ const Home = ({navigation}) => {
                                   width: '80%',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  // alignContent: 'center',
-                                  // alignSelf: 'center',
-                                  // top: '100%',
                                 }}>
                                 <Input
                                   marginBottom={0}
@@ -931,21 +910,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   closeButton: {
-    // marginTop: Platform.OS === 'ios' ? 70 : 15,
     marginLeft: 20,
-    // marginBottom: '30%',
-    // backgroundColor: 'red',
-    // height: 40,
-    // justifyContent: 'center',
-    // alignSelf: 'center',
     marginTop: 10,
   },
   closeIcon: {
     width: 24,
     height: 24,
-    // marginRight: '32%',
     tintColor: '#2158FF',
-    // backgroundColor:'red',
+    marginBottom: 10,
   },
   imageContainer: {
     flex: 1,
@@ -953,7 +925,7 @@ const styles = StyleSheet.create({
   },
   progressLine: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 30,
+    top: Platform.OS === 'ios' ? 55 : 10,
     left: 0,
     height: 4,
     backgroundColor: '#2158FF',
@@ -961,10 +933,9 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    // alignSelf: 'center',
   },
   likeButton: {
-    width: '10%',
+    width: '11%',
     height: 40,
     backgroundColor: 'white',
     borderRadius: 20,
@@ -978,6 +949,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginTop: 5,
+    marginLeft: 1,
   },
 });
 

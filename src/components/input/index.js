@@ -22,11 +22,12 @@ const Input = ({
   marginHorizontal,
   marginLeftImg2,
   height,
+  tintcolor,
   marginBottom,
   onBlur,
   onFocus,
 }) => {
-  const [show, setShow] = useState(secureTextEntry);
+  const [show, setShow] = useState(false);
   return (
     <View
       style={[
@@ -39,6 +40,7 @@ const Input = ({
       {leftIcon && (
         <Image
           source={img}
+          tintColor={tintcolor}
           style={[
             styles.leftIconStyle,
             {
@@ -50,24 +52,37 @@ const Input = ({
       )}
       <TextInput
         value={value}
-        secureTextEntry={show}
+        secureTextEntry={secureTextEntry && !show ? true : false}
         placeholder={placeholder}
         style={styles.inputStyle}
         onChangeText={onChangeText}
         onBlur={onBlur}
         onFocus={onFocus}
       />
-      {show && (
-        <TouchableOpacity
-          onPress={() => {
-            setShow(!show);
-          }}>
-          <Image
-            source={require('../../assets/icon4.png')}
-            style={styles.eyeIconStyle}
-          />
-        </TouchableOpacity>
-      )}
+      {secureTextEntry &&
+        (show ? (
+          <TouchableOpacity
+            onPress={() => {
+              setShow(!show);
+            }}>
+            <Image
+              source={require('../../assets/icon4.png')}
+              style={styles.eyeIconStyle}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              setShow(!show);
+            }}>
+            <Image
+              tintColor={'grey'}
+              source={require('../../assets/eyeclose2.png')}
+              style={[styles.eyeIconStyle, {width: 34, height: 34}]}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        ))}
       {rightIcon && (
         <TouchableOpacity>
           <Image
@@ -108,7 +123,7 @@ const styles = StyleSheet.create({
   },
   eyeIconStyle: {
     width: 24,
-    height: 24,
+    height: 16,
     marginLeft: 10,
   },
   rightIconStyle: {

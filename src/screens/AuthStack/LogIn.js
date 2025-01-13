@@ -83,6 +83,7 @@ const LogIn = ({navigation}) => {
           img={require('../../assets/icon2.png')}
           onChangeText={text => setEmail(text)}
           value={email}
+          marginBottom={15}
         />
         <Input
           leftIcon={true}
@@ -91,6 +92,7 @@ const LogIn = ({navigation}) => {
           img={require('../../assets/icon3.png')}
           onChangeText={text => setPassword(text)}
           value={password}
+          marginBottom={15}
         />
       </View>
       <Text

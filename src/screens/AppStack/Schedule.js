@@ -226,7 +226,7 @@ const Schedule = ({navigation}) => {
                 startTime={item.startTime}
                 endTime={item.endTime}
                 profileImage={item.profileImage}
-                phoneNo={item.phoneNo} // Pass phone number
+                phoneNo={item.phoneNo}
                 showBtn={false}
               />
             );
