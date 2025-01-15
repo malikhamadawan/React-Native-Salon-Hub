@@ -1,11 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 
 const Input = ({
@@ -25,17 +26,22 @@ const Input = ({
   tintcolor,
   marginBottom,
   onBlur,
+  elevation,
   onFocus,
+  focused,
+  blurred,
+  focusview,
 }) => {
   const [show, setShow] = useState(false);
+  const [isfocused, setIsfocused] = useState(false);
+  console.log('focused', focused);
+  console.log('blurred', blurred);
+
   return (
     <View
       style={[
         styles.mainContainer,
-        {
-          marginHorizontal: marginHorizontal,
-          marginBottom: marginBottom,
-        },
+        isfocused && focusview && styles.mainContainer2,
       ]}>
       {leftIcon && (
         <Image
@@ -56,8 +62,8 @@ const Input = ({
         placeholder={placeholder}
         style={styles.inputStyle}
         onChangeText={onChangeText}
-        onBlur={onBlur}
-        onFocus={onFocus}
+        onBlur={() => setIsfocused(false)}
+        onFocus={() => setIsfocused(true)}
       />
       {secureTextEntry &&
         (show ? (
@@ -66,8 +72,9 @@ const Input = ({
               setShow(!show);
             }}>
             <Image
-              source={require('../../assets/icon4.png')}
-              style={styles.eyeIconStyle}
+              tintColor={'grey'}
+              source={require('../../assets/eyeCross.png')}
+              style={[styles.eyeIconStyle, {width: 23, height: 23}]}
             />
           </TouchableOpacity>
         ) : (
@@ -77,8 +84,8 @@ const Input = ({
             }}>
             <Image
               tintColor={'grey'}
-              source={require('../../assets/eyeclose2.png')}
-              style={[styles.eyeIconStyle, {width: 34, height: 34}]}
+              source={require('../../assets/eye.png')}
+              style={[styles.eyeIconStyle, {width: 25, height: 25}]}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -109,6 +116,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     backgroundColor: 'white',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 0, // No shadow initially on Android
+      },
+    }),
+  },
+  mainContainer2: {
+    width: '95%',
+    borderRadius: 10,
+    marginBottom: 15,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    backgroundColor: 'white',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 0, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.3, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   leftIconStyle: {
     height: 20,
@@ -124,7 +163,7 @@ const styles = StyleSheet.create({
   eyeIconStyle: {
     width: 24,
     height: 16,
-    marginLeft: 10,
+    marginLeft: 15,
   },
   rightIconStyle: {
     width: 24,

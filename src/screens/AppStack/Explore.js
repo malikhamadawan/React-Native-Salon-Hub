@@ -83,6 +83,7 @@ const Explore = ({navigation}) => {
         <Input
           leftIcon
           rightIcon
+          focusview={true}
           value={searchQuery}
           placeholderTextColor="#000"
           placeholder="Search Salon Specialist..."

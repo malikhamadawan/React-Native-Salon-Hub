@@ -124,6 +124,7 @@ const Profile = ({navigation}) => {
           }}>
           <Image
             source={require('../../assets/icon1.png')}
+            tintColor={'grey'}
             style={{
               height: 20,
               width: 20,
@@ -134,6 +135,7 @@ const Profile = ({navigation}) => {
         </View>
         <Input
           marginLeftImg2={45}
+          focusview={true}
           img2={require('../../assets/editIcon1.png')}
           rightIcon={true}
         />
@@ -149,6 +151,7 @@ const Profile = ({navigation}) => {
           }}>
           <Image
             source={require('../../assets/icon2.png')}
+            tintColor={'grey'}
             style={{
               height: 20,
               width: 20,
@@ -161,6 +164,7 @@ const Profile = ({navigation}) => {
           marginLeftImg2={45}
           img2={require('../../assets/editIcon1.png')}
           rightIcon={true}
+          focusview={true}
         />
       </View>
       <View
@@ -174,6 +178,7 @@ const Profile = ({navigation}) => {
           }}>
           <Image
             source={require('../../assets/phoneIcon1.png')}
+            tintColor={'grey'}
             style={{
               height: 20,
               width: 20,
@@ -185,6 +190,7 @@ const Profile = ({navigation}) => {
         <Input
           img2={require('../../assets/editIcon1.png')}
           rightIcon={true}
+          focusview={true}
           marginLeftImg2={45}
         />
       </View>
@@ -198,7 +204,8 @@ const Profile = ({navigation}) => {
             flexDirection: 'row',
           }}>
           <Image
-            source={require('../../assets/icon1.png')}
+            tintColor={'grey'}
+            source={require('../../assets/addressIcon.png')}
             style={{
               height: 20,
               width: 20,
@@ -210,6 +217,7 @@ const Profile = ({navigation}) => {
         <Input
           img2={require('../../assets/editIcon1.png')}
           rightIcon={true}
+          focusview={true}
           marginLeftImg2={45}
         />
       </View>

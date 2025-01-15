@@ -10,6 +10,7 @@ import NumberVerification from '../screens/AuthStack/NumberVerification';
 
 /** library */
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import UserOrBarber from '../screens/AuthStack/UserOrBarber';
 
 /** constant */
 const Stack = createNativeStackNavigator();
@@ -46,6 +47,7 @@ function AuthStack() {
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="UserOrBarber" component={UserOrBarber} />
       <Stack.Screen name="NumberVerification" component={NumberVerification} />
     </Stack.Navigator>
   );

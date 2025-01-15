@@ -15,8 +15,11 @@ const LogIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  // const [isFocused, setIsFocused] = useState(false);
+  // const [isBlurred, setIsBlurred] = useState(true);
 
   useEffect(() => {
+    // console.log('isFocused1', isFocused);
     // Configure Google Sign-In
     GoogleSignin.configure({
       scopes: ['email', 'profile'],
@@ -83,12 +86,22 @@ const LogIn = ({navigation}) => {
           img={require('../../assets/icon2.png')}
           onChangeText={text => setEmail(text)}
           value={email}
+          focusview={true}
+          // focused={isFocused}
+          // blurred={isBlurred}
+          // onFocus={() => setIsFocused(true)}
+          // onBlur={() => setIsBlurred(false)}
           marginBottom={15}
         />
         <Input
           leftIcon={true}
           secureTextEntry={true}
           placeholder={'Password'}
+          focusview={true}
+          // focused={isFocused}
+          // blurred={isBlurred}
+          // onFocus={() => setIsFocused(true)}
+          // onBlur={() => setIsBlurred(false)}
           img={require('../../assets/icon3.png')}
           onChangeText={text => setPassword(text)}
           value={password}
@@ -127,7 +140,7 @@ const LogIn = ({navigation}) => {
       </View>
       <HeaderDown
         value={'login'}
-        press={() => navigation.navigate('AuthStack', {screen: 'SignUp'})}
+        press={() => navigation.navigate('AuthStack', {screen: 'UserOrBarber'})}
       />
       {loading && <LoadingLottie visible={loading} />}
     </View>

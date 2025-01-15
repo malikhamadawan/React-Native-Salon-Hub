@@ -386,6 +386,7 @@ const Home = ({navigation}) => {
         leftIcon={true}
         marginBottom={15}
         rightIcon={true}
+        focusview={true}
         img2={require('../../assets/icons5.png')}
         placeholder={'Search “Salon, Specialist...”'}
         img={require('../../assets/searchIcon2.png')}
