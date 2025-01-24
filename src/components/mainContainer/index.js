@@ -16,17 +16,6 @@ const CustomView = ({
     <View
       style={{flex: 1, marginTop: marginTop ? marginTop : dynamicMarginTop}}>
       <View style={{flex: 1, alignItems: 'center'}}>
-        {/* {statusbar === 'light' ? (
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor={backgroundColor}
-          />
-        ) : (
-          <StatusBar
-            barStyle="dark-content"
-            backgroundColor={backgroundColor}
-          />
-        )} */}
         <View
           style={{
             flex: 1,
@@ -40,4 +29,4 @@ const CustomView = ({
   );
 };
 
-export  {CustomView};
+export {CustomView};

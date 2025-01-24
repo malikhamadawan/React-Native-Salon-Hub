@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Platform,
+  ImageBackground,
+} from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
 
@@ -33,53 +40,59 @@ const PayNow = ({navigation}) => {
   );
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('AppStack', {screen: 'BookingDetail'})
-        }>
-        <Image
-          source={require('../../assets/arrowicon2.png')}
-          style={styles.arrowIcon}
-        />
-      </TouchableOpacity>
-
-      {renderProfile()}
-      {renderSchedule()}
-
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Payment Method</Text>
-        <Image
-          source={require('../../assets/visaCard.png')}
-          style={styles.paymentMethodImage}
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <CustomButton
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <View style={styles.container}>
+        <TouchableOpacity
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'BookingDetail'})
-          }
-          btnColor={'white'}
-          width={150}
-          borderColor={'black'}
-          borderWidth={true}
-          justi={'center'}
-          text={'Cancel'}
-          btnHeight={42}
-          txtColor={'black'}
-        />
-        <CustomButton
-          onPress={() => navigation.navigate('AppStack', {screen: 'CheckOut'})}
-          btnColor={'#2158FF'}
-          width={150}
-          text={'Check Out'}
-          justi={'center'}
-          txtColor={'white'}
-          btnHeight={42}
-        />
+          }>
+          <Image
+            source={require('../../assets/arrowicon2.png')}
+            style={styles.arrowIcon}
+          />
+        </TouchableOpacity>
+
+        {renderProfile()}
+        {renderSchedule()}
+
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Payment Method</Text>
+          <Image
+            source={require('../../assets/visaCard.png')}
+            style={styles.paymentMethodImage}
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            onPress={() =>
+              navigation.navigate('AppStack', {screen: 'BookingDetail'})
+            }
+            btnColor={'white'}
+            width={150}
+            borderColor={'black'}
+            borderWidth={true}
+            justi={'center'}
+            text={'Cancel'}
+            btnHeight={42}
+            txtColor={'black'}
+          />
+          <CustomButton
+            onPress={() =>
+              navigation.navigate('AppStack', {screen: 'CheckOut'})
+            }
+            btnColor={'#2158FF'}
+            width={150}
+            text={'Check Out'}
+            justi={'center'}
+            txtColor={'white'}
+            btnHeight={42}
+          />
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -98,6 +111,17 @@ const styles = {
     width: '100%',
     marginTop: 10,
     // backgroundColor:'blue',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   sectionTitle: {
     width: '100%',
@@ -113,6 +137,17 @@ const styles = {
     width: '95%',
     alignSelf: 'center',
     justifyContent: 'space-between',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   scheduleItem: {
     height: 40,

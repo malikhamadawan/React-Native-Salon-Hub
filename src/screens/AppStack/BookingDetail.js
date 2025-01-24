@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
@@ -32,130 +33,134 @@ const BookingDetail = ({navigation}) => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={styles.container}
-      nestedScrollEnabled={true}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('AppStack', {screen: 'BookNow'});
-        }}>
-        <Image
-          source={require('../../assets/arrowicon2.png')}
-          style={styles.backIcon}
-        />
-      </TouchableOpacity>
-      <ProfileCard
-        showButton={false}
-        text1={'Mr Cuts Hair\nSaloon\n'}
-        text2={'Block F, PIA Housing Scheme, Lahore'}
-        profileImg1={require('../../assets/mrCuts.jpeg')}
-      />
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionHeaderText}>Schedule</Text>
-      </View>
-      <View style={styles.scheduleContainer}>
-        <View style={styles.scheduleItem}>
-          <Image
-            source={require('../../assets/calenderIcon2.png')}
-            style={styles.scheduleIcon}
-          />
-          <Text style={styles.scheduleText}>18, March</Text>
-        </View>
-        <View style={styles.scheduleItem}>
-          <Image
-            source={require('../../assets/clockIcon2.png')}
-            style={styles.scheduleIcon}
-          />
-          <Text style={styles.scheduleText}>14:00</Text>
-        </View>
-      </View>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionHeaderText}>Cost</Text>
-      </View>
-      <FlatList
-        scrollEnabled={false}
-        style={styles.costList}
-        data={costData}
-        renderItem={({item}) => (
-          <View style={styles.costItem}>
-            <Text style={styles.costTitle}>{item.title}</Text>
-            <Text style={styles.costPrice}>{item.price}</Text>
-          </View>
-        )}
-        ListFooterComponent={
-          <>
-            <View style={styles.costSummary}>
-              <Text style={styles.costSummaryText}>Sub Total Price</Text>
-              <Text style={styles.costSummaryText}>1000 Rs</Text>
-            </View>
-            <View style={styles.costSummary}>
-              <Text style={styles.costSummaryText}>Discount Price</Text>
-              <Text style={styles.costSummaryText}>100 Rs</Text>
-            </View>
-          </>
-        }
-        keyExtractor={item => item.id.toString()}
-      />
-      <View style={styles.dividerContainer}>
-        <Image
-          source={require('../../assets/divionLine.png')}
-          style={styles.divider}
-        />
-      </View>
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>Total Price</Text>
-        <Text style={styles.totalText}>900 Rs</Text>
-      </View>
-      <View style={styles.dividerContainer}>
-        <Image
-          source={require('../../assets/divionLine.png')}
-          style={styles.divider}
-        />
-      </View>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionHeaderText}>Payment Method</Text>
-      </View>
-      <FlatList
-        data={paymentMethods}
-        scrollEnabled={false}
-        style={styles.paymentList}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.paymentItem}
-            onPress={() => handlePaymentMethodSelect(item)}>
-            <View style={styles.paymentItemContent}>
-              <Image source={item.image} style={styles.paymentIcon} />
-              <Text style={styles.paymentText}>{item.title}</Text>
-              {/* Reserve space for the checkbox to avoid layout shifts */}
-              <View style={styles.checkBoxContainer}>
-                {selectedPaymentMethod === item.id && (
-                  <Image
-                    source={require('../../assets/checkBoxIcon.png')}
-                    style={styles.checkBox}
-                  />
-                )}
-              </View>
-            </View>
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item.id.toString()}
-      />
-      <View style={styles.buttonContainer}>
-        <CustomButton
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.container}
+        nestedScrollEnabled={true}>
+        <TouchableOpacity
           onPress={() => {
-            navigation.navigate('AppStack', {screen: 'CardDetail'});
-          }}
-          style={styles.bookButton}
-          width={159}
-          text={'Book Now'}
-          disabled={selectedPaymentMethod ? false : true}
-          btnColor={selectedPaymentMethod ? '#2158FF' : '#BBE4FB'}
-          justi={'center'}
-          txtColor={'white'}
+            navigation.navigate('AppStack', {screen: 'BookNow'});
+          }}>
+          <Image
+            source={require('../../assets/arrowicon2.png')}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+        <ProfileCard
+          showButton={false}
+          text1={'Mr Cuts Hair\nSaloon\n'}
+          text2={'Block F, PIA Housing Scheme, Lahore'}
+          profileImg1={require('../../assets/mrCuts.jpeg')}
         />
-      </View>
-    </ScrollView>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionHeaderText}>Schedule</Text>
+        </View>
+        <View style={styles.scheduleContainer}>
+          <View style={styles.scheduleItem}>
+            <Image
+              source={require('../../assets/calenderIcon2.png')}
+              style={styles.scheduleIcon}
+            />
+            <Text style={styles.scheduleText}>18, March</Text>
+          </View>
+          <View style={styles.scheduleItem}>
+            <Image
+              source={require('../../assets/clockIcon2.png')}
+              style={styles.scheduleIcon}
+            />
+            <Text style={styles.scheduleText}>14:00</Text>
+          </View>
+        </View>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionHeaderText}>Cost</Text>
+        </View>
+        <FlatList
+          scrollEnabled={false}
+          style={styles.costList}
+          data={costData}
+          renderItem={({item}) => (
+            <View style={styles.costItem}>
+              <Text style={styles.costTitle}>{item.title}</Text>
+              <Text style={styles.costPrice}>{item.price}</Text>
+            </View>
+          )}
+          ListFooterComponent={
+            <>
+              <View style={styles.costSummary}>
+                <Text style={styles.costSummaryText}>Sub Total Price</Text>
+                <Text style={styles.costSummaryText}>1000 Rs</Text>
+              </View>
+              <View style={styles.costSummary}>
+                <Text style={styles.costSummaryText}>Discount Price</Text>
+                <Text style={styles.costSummaryText}>100 Rs</Text>
+              </View>
+            </>
+          }
+          keyExtractor={item => item.id.toString()}
+        />
+        <View style={styles.dividerContainer}>
+          <Image
+            source={require('../../assets/divionLine.png')}
+            style={styles.divider}
+          />
+        </View>
+        <View style={styles.totalContainer}>
+          <Text style={styles.totalText}>Total Price</Text>
+          <Text style={styles.totalText}>900 Rs</Text>
+        </View>
+        <View style={styles.dividerContainer}>
+          <Image
+            source={require('../../assets/divionLine.png')}
+            style={styles.divider}
+          />
+        </View>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionHeaderText}>Payment Method</Text>
+        </View>
+        <FlatList
+          data={paymentMethods}
+          scrollEnabled={false}
+          style={styles.paymentList}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={styles.paymentItem}
+              onPress={() => handlePaymentMethodSelect(item)}>
+              <View style={styles.paymentItemContent}>
+                <Image source={item.image} style={styles.paymentIcon} />
+                <Text style={styles.paymentText}>{item.title}</Text>
+                {/* Reserve space for the checkbox to avoid layout shifts */}
+                <View style={styles.checkBoxContainer}>
+                  {selectedPaymentMethod === item.id && (
+                    <Image
+                      source={require('../../assets/checkBoxIcon.png')}
+                      style={styles.checkBox}
+                    />
+                  )}
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.id.toString()}
+        />
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            onPress={() => {
+              navigation.navigate('AppStack', {screen: 'CardDetail'});
+            }}
+            style={styles.bookButton}
+            width={159}
+            text={'Book Now'}
+            disabled={selectedPaymentMethod ? false : true}
+            btnColor={selectedPaymentMethod ? '#2158FF' : '#BBE4FB'}
+            justi={'center'}
+            txtColor={'white'}
+          />
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
@@ -197,6 +202,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     flexDirection: 'row',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 4, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   scheduleIcon: {
     height: 30,
@@ -264,7 +280,20 @@ const styles = StyleSheet.create({
   },
   paymentList: {
     flexGrow: 1,
-    height: 140,
+    paddingHorizontal: 6,
+    width: '100%',
+    height: 130,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 4, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   paymentItem: {
     alignSelf: 'center',
@@ -308,6 +337,17 @@ const styles = StyleSheet.create({
   },
   bookButton: {
     marginTop: Platform.OS === 'ios' ? 5 : 0,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
 });
 

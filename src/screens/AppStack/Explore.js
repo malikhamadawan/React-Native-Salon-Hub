@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -75,58 +76,62 @@ const Explore = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Explore</Text>
-      </View>
-      <View style={styles.searchContainer}>
-        <Input
-          leftIcon
-          rightIcon
-          focusview={true}
-          value={searchQuery}
-          placeholderTextColor="#000"
-          placeholder="Search Salon Specialist..."
-          img2={require('../../assets/icons5.png')}
-          onChangeText={handleSearch}
-          img={require('../../assets/searchIcon2.png')}
-        />
-      </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.listContainer}>
-          {filteredData.map((item, index) => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('AppStack', {screen: 'Shop'});
-              }}
-              key={index}
-              style={styles.listItem}>
-              <ImageBackground
-                source={item.image}
-                imageStyle={styles.listItemImage}
-                style={styles.listItemImageBackground}>
-                <View style={styles.listItemTextContainer}>
-                  <Text style={styles.listItemShop}>{item.shop}</Text>
-                  <Text style={styles.listItemLocation}>{item.location}</Text>
-                  <View
-                    style={[
-                      styles.statusContainer,
-                      {
-                        backgroundColor:
-                          item.status === 'Close' ? 'red' : 'green',
-                      },
-                    ]}>
-                    <Text style={styles.statusText}>{item.status}</Text>
-                  </View>
-                </View>
-              </ImageBackground>
-            </TouchableOpacity>
-          ))}
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Explore</Text>
         </View>
-      </ScrollView>
-    </View>
+        <View style={styles.searchContainer}>
+          <Input
+            leftIcon
+            rightIcon
+            focusview={true}
+            value={searchQuery}
+            placeholderTextColor="#000"
+            placeholder="Search Salon Specialist..."
+            img2={require('../../assets/icons5.png')}
+            onChangeText={handleSearch}
+            img={require('../../assets/searchIcon2.png')}
+          />
+        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollViewContent}>
+          <View style={styles.listContainer}>
+            {filteredData.map((item, index) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('AppStack', {screen: 'Shop'});
+                }}
+                key={index}
+                style={styles.listItem}>
+                <ImageBackground
+                  source={item.image}
+                  imageStyle={styles.listItemImage}
+                  style={styles.listItemImageBackground}>
+                  <View style={styles.listItemTextContainer}>
+                    <Text style={styles.listItemShop}>{item.shop}</Text>
+                    <Text style={styles.listItemLocation}>{item.location}</Text>
+                    <View
+                      style={[
+                        styles.statusContainer,
+                        {
+                          backgroundColor:
+                            item.status === 'Close' ? 'red' : 'green',
+                        },
+                      ]}>
+                      <Text style={styles.statusText}>{item.status}</Text>
+                    </View>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -182,6 +187,17 @@ const styles = StyleSheet.create({
   },
   listItem: {
     marginVertical: 5,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   listItemImage: {
     borderRadius: 15,

@@ -14,14 +14,19 @@ import {
   Animated,
   TouchableWithoutFeedback,
   PanResponder,
+  ImageBackgroundBase,
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 /** component */
 import {Input} from '../../components/input';
+import LottieView from 'lottie-react-native';
 import ScheduleCard from '../../components/scheduleCard';
 import {ProfileHeader} from '../../components/profileHeader';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AutoScrollFlatList} from '../../components/AutoScrollFlatList/AutoScrollFlatList';
 
 const Home = ({navigation}) => {
   const [user1, setUser1] = useState(null);
@@ -370,533 +375,465 @@ const Home = ({navigation}) => {
   const handleMorePress = () => {
     setMore(!more);
   };
+
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        flexGrow: 1,
-        marginTop: 10,
-      }}>
-      <ProfileHeader
-        onPress={() =>
-          navigation.navigate('AppStack', {screen: 'Notifications'})
-        }
-      />
-      <Input
-        leftIcon={true}
-        marginBottom={15}
-        rightIcon={true}
-        focusview={true}
-        img2={require('../../assets/icons5.png')}
-        placeholder={'Search “Salon, Specialist...”'}
-        img={require('../../assets/searchIcon2.png')}
-        value={searchQuery}
-        onChangeText={text => {
-          if (text !== '') {
-            setSearch(true);
-          } else {
-            setSearch(false);
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          flexGrow: 1,
+          marginTop: 10,
+        }}>
+        <ProfileHeader
+          onPress={() =>
+            navigation.navigate('AppStack', {screen: 'Notifications'})
           }
-          setSearchQuery(text);
-        }}
-      />
-      {!search && (
-        <>
-          <View style={{flexDirection: 'row', width: '100%'}}>
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={newData}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  style={{
-                    width: 65,
-                    height: 80,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  onPress={() => openModal(item.image)}>
-                  <Image
-                    source={item.image}
+        />
+        <Input
+          leftIcon={true}
+          marginBottom={15}
+          rightIcon={true}
+          focusview={true}
+          img2={require('../../assets/icons5.png')}
+          placeholder={'Search “Salon, Specialist...”'}
+          img={require('../../assets/searchIcon2.png')}
+          value={searchQuery}
+          onChangeText={text => {
+            if (text !== '') {
+              setSearch(true);
+            } else {
+              setSearch(false);
+            }
+            setSearchQuery(text);
+          }}
+        />
+        {!search && (
+          <>
+            <View style={{flexDirection: 'row', width: '100%'}}>
+              <FlatList
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={newData}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({item}) => (
+                  <TouchableOpacity
                     style={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
+                      width: 65,
+                      height: 80,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      ...Platform.select({
+                        ios: {
+                          shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                          shadowOpacity: 0.5, // Slightly transparent shadow
+                          shadowRadius: 8, // Blurred shadow effect
+                          shadowColor: 'black',
+                        },
+                        android: {
+                          elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                        },
+                      }),
                     }}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      color: 'black',
-                      fontWeight: '400',
-                      marginVertical: 5,
-                      textAlign: 'center',
-                    }}>
-                    {item.title}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-          <View
-            style={{
-              elevation: 5,
-              marginTop: 20,
-              marginHorizontal: 5,
-            }}>
-            <Text
+                    onPress={() => openModal(item.image)}>
+                    <Image
+                      source={item.image}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        borderRadius: 25,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: 'black',
+                        fontWeight: '400',
+                        marginVertical: 5,
+                        textAlign: 'center',
+                      }}>
+                      {item.title}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+            <View
               style={{
-                fontSize: 23,
-                color: '#0D1230',
-                fontWeight: '600',
-                marginLeft: 5,
+                elevation: 5,
+                marginTop: 20,
+                marginHorizontal: 5,
               }}>
-              #SpecialOffers
-            </Text>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              marginTop: 10,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              style={{borderRadius: 15}}
-              data={newData2}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => (
-                <TouchableOpacity
+              <Text
+                style={{
+                  fontSize: 23,
+                  color: '#0D1230',
+                  fontWeight: '600',
+                  marginLeft: 5,
+                }}>
+                #SpecialOffers
+              </Text>
+            </View>
+            {/* <View
+              style={{
+                width: '100%',
+                marginTop: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}> */}
+            <AutoScrollFlatList newData2={newData2} />
+            {/* </View> */}
+            <View
+              style={{
+                width: '95%',
+                marginTop: 10,
+                marginHorizontal: 5,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Text
+                style={{
+                  fontSize: 23,
+                  color: '#0D1230',
+                  fontWeight: '600',
+                  marginLeft: 5,
+                }}>
+                Upcoming Schedule
+              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('BottomTab', {screen: 'Schedule'})
+                }
+                style={{
+                  width: 26,
+                  height: 26,
+                  elevation: 6,
+                  borderRadius: 6,
+                  alignSelf: 'center',
+                  alignItems: 'center',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#FFFFFF',
+                }}>
+                <Image
+                  source={require('../../assets/Icons6.png')}
                   style={{
-                    marginBottom: 10,
-                    marginHorizontal: 5,
+                    width: 20,
+                    height: 20,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                width: '97%',
+                alignSelf: 'center',
+                ...Platform.select({
+                  ios: {
+                    shadowOffset: {width: 0, height: 2}, // Shadow offset outside
+                    shadowOpacity: 0.5, // Slightly transparent shadow
+                    shadowRadius: 8, // Blurred shadow effect
+                    shadowColor: 'black',
+                  },
+                  android: {
+                    elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                  },
+                }),
+              }}>
+              <ScheduleCard
+                name={'Nadeem'}
+                endTime={'10:00'}
+                startTime={'09:00'}
+                date={'Monday,26 May'}
+                title={'Nadeem Hair Saloon'}
+                profileImage={require('../../assets/profile1.png')}
+              />
+            </View>
+
+            <View
+              style={{
+                marginTop: 5,
+                width: '95%',
+                height: 40,
+                marginHorizontal: 5,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Text
+                style={{
+                  fontSize: 26,
+                  color: '#0D1230',
+                  fontWeight: '600',
+                  marginLeft: 5,
+                }}>
+                Popular Shops near you
+              </Text>
+              {!more ? (
+                <Text
+                  onPress={handleMorePress}
+                  style={{
+                    fontSize: 11,
+                    color: '#2158FF',
                   }}>
-                  <ImageBackground
-                    source={item.image}
-                    imageStyle={{borderRadius: 15}}
+                  show more
+                </Text>
+              ) : (
+                <Text
+                  onPress={handleMorePress}
+                  style={{
+                    fontSize: 11,
+                    color: '#2158FF',
+                  }}>
+                  show less
+                </Text>
+              )}
+            </View>
+          </>
+        )}
+        <View
+          style={{
+            borderRadius: 15,
+          }}>
+          {filteredData3
+            .filter((_, index) => more || index < 2) // Show all items if `more` is true, otherwise limit to the first 3
+            .map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  elevation: 5,
+                  marginTop: 10,
+                  marginVertical: 1,
+                  marginHorizontal: 3,
+                  ...Platform.select({
+                    ios: {
+                      shadowOffset: {width: 0, height: 2}, // Shadow offset outside
+                      shadowOpacity: 0.5, // Slightly transparent shadow
+                      shadowRadius: 8, // Blurred shadow effect
+                      shadowColor: 'black',
+                    },
+                    android: {
+                      elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                    },
+                  }),
+                }}>
+                <ImageBackground
+                  source={item.image}
+                  imageStyle={{borderRadius: 15}}
+                  style={{
+                    height: 180,
+                    width: '98%',
+                    marginLeft: '2%',
+                  }}>
+                  <View
                     style={{
-                      height: 180,
-                      width: 333,
+                      left: 10,
+                      bottom: 10,
+                      position: 'absolute',
                     }}>
+                    <Text
+                      style={{
+                        fontSize: 19,
+                        color: 'white',
+                        fontWeight: '700',
+                      }}>
+                      {item.shop}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: '#FAFAFA',
+                      }}>
+                      {item.location}
+                    </Text>
                     <View
                       style={{
-                        width: 83,
+                        width: 50,
                         height: 20,
-                        marginTop: 9,
-                        marginLeft: 9,
-                        borderRadius: 9,
+                        borderRadius: 40,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: '#BBE4FB',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 11,
-                          color: '#0D1230',
-                        }}>
-                        {item.time}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginTop: 20,
-                        marginLeft: 10,
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 19,
-                          color: '#FAFAFA',
-                        }}>
-                        Get Special Discount
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                      }}>
-                      <View
-                        style={{
-                          width: 50,
-                          marginTop: 3,
-                          marginLeft: 10,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            color: '#FAFAFA',
-                          }}>
-                          Up to
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          marginTop: 7,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 28,
-                            color: '#FAFAFA',
-                          }}>
-                          {item.discount}
-                        </Text>
-                      </View>
-                    </View>
-                    <TouchableOpacity
-                      style={{
-                        width: 70,
-                        height: 28,
-                        marginTop: 25,
-                        marginRight: 15,
-                        borderRadius: 5,
-                        alignItems: 'center',
-                        alignSelf: 'flex-end',
-                        justifyContent: 'center',
-                        backgroundColor: '#2158FF',
+                        backgroundColor:
+                          item.status === 'Close' ? 'red' : 'green',
                       }}>
                       <Text
                         style={{
                           fontSize: 13,
-                          color: '#FAFAFA',
+                          color: '#fff',
                         }}>
-                        Claim
+                        {item.status}
                       </Text>
-                    </TouchableOpacity>
-                  </ImageBackground>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-          <View
-            style={{
-              width: '95%',
-              marginTop: 10,
-              marginHorizontal: 5,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text
-              style={{
-                fontSize: 23,
-                color: '#0D1230',
-                fontWeight: '600',
-                marginLeft: 5,
-              }}>
-              Upcoming Schedule
-            </Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('BottomTab', {screen: 'Schedule'})
-              }
-              style={{
-                width: 26,
-                height: 26,
-                elevation: 6,
-                borderRadius: 6,
-                alignSelf: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#FFFFFF',
-              }}>
-              <Image
-                source={require('../../assets/Icons6.png')}
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              width: '97%',
-              alignSelf: 'center',
-            }}>
-            <ScheduleCard
-              name={'Nadeem'}
-              endTime={'10:00'}
-              startTime={'09:00'}
-              date={'Monday,26 May'}
-              title={'Nadeem Hair Saloon'}
-              profileImage={require('../../assets/profile1.png')}
-            />
-          </View>
-
-          <View
-            style={{
-              marginTop: 5,
-              width: '95%',
-              height: 40,
-              marginHorizontal: 5,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text
-              style={{
-                fontSize: 26,
-                color: '#0D1230',
-                fontWeight: '600',
-                marginLeft: 5,
-              }}>
-              Popular Shops near you
-            </Text>
-            {!more ? (
-              <Text
-                onPress={handleMorePress}
-                style={{
-                  fontSize: 11,
-                  color: '#2158FF',
-                }}>
-                show more
-              </Text>
-            ) : (
-              <Text
-                onPress={handleMorePress}
-                style={{
-                  fontSize: 11,
-                  color: '#2158FF',
-                }}>
-                show less
-              </Text>
-            )}
-          </View>
-        </>
-      )}
-      <View
-        style={{
-          borderRadius: 15,
-        }}>
-        {filteredData3
-          .filter((_, index) => more || index < 2) // Show all items if `more` is true, otherwise limit to the first 3
-          .map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={{
-                elevation: 5,
-                marginTop: 10,
-                marginVertical: 1,
-                marginHorizontal: 3,
-              }}>
-              <ImageBackground
-                source={item.image}
-                imageStyle={{borderRadius: 15}}
-                style={{
-                  height: 180,
-                  width: '98%',
-                  marginLeft: '2%',
-                }}>
-                <View
-                  style={{
-                    left: 10,
-                    bottom: 10,
-                    position: 'absolute',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 19,
-                      color: 'white',
-                      fontWeight: '700',
-                    }}>
-                    {item.shop}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      color: '#FAFAFA',
-                    }}>
-                    {item.location}
-                  </Text>
-                  <View
-                    style={{
-                      width: 50,
-                      height: 20,
-                      borderRadius: 40,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor:
-                        item.status === 'Close' ? 'red' : 'green',
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: '#fff',
-                      }}>
-                      {item.status}
-                    </Text>
+                    </View>
                   </View>
-                </View>
-              </ImageBackground>
-            </TouchableOpacity>
-          ))}
-      </View>
-
-      <Modal
-        visible={isModalVisible}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={closeModal}>
-        <TouchableWithoutFeedback onPress={closeModal}>
-          <Animated.View
-            style={{
-              flex: 1,
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              opacity: backgroundOpacity, // Bind to animated value
-            }}>
-            <View style={styles.modalContent}>
-              <Animated.View
-                {...panResponder.panHandlers}
-                style={[
-                  styles.modalContent,
-                  {
-                    transform: pan.getTranslateTransform(),
-                  },
-                ]}>
+                </ImageBackground>
+              </TouchableOpacity>
+            ))}
+        </View>
+        <Modal
+          visible={isModalVisible}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={closeModal}>
+          <TouchableWithoutFeedback onPress={closeModal}>
+            <Animated.View
+              style={{
+                flex: 1,
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                opacity: backgroundOpacity, // Bind to animated value
+              }}>
+              <View style={styles.modalContent}>
                 <Animated.View
-                  style={[styles.progressLine, {width: progressWidth}]}
-                />
+                  {...panResponder.panHandlers}
+                  style={[
+                    styles.modalContent,
+                    {
+                      transform: pan.getTranslateTransform(),
+                    },
+                  ]}>
+                  <Animated.View
+                    style={[styles.progressLine, {width: progressWidth}]}
+                  />
 
-                {selectedImage && (
-                  <TouchableWithoutFeedback style={{flex: 1}}>
-                    <View style={styles.imageContainer}>
-                      {/* Progress Line */}
-                      <View
-                        style={{
-                          position: 'absolute',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          marginTop: Platform.OS === 'ios' ? 70 : 40,
-                          width: '100%',
-                          height: Platform.OS === 'ios' ? '6%' : '3%',
-                          zIndex: 999,
-                        }}>
-                        <TouchableOpacity
-                          style={styles.closeButton}
-                          onPress={closeModal}>
-                          <Image
-                            source={require('../../assets/leftIcon22.png')}
-                            style={styles.closeIcon}
-                          />
-                        </TouchableOpacity>
-                        <Image
-                          source={selectedImage}
-                          style={{
-                            height: 50,
-                            width: 50,
-                            borderRadius: 50,
-                            marginLeft: 10,
-                            borderWidth: 1,
-                            borderColor: '#fff',
-                          }}
-                        />
+                  {selectedImage && (
+                    <TouchableWithoutFeedback style={{flex: 1}}>
+                      <View style={styles.imageContainer}>
+                        {/* Progress Line */}
                         <View
                           style={{
-                            flexDirection: 'column',
-                            paddingLeft: 15,
+                            position: 'absolute',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: Platform.OS === 'ios' ? 70 : 40,
+                            width: '100%',
+                            height: Platform.OS === 'ios' ? '6%' : '3%',
+                            zIndex: 999,
                           }}>
-                          <Text
+                          <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={closeModal}>
+                            <Image
+                              source={require('../../assets/leftIcon22.png')}
+                              style={styles.closeIcon}
+                            />
+                          </TouchableOpacity>
+                          <Image
+                            source={selectedImage}
                             style={{
-                              color: '#fff',
-                              fontSize: 20,
-                              fontWeight: '600',
-                            }}>
-                            Umair
-                          </Text>
+                              height: 50,
+                              width: 50,
+                              borderRadius: 50,
+                              marginLeft: 10,
+                              borderWidth: 1,
+                              borderColor: '#fff',
+                            }}
+                          />
                           <View
                             style={{
-                              flexDirection: 'row',
+                              flexDirection: 'column',
+                              paddingLeft: 15,
                             }}>
                             <Text
                               style={{
                                 color: '#fff',
-                                fontSize: 10,
+                                fontSize: 20,
+                                fontWeight: '600',
                               }}>
-                              Today,
+                              Umair
                             </Text>
-                            <Text
-                              style={{
-                                color: '#fff',
-                                fontSize: 10,
-                              }}>
-                              12:13AM
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                      {/* Image */}
-                      <View
-                        style={{
-                          flex: 1,
-                          justifyContent: 'center',
-                        }}>
-                        <ImageBackground
-                          source={selectedImage}
-                          style={styles.imageBackground}
-                          resizeMode="contain"
-                          onStartShouldSetResponder={() => true}
-                          onLayout={onLayout}
-                          onResponderRelease={onResponderRelease}>
-                          {/* Like Button */}
-                          <View
-                            style={{
-                              width: '100%',
-                              position: 'absolute',
-                              bottom: 10,
-                            }}>
                             <View
                               style={{
-                                marginBottom: 20,
-                                height: 80,
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
                                 flexDirection: 'row',
+                              }}>
+                              <Text
+                                style={{
+                                  color: '#fff',
+                                  fontSize: 10,
+                                }}>
+                                Today,
+                              </Text>
+                              <Text
+                                style={{
+                                  color: '#fff',
+                                  fontSize: 10,
+                                }}>
+                                12:13AM
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                        {/* Image */}
+                        <View
+                          style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                          }}>
+                          <ImageBackground
+                            source={selectedImage}
+                            style={styles.imageBackground}
+                            resizeMode="contain"
+                            onStartShouldSetResponder={() => true}
+                            onLayout={onLayout}
+                            onResponderRelease={onResponderRelease}>
+                            {/* Like Button */}
+                            <View
+                              style={{
                                 width: '100%',
-                                top: Platform.OS === 'ios' ? '1%' : '6%',
+                                position: 'absolute',
+                                bottom: 10,
                               }}>
                               <View
                                 style={{
-                                  height: 60,
-                                  flexDirection: 'row',
-                                  width: '80%',
+                                  marginBottom: 20,
+                                  height: 80,
                                   alignItems: 'center',
-                                  justifyContent: 'center',
+                                  justifyContent: 'space-around',
+                                  flexDirection: 'row',
+                                  width: '100%',
+                                  top: Platform.OS === 'ios' ? '1%' : '6%',
                                 }}>
-                                <Input
-                                  marginBottom={0}
-                                  img2={require('../../assets/iconsend.png')}
-                                  rightIcon={true}
-                                  placeholder={'Comments........'}
-                                  marginLeftImg2={25}
-                                />
+                                <View
+                                  style={{
+                                    height: 60,
+                                    flexDirection: 'row',
+                                    width: '80%',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}>
+                                  <Input
+                                    marginBottom={0}
+                                    img2={require('../../assets/iconsend.png')}
+                                    rightIcon={true}
+                                    placeholder={'Comments........'}
+                                    marginLeftImg2={25}
+                                  />
+                                </View>
+                                <TouchableOpacity
+                                  style={styles.likeButton}
+                                  onPress={handleLike}>
+                                  <Image
+                                    source={
+                                      isLiked
+                                        ? require('../../assets//redHeart.png')
+                                        : require('../../assets/HeartIcon.png')
+                                    }
+                                    style={[styles.likeIcon]}
+                                  />
+                                </TouchableOpacity>
                               </View>
-                              <TouchableOpacity
-                                style={styles.likeButton}
-                                onPress={handleLike}>
-                                <Image
-                                  source={
-                                    isLiked
-                                      ? require('../../assets//redHeart.png')
-                                      : require('../../assets/HeartIcon.png')
-                                  }
-                                  style={[styles.likeIcon]}
-                                />
-                              </TouchableOpacity>
                             </View>
-                          </View>
-                        </ImageBackground>
+                          </ImageBackground>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                )}
-              </Animated.View>
-            </View>
-          </Animated.View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    </ScrollView>
+                    </TouchableWithoutFeedback>
+                  )}
+                </Animated.View>
+              </View>
+            </Animated.View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
@@ -951,6 +888,11 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 5,
     marginLeft: 1,
+  },
+  animation1: {
+    flex: 1,
+    width: 300,
+    height: 300,
   },
 });
 

@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ImageBackground,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
-import ImageBackground from '../../components/imageBackground';
+import Background from '../../components/imageBackground';
 import Review from '../../components/review';
 import Services from '../../components/services';
 import Info from '../../components/info';
@@ -148,195 +150,221 @@ const Shop = ({navigation}) => {
   console.log('selected', selectedItems);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-      }}>
-      <ImageBackground
-        onPress={() => {
-          setButton('services');
-        }}
-        onPressServices={() => {
-          setButton('info');
-        }}
-        onPressReview={() => {
-          setButton('review');
-        }}
-        info={button}
-        onPressArrow={() => {
-          navigation.goBack();
-        }}
-      />
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+        }}>
+        <Background
+          onPress={() => {
+            setButton('services');
+          }}
+          onPressServices={() => {
+            setButton('info');
+          }}
+          onPressReview={() => {
+            setButton('review');
+          }}
+          info={button}
+          onPressArrow={() => {
+            navigation.goBack();
+          }}
+        />
 
-      {button === 'services' ? (
-        <View
-          style={{
-            width: '95%',
-            flex: 1,
-            borderRadius: 10,
-            marginTop: 5,
-          }}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={data}
-            renderItem={({item}) => {
-              const isSelected = selectedItems.some(
-                selectedItem => selectedItem.id === item.id,
-              );
-              return (
-                <Services
-                  onPress={() => handleSelect(item)}
-                  time={item.time}
-                  price={item.price}
-                  title={item.title}
-                  details={item.details}
-                  isSelected={isSelected}
-                />
-              );
-            }}
-          />
-        </View>
-      ) : button === 'info' ? (
-        <View
-          style={{
-            width: '95%',
-            borderRadius: 10,
-            backgroundColor: '#fff',
-            marginTop: 5,
-            height: '56%',
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-          }}>
+        {button === 'services' ? (
           <View
             style={{
+              width: '95%',
+              flex: 1,
+              borderRadius: 10,
               marginTop: 5,
-            }}>
-            <Text
-              style={{
-                fontSize: 22,
-                color: 'black',
-                fontWeight: '700',
-              }}>
-              ADDRESS & HOURS
-            </Text>
-          </View>
-          <View
-            style={{
-              marginTop: 10,
-            }}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: '600',
-                color: 'black',
-              }}>
-              Mr Cutts
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: '300',
-                color: 'black',
-              }}>
-              Block F,PIA Housing Scheme,{'\n'}Lahore,Punjab
-            </Text>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              marginTop: 10,
+              ...Platform.select({
+                ios: {
+                  shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                  shadowOpacity: 0.5, // Slightly transparent shadow
+                  shadowRadius: 8, // Blurred shadow effect
+                  shadowColor: 'black',
+                },
+                android: {
+                  elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                },
+              }),
             }}>
             <FlatList
-              data={newData}
+              showsVerticalScrollIndicator={false}
+              data={data}
               renderItem={({item}) => {
+                const isSelected = selectedItems.some(
+                  selectedItem => selectedItem.id === item.id,
+                );
                 return (
-                  <Info
-                    day={item.day}
-                    openTime={item.openTime}
-                    closeTime={item.closeTime}
+                  <Services
+                    onPress={() => handleSelect(item)}
+                    time={item.time}
+                    price={item.price}
+                    title={item.title}
+                    details={item.details}
+                    isSelected={isSelected}
                   />
                 );
               }}
             />
           </View>
-        </View>
-      ) : (
-        <View
-          style={{
-            flex: 1,
-          }}>
+        ) : button === 'info' ? (
           <View
             style={{
-              width: '100%',
+              width: '95%',
+              borderRadius: 10,
+              backgroundColor: '#fff',
+              marginTop: 5,
+              height: '56%',
               paddingHorizontal: 10,
               paddingVertical: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
             }}>
-            <View>
+            <View
+              style={{
+                marginTop: 5,
+              }}>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 22,
                   color: 'black',
                   fontWeight: '700',
                 }}>
-                REVIEWS
+                ADDRESS & HOURS
               </Text>
             </View>
-            <TouchableOpacity>
+            <View
+              style={{
+                marginTop: 10,
+              }}>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
+                  fontWeight: '600',
                   color: 'black',
-                  fontWeight: '700',
                 }}>
-                ADD REVIEW
+                Mr Cutts
               </Text>
-            </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: '300',
+                  color: 'black',
+                }}>
+                Block F,PIA Housing Scheme,{'\n'}Lahore,Punjab
+              </Text>
+            </View>
+            <View
+              style={{
+                width: '100%',
+                marginTop: 10,
+              }}>
+              <FlatList
+                data={newData}
+                renderItem={({item}) => {
+                  return (
+                    <Info
+                      day={item.day}
+                      openTime={item.openTime}
+                      closeTime={item.closeTime}
+                    />
+                  );
+                }}
+              />
+            </View>
           </View>
-          <FlatList
-            contentContainerStyle={{
-              flexGrow: 1,
-            }}
+        ) : (
+          <View
             style={{
               flex: 1,
+              ...Platform.select({
+                ios: {
+                  shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                  shadowOpacity: 0.5, // Slightly transparent shadow
+                  shadowRadius: 8, // Blurred shadow effect
+                  shadowColor: 'black',
+                },
+                android: {
+                  elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                },
+              }),
+            }}>
+            <View
+              style={{
+                width: '100%',
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: 'black',
+                    fontWeight: '700',
+                  }}>
+                  REVIEWS
+                </Text>
+              </View>
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: 'black',
+                    fontWeight: '700',
+                  }}>
+                  ADD REVIEW
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <FlatList
+              contentContainerStyle={{
+                flexGrow: 1,
+              }}
+              style={{
+                flex: 1,
+              }}
+              data={review}
+              renderItem={({item}) => {
+                return (
+                  <Review
+                    stars={item.stars}
+                    comment={item.comment}
+                    profileName={item.profileName}
+                    profileSymbol={item.profileSymbol}
+                  />
+                );
+              }}
+            />
+          </View>
+        )}
+        <View
+          style={{
+            width: '100%',
+            marginBottom: '8%',
+          }}>
+          <CustomButton
+            onPress={() => {
+              navigation.navigate('AppStack', {screen: 'BookNow'});
             }}
-            data={review}
-            renderItem={({item}) => {
-              return (
-                <Review
-                  stars={item.stars}
-                  comment={item.comment}
-                  profileName={item.profileName}
-                  profileSymbol={item.profileSymbol}
-                />
-              );
-            }}
+            width={'95%'}
+            disabled={selectedItems.length > 0 ? false : true}
+            btnColor={selectedItems.length > 0 ? '#2158FF' : '#BBE4FB'}
+            text={'Book Now'}
+            txtColor={'white'}
+            justi={'center'}
+            fontSize={20}
+            fontWeight={'500'}
           />
         </View>
-      )}
-      <View
-        style={{
-          width: '100%',
-          marginBottom: '8%',
-        }}>
-        <CustomButton
-          onPress={() => {
-            navigation.navigate('AppStack', {screen: 'BookNow'});
-          }}
-          width={'95%'}
-          disabled={selectedItems.length > 0 ? false : true}
-          btnColor={selectedItems.length > 0 ? '#2158FF' : '#BBE4FB'}
-          text={'Book Now'}
-          txtColor={'white'}
-          justi={'center'}
-          fontSize={20}
-          fontWeight={'500'}
-        />
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

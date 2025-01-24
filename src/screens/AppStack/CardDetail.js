@@ -8,6 +8,7 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
+  ImageBackground,
 } from 'react-native';
 import {Input} from '../../components/input';
 import CustomButton from '../../components/customButton';
@@ -15,87 +16,92 @@ import {ProfileCard} from '../../components/profileCard';
 
 const CardDetail = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('AppStack', {screen: 'BookingDetail'})
-        }
-        style={{
-          marginLeft: 5,
-        }}>
-        <Image
-          source={require('../../assets/arrowicon2.png')}
-          style={styles.backIcon}
-        />
-      </TouchableOpacity>
-      <View
-        style={{
-          width: '95%',
-          alignSelf: 'center',
-        }}>
-        <ProfileCard
-          showButton={false}
-          text1={'Mr Cuts Hair\nSaloon\n'}
-          text2="Block F,PIA Housing Scheme,Lahore"
-          profileImg1={require('../../assets/mrCuts.jpeg')}
-        />
-      </View>
-      <View style={styles.inputLabelContainer}>
-        <Text style={styles.inputLabelText}>Card Holder Name</Text>
-      </View>
-      <Input width="100%" placeholder="Enter holder name" />
-      <View style={styles.inputLabelContainer}>
-        <Text style={styles.inputLabelText}>Card Number</Text>
-      </View>
-      <Input
-        width="100%"
-        img={require('../../assets/paymentmethodicon.png')}
-        imgBorderRadius={6}
-        imgWidth={40}
-        leftIcon
-        placeholder="XXXX-XXXX-XXXX-XXXX"
-      />
-      <View style={styles.row}>
-        <View style={styles.column}>
-          <Text style={styles.inputLabelText}>Expiry Date</Text>
-        </View>
-        <View style={[styles.column, styles.cvvColumn]}>
-          <Text style={styles.inputLabelText}>CVV</Text>
-        </View>
-      </View>
-      <View style={styles.row}>
-        <View style={styles.column1}>
-          <Input width="100%" placeholder="XX/XX" />
-        </View>
-        <View style={styles.cvvInput}>
-          <Input width="100%" placeholder="Xxx" />
-        </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <CustomButton
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <View style={styles.container}>
+        <TouchableOpacity
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'BookingDetail'})
           }
-          btnColor="white"
-          width={150}
-          borderColor="black"
-          borderWidth
-          justi="center"
-          text="Back"
-          btnHeight={42}
-          txtColor="black"
+          style={{
+            marginLeft: 5,
+          }}>
+          <Image
+            source={require('../../assets/arrowicon2.png')}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            width: '95%',
+            alignSelf: 'center',
+          }}>
+          <ProfileCard
+            showButton={false}
+            text1={'Mr Cuts Hair\nSaloon\n'}
+            text2="Block F,PIA Housing Scheme,Lahore"
+            profileImg1={require('../../assets/mrCuts.jpeg')}
+          />
+        </View>
+        <View style={styles.inputLabelContainer}>
+          <Text style={styles.inputLabelText}>Card Holder Name</Text>
+        </View>
+        <Input width="100%" placeholder="Enter holder name" focusview={true} />
+        <View style={styles.inputLabelContainer}>
+          <Text style={styles.inputLabelText}>Card Number</Text>
+        </View>
+        <Input
+          width="100%"
+          img={require('../../assets/paymentmethodicon.png')}
+          imgBorderRadius={6}
+          imgWidth={40}
+          focusview={true}
+          leftIcon
+          placeholder="XXXX-XXXX-XXXX-XXXX"
         />
-        <CustomButton
-          onPress={() => navigation.navigate('AppStack', {screen: 'PayNow'})}
-          btnColor="#2158FF"
-          width={150}
-          text="Pay Now"
-          justi="center"
-          txtColor="white"
-          btnHeight={42}
-        />
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <Text style={styles.inputLabelText}>Expiry Date</Text>
+          </View>
+          <View style={[styles.column, styles.cvvColumn]}>
+            <Text style={styles.inputLabelText}>CVV</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.column1}>
+            <Input width="100%" placeholder="XX/XX" focusview={true} />
+          </View>
+          <View style={styles.cvvInput}>
+            <Input width="100%" placeholder="Xxx" focusview={true} />
+          </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            onPress={() =>
+              navigation.navigate('AppStack', {screen: 'BookingDetail'})
+            }
+            btnColor="white"
+            width={150}
+            borderColor="black"
+            borderWidth
+            justi="center"
+            text="Back"
+            btnHeight={42}
+            txtColor="black"
+          />
+          <CustomButton
+            onPress={() => navigation.navigate('AppStack', {screen: 'PayNow'})}
+            btnColor="#2158FF"
+            width={150}
+            text="Pay Now"
+            justi="center"
+            txtColor="white"
+            btnHeight={42}
+          />
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

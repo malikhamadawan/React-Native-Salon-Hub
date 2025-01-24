@@ -1,4 +1,10 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import React from 'react';
 import {ProfileHeader} from '../../components/profileHeader';
 import CustomButton from '../../components/customButton';
@@ -26,95 +32,99 @@ const Setting = ({navigation}) => {
   };
 
   return (
-    <CustomView marginTop={'15%'}>
-      <ProfileHeader
-        onPress={() =>
-          navigation.navigate('AppStack', {screen: 'Notifications'})
-        }
-      />
-      <View style={{width: '100%', marginTop: 40}}>
-        <CustomButton
-          onPress={() => navigation.navigate('AppStack', {screen: 'Profile'})}
-          btnColor={'#fff'}
-          text={'Profile'}
-          txtColor={'#2158FF'}
-          imgPath={require('../../assets/icon1.png')}
-          showImage={true}
-          width={'95%'}
-          justi={'flex-start'}
-          imgMarg={10}
-        />
-        <CustomButton
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <CustomView marginTop={'15%'}>
+        <ProfileHeader
           onPress={() =>
-            navigation.navigate('AppStack', {screen: 'Appointments'})
+            navigation.navigate('AppStack', {screen: 'Notifications'})
           }
-          btnColor={'#fff'}
-          text={'Appointments'}
-          txtColor={'#2158FF'}
-          imgPath={require('../../assets/appoinment2.png')}
-          showImage={true}
-          width={'95%'}
-          justi={'flex-start'}
-          imgMarg={10}
         />
-        <CustomButton
-          btnColor={'#fff'}
-          text={'Language Region'}
-          txtColor={'#2158FF'}
-          imgPath={require('../../assets/languageIcon.png')}
-          showImage={true}
-          width={'95%'}
-          justi={'flex-start'}
-          imgMarg={10}
-        />
-        <CustomButton
-          btnColor={'#fff'}
-          text={'Privacy and Security'}
-          txtColor={'#2158FF'}
-          imgPath={require('../../assets/securityIcon.png')}
-          showImage={true}
-          width={'95%'}
-          justi={'flex-start'}
-          imgMarg={10}
-        />
-        <CustomButton
-          btnColor={'#fff'}
-          text={'Feed Back and Support'}
-          txtColor={'#2158FF'}
-          imgPath={require('../../assets/feedbackIcon.png')}
-          showImage={true}
-          width={'95%'}
-          justi={'flex-start'}
-          imgMarg={10}
-        />
-      </View>
+        <View style={{width: '100%', marginTop: 40}}>
+          <CustomButton
+            onPress={() => navigation.navigate('AppStack', {screen: 'Profile'})}
+            btnColor={'#fff'}
+            text={'Profile'}
+            txtColor={'#2158FF'}
+            imgPath={require('../../assets/icon1.png')}
+            showImage={true}
+            width={'95%'}
+            justi={'flex-start'}
+            imgMarg={10}
+          />
+          <CustomButton
+            onPress={() =>
+              navigation.navigate('AppStack', {screen: 'Appointments'})
+            }
+            btnColor={'#fff'}
+            text={'Appointments'}
+            txtColor={'#2158FF'}
+            imgPath={require('../../assets/appoinment2.png')}
+            showImage={true}
+            width={'95%'}
+            justi={'flex-start'}
+            imgMarg={10}
+          />
+          <CustomButton
+            btnColor={'#fff'}
+            text={'Language Region'}
+            txtColor={'#2158FF'}
+            imgPath={require('../../assets/languageIcon.png')}
+            showImage={true}
+            width={'95%'}
+            justi={'flex-start'}
+            imgMarg={10}
+          />
+          <CustomButton
+            btnColor={'#fff'}
+            text={'Privacy and Security'}
+            txtColor={'#2158FF'}
+            imgPath={require('../../assets/securityIcon.png')}
+            showImage={true}
+            width={'95%'}
+            justi={'flex-start'}
+            imgMarg={10}
+          />
+          <CustomButton
+            btnColor={'#fff'}
+            text={'Feed Back and Support'}
+            txtColor={'#2158FF'}
+            imgPath={require('../../assets/feedbackIcon.png')}
+            showImage={true}
+            width={'95%'}
+            justi={'flex-start'}
+            imgMarg={10}
+          />
+        </View>
 
-      <TouchableOpacity
-        style={{
-          width: '25%',
-          justifyContent: 'center',
-          alignContent: 'center',
-          flexDirection: 'row',
-          position: 'absolute',
-          bottom: 30,
-          right: 0,
-        }}
-        onPress={logout} // Call logout without passing the navigation prop explicitly
-      >
-        <Image
-          source={require('../../assets/logOut1.png')}
+        <TouchableOpacity
           style={{
-            height: 20,
-            width: 20,
-            marginRight: 3,
-            tintColor: '#2158FF',
+            width: '25%',
+            justifyContent: 'center',
+            alignContent: 'center',
+            flexDirection: 'row',
+            position: 'absolute',
+            bottom: 30,
+            right: 0,
           }}
-        />
-        <Text style={{color: '#000000', fontWeight: '500', fontSize: 15}}>
-          Logout
-        </Text>
-      </TouchableOpacity>
-    </CustomView>
+          onPress={logout} // Call logout without passing the navigation prop explicitly
+        >
+          <Image
+            source={require('../../assets/logOut1.png')}
+            style={{
+              height: 20,
+              width: 20,
+              marginRight: 3,
+              tintColor: '#2158FF',
+            }}
+          />
+          <Text style={{color: '#000000', fontWeight: '500', fontSize: 15}}>
+            Logout
+          </Text>
+        </TouchableOpacity>
+      </CustomView>
+    </ImageBackground>
   );
 };
 

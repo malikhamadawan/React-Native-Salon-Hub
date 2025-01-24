@@ -6,6 +6,7 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import ScheduleCard from '../../components/scheduleCard/index';
@@ -60,65 +61,69 @@ const Appointments = ({navigation}) => {
   ];
 
   return (
-    <View
-      style={{
-        marginTop: Platform.OS === 'ios' ? 50 : 30,
-        flex: 1,
-      }}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={{
-          marginLeft: 10,
-        }}>
-        <Image
-          source={require('../../assets/arrowicon2.png')}
-          style={{
-            width: 24,
-            height: 24,
-            marginRight: '92%',
-          }}
-        />
-      </TouchableOpacity>
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
       <View
         style={{
-          backgroundColor: '#FFFF',
-          height: 50,
-          width: '100%',
-          justifyContent: 'center',
-          marginTop: 10,
-          marginBottom: 15,
+          marginTop: Platform.OS === 'ios' ? 50 : 30,
+          flex: 1,
         }}>
-        <Text
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
           style={{
-            fontSize: 28,
-            color: '#0D1230',
-            fontWeight: '600',
-            marginLeft: 20,
+            marginLeft: 10,
           }}>
-          Appointments
-        </Text>
+          <Image
+            source={require('../../assets/arrowicon2.png')}
+            style={{
+              width: 24,
+              height: 24,
+              marginRight: '92%',
+            }}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            backgroundColor: 'transparent',
+            height: 50,
+            width: '100%',
+            justifyContent: 'center',
+            marginTop: 10,
+            marginBottom: 15,
+          }}>
+          <Text
+            style={{
+              fontSize: 28,
+              color: '#0D1230',
+              fontWeight: '600',
+              marginLeft: 20,
+            }}>
+            Appointments
+          </Text>
+        </View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            alignItems: 'center',
+          }}
+          renderItem={({item}) => {
+            return (
+              <ScheduleCard
+                name={item.name}
+                title={item.title}
+                date={item.date}
+                startTime={item.startTime}
+                endTime={item.endTime}
+                profileImage={item.profileImage}
+                showBtn={true}
+              />
+            );
+          }}
+          data={data}
+        />
       </View>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          alignItems: 'center',
-        }}
-        renderItem={({item}) => {
-          return (
-            <ScheduleCard
-              name={item.name}
-              title={item.title}
-              date={item.date}
-              startTime={item.startTime}
-              endTime={item.endTime}
-              profileImage={item.profileImage}
-              showBtn={true}
-            />
-          );
-        }}
-        data={data}
-      />
-    </View>
+    </ImageBackground>
   );
 };
 

@@ -41,6 +41,17 @@ const ProfileHeader = ({onPress}) => {
           flexDirection: 'row',
           alignItems: 'center',
           width: '60%',
+          ...Platform.select({
+            ios: {
+              shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+              shadowOpacity: 0.6, // Slightly transparent shadow
+              shadowRadius: 8, // Blurred shadow effect
+              shadowColor: 'black',
+            },
+            android: {
+              elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+            },
+          }),
         }}>
         <Image
           source={require('../../assets/umair1.jpg')}
@@ -103,13 +114,17 @@ const ProfileHeader = ({onPress}) => {
           justifyContent: 'center',
           alignContent: 'center',
           alignItems: 'center',
-          elevation: 1,
-          shadowOpacity: 0.5,
-          // shadowColor: (Platform.OS = 'ios' ? '#808080' : null),
-          shadowOffset: {
-            width: 2,
-            height: 3,
-          },
+          ...Platform.select({
+            ios: {
+              shadowOffset: {width: 3, height: 4}, // Shadow offset outside
+              shadowOpacity: 0.6, // Slightly transparent shadow
+              shadowRadius: 8, // Blurred shadow effect
+              shadowColor: 'black',
+            },
+            android: {
+              elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+            },
+          }),
         }}>
         <Image
           tintColor={'#2158FF'}

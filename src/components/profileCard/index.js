@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Linking,
   Alert,
+  Platform,
 } from 'react-native';
 import React from 'react';
 
@@ -66,6 +67,17 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   innerContainer: {
     flexDirection: 'row',

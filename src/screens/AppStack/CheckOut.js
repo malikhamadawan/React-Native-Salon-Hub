@@ -1,40 +1,51 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Platform,
+  ImageBackground,
+} from 'react-native';
 import CustomButton from '../../components/customButton';
 
 const CheckOut = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../../assets/checkOutPic.png')}
-          style={styles.image}
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/checkOutPic.png')}
+            style={styles.image}
+          />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.mainText}>Order was placed</Text>
+          <Text style={styles.successText}>Successfully!</Text>
+        </View>
+        <View style={styles.orderIdContainer}>
+          <Text style={styles.orderIdLabel}>Your Order ID :</Text>
+          <Text style={styles.orderId}># XDC178fu14Qtz31</Text>
+        </View>
+        <CustomButton
+          onPress={() => {
+            navigation.navigate('AppStack', {
+              screen: 'BottomTab',
+              params: {
+                screen: 'Home',
+              },
+            });
+          }}
+          text="Continue Shopping"
+          btnColor="#2158FF"
+          justi="center"
+          txtColor="white"
+          marginTop={30}
         />
       </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.mainText}>Order was placed</Text>
-        <Text style={styles.successText}>Successfully!</Text>
-      </View>
-      <View style={styles.orderIdContainer}>
-        <Text style={styles.orderIdLabel}>Your Order ID :</Text>
-        <Text style={styles.orderId}># XDC178fu14Qtz31</Text>
-      </View>
-      <CustomButton
-        onPress={() => {
-          navigation.navigate('AppStack', {
-            screen: 'BottomTab',
-            params: {
-              screen: 'Home',
-            },
-          });
-        }}
-        text="Continue Shopping"
-        btnColor="#2158FF"
-        justi="center"
-        txtColor="white"
-        marginTop={30}
-      />
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -65,14 +76,17 @@ const styles = StyleSheet.create({
   },
   successText: {
     fontSize: 30,
+    marginBottom: '20%',
     color: '#2158FF',
     fontWeight: '700',
   },
   orderIdContainer: {
     flexDirection: 'row',
+    marginBottom: '30%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 250,
+    height: 50,
+    backgroundColor:'#fff',
     marginTop: Platform.OS === 'ios' ? 0 : 20,
   },
   orderIdLabel: {

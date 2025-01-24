@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   FlatList,
   PermissionsAndroid,
+  ImageBackground,
+  Platform,
 } from 'react-native';
 import {CustomView} from '../../components/mainContainer';
 import ScheduleCard from '../../components/scheduleCard';
@@ -94,148 +96,177 @@ const Schedule = ({navigation}) => {
   ];
 
   return (
-    <CustomView marginTop={'10%'}>
-      <View
-        style={{
-          alignItems: 'center',
-          // backgroundColor: '#FFFF',
-        }}>
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <CustomView marginTop={'10%'}>
+        <View
+          style={{
+            alignItems: 'center',
+            // backgroundColor: '#FFFF',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '90%',
+              marginTop: 10,
+            }}>
+            <Text
+              style={{
+                fontSize: 28,
+                color: '#0D1230',
+                fontWeight: '600',
+              }}>
+              Schedule
+            </Text>
+            <TouchableOpacity onPress={toggleInput}>
+              <Image
+                source={require('../../assets/searchIcon2.png')}
+                style={{
+                  height: 24,
+                  width: 24,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          {showInput && (
+            <Input
+              img={require('../../assets/searchIcon2.png')}
+              img2={require('../../assets/icons5.png')}
+              password={false}
+              focusview={true}
+              marginBottom={15}
+              placeholder={'Search...'}
+              justifyContent={'space-between'}
+            />
+          )}
+        </View>
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '90%',
-            marginTop: 10,
+            justifyContent: 'space-evenly',
+            backgroundColor: 'transparent',
           }}>
-          <Text
+          <TouchableOpacity
+            onPress={() => {
+              setButton('upComing');
+            }}
             style={{
-              fontSize: 28,
-              color: '#0D1230',
-              fontWeight: '600',
+              width: '30%',
+              // backgroundColor: button === 'upComing' ? "#2158FF":"#fff",
+              // borderRadius: 20,
+              height: 50,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderBottomWidth: button === 'upComing' ? 5 : 0,
+              borderColor: '#2158FF',
             }}>
-            Schedule
-          </Text>
-          <TouchableOpacity onPress={toggleInput}>
-            <Image
-              source={require('../../assets/searchIcon2.png')}
+            <Text
               style={{
-                height: 24,
-                width: 24,
-              }}
-            />
+                fontSize: 17,
+                fontWeight: '500',
+                color: 'black',
+              }}>
+              Upcoming
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setButton('history');
+            }}
+            style={{
+              width: '30%',
+              // backgroundColor: '#fff',
+              height: 50,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderColor: '#2158FF',
+              borderBottomWidth: button === 'history' ? 5 : 0,
+            }}>
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: '500',
+                color: 'black',
+              }}>
+              History
+            </Text>
           </TouchableOpacity>
         </View>
-        {showInput && (
-          <Input
-            img={require('../../assets/searchIcon2.png')}
-            img2={require('../../assets/icons5.png')}
-            password={false}
-            focusview={true}
-            marginBottom={15}
-            placeholder={'Search...'}
-            justifyContent={'space-between'}
+        {button === 'upComing' ? (
+          <FlatList
+            contentContainerStyle={{
+              width: '100%',
+              alignItems: 'center',
+              ...Platform.select({
+                ios: {
+                  shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                  shadowOpacity: 0.5, // Slightly transparent shadow
+                  shadowRadius: 8, // Blurred shadow effect
+                  shadowColor: 'black',
+                },
+                android: {
+                  elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                },
+              }),
+            }}
+            renderItem={({item}) => {
+              console.log(item.phoneNo);
+              return (
+                <View>
+                  <ScheduleCard
+                    name={item.name}
+                    title={item.title}
+                    date={item.date}
+                    startTime={item.startTime}
+                    endTime={item.endTime}
+                    profileImage={item.profileImage}
+                    phoneNo={item.phoneNo}
+                    showBtn={true}
+                  />
+                </View>
+              );
+            }}
+            data={data}
+          />
+        ) : (
+          <FlatList
+            contentContainerStyle={{
+              width: '100',
+              alignItems: 'center',
+              ...Platform.select({
+                ios: {
+                  shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                  shadowOpacity: 0.5, // Slightly transparent shadow
+                  shadowRadius: 8, // Blurred shadow effect
+                  shadowColor: 'black',
+                },
+                android: {
+                  elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                },
+              }),
+            }}
+            renderItem={({item}) => {
+              return (
+                <ScheduleCard
+                  name={item.name}
+                  title={item.title}
+                  date={item.date}
+                  startTime={item.startTime}
+                  endTime={item.endTime}
+                  profileImage={item.profileImage}
+                  phoneNo={item.phoneNo}
+                  showBtn={false}
+                />
+              );
+            }}
+            data={data}
           />
         )}
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          backgroundColor: '#fff',
-          // width: '100%'
-        }}>
-        <TouchableOpacity
-          onPress={() => {
-            setButton('upComing');
-          }}
-          style={{
-            width: '30%',
-            // backgroundColor: button === 'upComing' ? "#2158FF":"#fff",
-            // borderRadius: 20,
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderBottomWidth: button === 'upComing' ? 5 : 0,
-            borderColor: '#2158FF',
-          }}>
-          <Text
-            style={{
-              fontSize: 17,
-              fontWeight: '500',
-              color: 'black',
-            }}>
-            Upcoming
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setButton('history');
-          }}
-          style={{
-            width: '30%',
-            // backgroundColor: '#fff',
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderColor: '#2158FF',
-            borderBottomWidth: button === 'history' ? 5 : 0,
-          }}>
-          <Text
-            style={{
-              fontSize: 17,
-              fontWeight: '500',
-              color: 'black',
-            }}>
-            History
-          </Text>
-        </TouchableOpacity>
-      </View>
-      {button === 'upComing' ? (
-        <FlatList
-          contentContainerStyle={{
-            alignItems: 'center',
-          }}
-          renderItem={({item}) => {
-            console.log(item.phoneNo);
-            return (
-              <ScheduleCard
-                name={item.name}
-                title={item.title}
-                date={item.date}
-                startTime={item.startTime}
-                endTime={item.endTime}
-                profileImage={item.profileImage}
-                phoneNo={item.phoneNo}
-                showBtn={true}
-              />
-            );
-          }}
-          data={data}
-        />
-      ) : (
-        <FlatList
-          contentContainerStyle={{
-            alignItems: 'center',
-          }}
-          renderItem={({item}) => {
-            return (
-              <ScheduleCard
-                name={item.name}
-                title={item.title}
-                date={item.date}
-                startTime={item.startTime}
-                endTime={item.endTime}
-                profileImage={item.profileImage}
-                phoneNo={item.phoneNo}
-                showBtn={false}
-              />
-            );
-          }}
-          data={data}
-        />
-      )}
-    </CustomView>
+      </CustomView>
+    </ImageBackground>
   );
 };
 

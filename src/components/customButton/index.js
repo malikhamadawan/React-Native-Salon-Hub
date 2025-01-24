@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Image, Text, StyleSheet, Platform} from 'react-native';
 
 const CustomButton = ({
   text,
@@ -75,6 +76,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 10,
     flexDirection: 'row',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10,
+      },
+    }),
   },
 });
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -7,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
+  ImageBackground,
 } from 'react-native';
 import moment from 'moment';
 import CustomButton from '../../components/customButton';
@@ -49,142 +51,146 @@ const BookNow = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}>
-        <Image
-          source={require('../../assets/arrowicon2.png')}
-          style={styles.backIcon}
-        />
-      </TouchableOpacity>
-      <ProfileCard
-        showButton
-        text1={`Usman\n`}
-        text2="Barber"
-        profileImg1={require('../../assets/profile2.jpeg')}
-        marginTop={5}
-      />
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoText}>Customers</Text>
-        <Text style={styles.infoText}>Experience</Text>
-        <Text style={styles.infoText}>Ratings</Text>
-      </View>
-      <View style={styles.statsContainer}>
-        <View style={styles.statCard}>
-          <Text style={styles.statText}>150+</Text>
-        </View>
-        <View style={styles.statCard}>
-          <Text style={styles.statText}>3 years</Text>
-        </View>
-        <View style={styles.statCard}>
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../assets/mainBackground1122.png')}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}>
           <Image
-            source={require('../../assets/starIcon.png')}
-            style={styles.starIcon}
+            source={require('../../assets/arrowicon2.png')}
+            style={styles.backIcon}
           />
-          <Text style={styles.statText}>4.7</Text>
+        </TouchableOpacity>
+        <ProfileCard
+          showButton
+          text1={`Usman\n`}
+          text2="Barber"
+          profileImg1={require('../../assets/profile2.jpeg')}
+          marginTop={5}
+        />
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>Customers</Text>
+          <Text style={styles.infoText}>Experience</Text>
+          <Text style={styles.infoText}>Ratings</Text>
+        </View>
+        <View style={styles.statsContainer}>
+          <View style={styles.statCard}>
+            <Text style={styles.statText}>150+</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statText}>3 years</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Image
+              source={require('../../assets/starIcon.png')}
+              style={styles.starIcon}
+            />
+            <Text style={styles.statText}>4.7</Text>
+          </View>
+        </View>
+        <Text style={styles.sectionTitle}>Schedule</Text>
+        <View style={styles.dateContainer}>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data={allDatesInMonth}
+            horizontal
+            renderItem={({item}) => (
+              <TouchableOpacity
+                key={item.toString()}
+                onPress={() =>
+                  setSelectedDate(selectedDate === item ? null : item)
+                }
+                style={[
+                  styles.dateCard,
+                  {
+                    backgroundColor:
+                      selectedDate === item ? '#2158FF' : '#BBE4FB',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.dateText,
+                    {color: selectedDate === item ? 'white' : 'black'},
+                  ]}>
+                  {
+                    item
+                      .toLocaleDateString('en-US', {
+                        day: '2-digit',
+                        month: 'long',
+                      })
+                      .split(' ')[1]
+                  }
+                </Text>
+                <Text
+                  style={[
+                    styles.dateTextSmall,
+                    {color: selectedDate === item ? 'white' : 'black'},
+                  ]}>
+                  {
+                    item
+                      .toLocaleDateString('en-US', {
+                        day: '2-digit',
+                        month: 'long',
+                      })
+                      .split(' ')[0]
+                  }
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+        <Text style={styles.sectionTitle}>Time</Text>
+        <View style={styles.timeContainer}>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data={timeSlots}
+            horizontal
+            renderItem={({item}) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() =>
+                  setSelectedTime(selectedTime === item ? null : item)
+                }
+                style={[
+                  styles.timeCard,
+                  {
+                    backgroundColor:
+                      selectedTime === item ? '#2158FF' : '#BBE4FB',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.timeText,
+                    {color: selectedTime === item ? 'white' : 'black'},
+                  ]}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}
+            width={159}
+            text="Back"
+            btnColor="white"
+            justi="center"
+            txtColor="black"
+          />
+          <CustomButton
+            onPress={handleBooking}
+            disabled={!selectedDate || !selectedTime}
+            width={159}
+            text="Next"
+            btnColor={!selectedDate || !selectedTime ? '#BBE4FB' : '#2158FF'}
+            justi="center"
+            txtColor="white"
+          />
         </View>
       </View>
-      <Text style={styles.sectionTitle}>Schedule</Text>
-      <View style={styles.dateContainer}>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          data={allDatesInMonth}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity
-              key={item.toString()}
-              onPress={() =>
-                setSelectedDate(selectedDate === item ? null : item)
-              }
-              style={[
-                styles.dateCard,
-                {
-                  backgroundColor:
-                    selectedDate === item ? '#2158FF' : '#BBE4FB',
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.dateText,
-                  {color: selectedDate === item ? 'white' : 'black'},
-                ]}>
-                {
-                  item
-                    .toLocaleDateString('en-US', {
-                      day: '2-digit',
-                      month: 'long',
-                    })
-                    .split(' ')[1]
-                }
-              </Text>
-              <Text
-                style={[
-                  styles.dateTextSmall,
-                  {color: selectedDate === item ? 'white' : 'black'},
-                ]}>
-                {
-                  item
-                    .toLocaleDateString('en-US', {
-                      day: '2-digit',
-                      month: 'long',
-                    })
-                    .split(' ')[0]
-                }
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-      <Text style={styles.sectionTitle}>Time</Text>
-      <View style={styles.timeContainer}>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          data={timeSlots}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity
-              key={item}
-              onPress={() =>
-                setSelectedTime(selectedTime === item ? null : item)
-              }
-              style={[
-                styles.timeCard,
-                {
-                  backgroundColor:
-                    selectedTime === item ? '#2158FF' : '#BBE4FB',
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.timeText,
-                  {color: selectedTime === item ? 'white' : 'black'},
-                ]}>
-                {item}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <CustomButton
-          onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}
-          width={159}
-          text="Back"
-          btnColor="white"
-          justi="center"
-          txtColor="black"
-        />
-        <CustomButton
-          onPress={handleBooking}
-          disabled={!selectedDate || !selectedTime}
-          width={159}
-          text="Next"
-          btnColor={!selectedDate || !selectedTime ? '#BBE4FB' : '#2158FF'}
-          justi="center"
-          txtColor="white"
-        />
-      </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -230,6 +236,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
     // flexDirection: 'row',
   },
   statText: {
@@ -249,18 +266,33 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   dateContainer: {
-    height: '10%',
+    height: '12%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
+    // backgroundColor: 'red',
+    // alignContent: 'center',
+    // alignSelf: 'center',
   },
   dateCard: {
-    height: '90%',
+    height: '80%',
+    marginTop: 10,
     width: 78,
     borderRadius: 15,
     marginHorizontal: 7,
     justifyContent: 'center',
     alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 1, height: 1}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 6, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   dateText: {
     fontSize: 19,
@@ -269,23 +301,36 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   timeContainer: {
-    height: 80,
+    height: '12%',
     width: '100%',
+    justifyContent: 'center',
   },
   timeCard: {
-    height: '90%',
+    height: '80%',
+    marginTop: 10,
     width: 78,
     borderRadius: 15,
     marginHorizontal: 7,
     justifyContent: 'center',
     alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 1, height: 1}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 6, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   timeText: {
     fontSize: 17,
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginVertical: '15%',
+    marginVertical: '12%',
     justifyContent: 'space-evenly',
     width: '95%',
   },

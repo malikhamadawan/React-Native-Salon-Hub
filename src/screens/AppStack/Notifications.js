@@ -1,5 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  Platform,
+  ImageBackground,
+} from 'react-native';
 import React from 'react';
 
 const Notifications = ({navigation}) => {
@@ -48,111 +56,144 @@ const Notifications = ({navigation}) => {
   return (
     <View
       style={{
-        marginTop: Platform.OS === 'ios' ? 50 : 40,
         flex: 1,
-        paddingHorizontal: 12,
       }}>
-      <View
+      <ImageBackground
+        source={require('../../assets/mainBackground1122.png')}
         style={{
-          // justifyContent: 'center',
-          alignItems: 'center',
-          // alignContent: 'space-between',
-          flexDirection: 'row',
+          width: '100%',
+          height: '100%',
         }}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('AppStack', {screen: 'BottomTab'})
-          }>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-            }}
-            source={require('../../assets/arrowicon2.png')}
-          />
-        </TouchableOpacity>
-        <Text
+        <View
           style={{
-            fontSize: 23,
-            color: 'black',
-            fontWeight: '600',
-            marginLeft: 20,
+            // justifyContent: 'center',
+            alignItems: 'center',
+
+            marginTop: Platform.OS === 'ios' ? 50 : 40,
+
+            // alignContent: 'space-between',
+            flexDirection: 'row',
           }}>
-          Notifications
-        </Text>
-      </View>
-      <FlatList
-        style={{
-          marginTop: 5,
-        }}
-        data={notificat}
-        renderItem={({item}) => {
-          return (
-            <View
+          <TouchableOpacity
+            style={{
+              marginLeft: 15,
+              backgroundColor: 'white',
+              borderRadius: 12,
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              elevation: 1,
+              shadowOpacity: 2,
+              shadowColor: 'black',
+              shadowOffset: {
+                width: 3,
+                height: 3,
+              },
+            }}
+            onPress={() =>
+              navigation.navigate('AppStack', {screen: 'BottomTab'})
+            }>
+            <Image
               style={{
-                height: 120,
-                width: '100%',
-                marginTop: 10,
-                backgroundColor: 'white',
-                borderRadius: 10,
-              }}>
+                width: 30,
+                height: 30,
+              }}
+              source={require('../../assets/arrowicon2.png')}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 23,
+              color: 'black',
+              fontWeight: '600',
+              marginLeft: 20,
+            }}>
+            Notifications
+          </Text>
+        </View>
+        <FlatList
+          contentContainerStyle={{
+            alignItems: 'center',
+            elevation: 1,
+            shadowOpacity: 0.7,
+            shadowColor: 'black',
+            shadowOffset: {
+              width: 3,
+              height: 3,
+            },
+          }}
+          style={{
+            marginTop: 5,
+          }}
+          data={notificat}
+          renderItem={({item}) => {
+            return (
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  //   backgroundColor: 'orange',
-                  alignItems: 'center',
+                  height: 120,
+                  width: '95%',
+                  marginTop: 10,
+                  backgroundColor: 'white',
+                  borderRadius: 10,
                 }}>
                 <View
                   style={{
                     flexDirection: 'row',
-                    // justifyContent: 'space-around',
-                    // backgroundColor: 'yellow',
-                    width: '47%',
+                    justifyContent: 'space-between',
+                    // backgroundColor: 'orange',
                     alignItems: 'center',
                   }}>
-                  <Image
-                    source={item.image}
+                  <View
                     style={{
-                      height: 40,
-                      width: 40,
-                      marginTop: 5,
-                      marginLeft: 5,
-                    }}
-                  />
+                      flexDirection: 'row',
+                      // justifyContent: 'space-around',
+                      // backgroundColor: 'yellow',
+                      width: '47%',
+                      alignItems: 'center',
+                    }}>
+                    <Image
+                      source={item.image}
+                      style={{
+                        height: 40,
+                        width: 40,
+                        marginTop: 5,
+                        marginLeft: 5,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        fontSize: 19,
+                        color: 'black',
+                        fontWeight: '600',
+                        marginLeft: 10,
+                      }}>
+                      {item.name}
+                    </Text>
+                  </View>
                   <Text
                     style={{
-                      fontSize: 19,
-                      color: 'black',
-                      fontWeight: '600',
-                      marginLeft: 10,
+                      fontSize: 13,
+                      color: 'gray',
+                      marginRight: 10,
                     }}>
-                    {item.name}
+                    {item.ago}
                   </Text>
                 </View>
                 <Text
                   style={{
-                    fontSize: 13,
-                    color: 'gray',
-                    marginRight: 10,
+                    fontSize: 15,
+                    color: 'black',
+                    fontWeight: '400',
+                    marginTop: 15,
+                    paddingHorizontal: 10,
                   }}>
-                  {item.ago}
+                  {item.detail}
                 </Text>
               </View>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: 'black',
-                  fontWeight: '400',
-                  marginTop: 15,
-                  paddingHorizontal: 10,
-                }}>
-                {item.detail}
-              </Text>
-            </View>
-          );
-        }}
-      />
+            );
+          }}
+        />
+      </ImageBackground>
     </View>
   );
 };

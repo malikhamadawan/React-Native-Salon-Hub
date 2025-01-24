@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {View, Text, Alert} from 'react-native';
+import {View, Text, Alert, Animated, StyleSheet} from 'react-native';
 import {Input} from '../../components/input';
 import Header from '../../components/header';
 import OrSeprator from '../../components/orSeprator';
@@ -146,5 +146,14 @@ const LogIn = ({navigation}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
 
 export default LogIn;

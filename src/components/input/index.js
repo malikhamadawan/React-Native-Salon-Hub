@@ -148,6 +148,8 @@ const styles = StyleSheet.create({
         elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
       },
     }),
+    borderWidth: 1,
+    borderColor: '#2158FF',
   },
   leftIconStyle: {
     height: 20,
