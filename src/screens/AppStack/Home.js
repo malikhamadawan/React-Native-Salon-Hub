@@ -17,6 +17,7 @@ import {
   ImageBackgroundBase,
   TextInput,
   KeyboardAvoidingView,
+  StatusBar,
 } from 'react-native';
 
 /** component */
@@ -27,6 +28,8 @@ import {ProfileHeader} from '../../components/profileHeader';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AutoScrollFlatList} from '../../components/AutoScrollFlatList/AutoScrollFlatList';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const Home = ({navigation}) => {
   const [user1, setUser1] = useState(null);
@@ -377,28 +380,28 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          flexGrow: 1,
-          marginTop: 10,
-        }}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
+
+      <View style={styles.headerContainer}>
+        {/* Sticky Profile Header */}
         <ProfileHeader
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'Notifications'})
           }
         />
+
+        {/* Scrollable Content */}
+        {/* Search Bar */}
         <Input
           leftIcon={true}
           marginBottom={15}
           rightIcon={true}
           focusview={true}
+          img={require('../../assets/searchIcon2.png')}
           img2={require('../../assets/icons5.png')}
           placeholder={'Search “Salon, Specialist...”'}
-          img={require('../../assets/searchIcon2.png')}
           value={searchQuery}
           onChangeText={text => {
             if (text !== '') {
@@ -409,60 +412,72 @@ const Home = ({navigation}) => {
             setSearchQuery(text);
           }}
         />
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          flexGrow: 1,
+          // marginTop: '45%',
+          paddingBottom: '3%',
+          // backgroundColor: 'yellow', // Adjust if needed
+        }}>
         {!search && (
           <>
-            <View style={{flexDirection: 'row', width: '100%'}}>
-              <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={newData}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({item}) => (
-                  <TouchableOpacity
+            <FlatList
+              horizontal={true}
+              contentContainerStyle={{
+                flexDirection: 'row',
+                height: 75,
+              }}
+              showsHorizontalScrollIndicator={false}
+              data={newData}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  style={{
+                    width: 65,
+                    height: 80,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    ...Platform.select({
+                      ios: {
+                        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                        shadowOpacity: 0.5, // Slightly transparent shadow
+                        shadowRadius: 8, // Blurred shadow effect
+                        shadowColor: 'black',
+                      },
+                      android: {
+                        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                      },
+                    }),
+                  }}
+                  onPress={() => openModal(item.image)}>
+                  <Image
+                    source={item.image}
                     style={{
-                      width: 65,
-                      height: 80,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      ...Platform.select({
-                        ios: {
-                          shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-                          shadowOpacity: 0.5, // Slightly transparent shadow
-                          shadowRadius: 8, // Blurred shadow effect
-                          shadowColor: 'black',
-                        },
-                        android: {
-                          elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
-                        },
-                      }),
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
                     }}
-                    onPress={() => openModal(item.image)}>
-                    <Image
-                      source={item.image}
-                      style={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: 25,
-                      }}
-                    />
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        color: 'black',
-                        fontWeight: '400',
-                        marginVertical: 5,
-                        textAlign: 'center',
-                      }}>
-                      {item.title}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
+                  />
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: 'black',
+                      fontWeight: '400',
+                      marginVertical: 5,
+                      textAlign: 'center',
+                    }}>
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+
             <View
               style={{
                 elevation: 5,
-                marginTop: 20,
+                // marginTop: 20,
                 marginHorizontal: 5,
               }}>
               <Text
@@ -475,15 +490,7 @@ const Home = ({navigation}) => {
                 #SpecialOffers
               </Text>
             </View>
-            {/* <View
-              style={{
-                width: '100%',
-                marginTop: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}> */}
             <AutoScrollFlatList newData2={newData2} />
-            {/* </View> */}
             <View
               style={{
                 width: '95%',
@@ -515,6 +522,17 @@ const Home = ({navigation}) => {
                   alignContent: 'center',
                   justifyContent: 'center',
                   backgroundColor: '#FFFFFF',
+                  ...Platform.select({
+                    ios: {
+                      shadowOffset: {width: 0, height: 2}, // Shadow offset outside
+                      shadowOpacity: 0.5, // Slightly transparent shadow
+                      shadowRadius: 8, // Blurred shadow effect
+                      shadowColor: 'black',
+                    },
+                    android: {
+                      elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                    },
+                  }),
                 }}>
                 <Image
                   source={require('../../assets/Icons6.png')}
@@ -602,7 +620,6 @@ const Home = ({navigation}) => {
               <TouchableOpacity
                 key={index}
                 style={{
-                  elevation: 5,
                   marginTop: 10,
                   marginVertical: 1,
                   marginHorizontal: 3,
@@ -675,6 +692,7 @@ const Home = ({navigation}) => {
           transparent={true}
           animationType="fade"
           onRequestClose={closeModal}>
+          <StatusBar barStyle="lights-content" backgroundColor="black" />
           <TouchableWithoutFeedback onPress={closeModal}>
             <Animated.View
               style={{
@@ -833,14 +851,17 @@ const Home = ({navigation}) => {
           </TouchableWithoutFeedback>
         </Modal>
       </ScrollView>
-    </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    // backgroundColor: 'transparent',
+  },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   modalContent: {
     width: '100%',

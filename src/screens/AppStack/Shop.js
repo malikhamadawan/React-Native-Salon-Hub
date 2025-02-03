@@ -15,6 +15,8 @@ import Review from '../../components/review';
 import Services from '../../components/services';
 import Info from '../../components/info';
 import CustomButton from '../../components/customButton';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 const Shop = ({navigation}) => {
   const [button, setButton] = useState('services');
   const [selectedItems, setSelectedItems] = useState([]);
@@ -150,9 +152,9 @@ const Shop = ({navigation}) => {
   console.log('selected', selectedItems);
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
       <View
         style={{
           flex: 1,
@@ -364,7 +366,7 @@ const Shop = ({navigation}) => {
           />
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 

@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const PayNow = ({navigation}) => {
   const renderProfile = () => (
@@ -40,9 +42,8 @@ const PayNow = ({navigation}) => {
   );
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      <PersistentBackgroundAnimation />
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() =>
@@ -53,10 +54,8 @@ const PayNow = ({navigation}) => {
             style={styles.arrowIcon}
           />
         </TouchableOpacity>
-
         {renderProfile()}
         {renderSchedule()}
-
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
           <Image
@@ -64,7 +63,6 @@ const PayNow = ({navigation}) => {
             style={styles.paymentMethodImage}
           />
         </View>
-
         <View style={styles.buttonContainer}>
           <CustomButton
             onPress={() =>
@@ -92,7 +90,7 @@ const PayNow = ({navigation}) => {
           />
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -113,13 +111,13 @@ const styles = {
     // backgroundColor:'blue',
     ...Platform.select({
       ios: {
-        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-        shadowOpacity: 0.5, // Slightly transparent shadow
-        shadowRadius: 8, // Blurred shadow effect
+        shadowOffset: {width: 2, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
         shadowColor: 'black',
       },
       android: {
-        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+        elevation: 10,
       },
     }),
   },
@@ -129,7 +127,6 @@ const styles = {
     fontSize: 23,
     color: 'black',
     fontWeight: '600',
-    // backgroundColor:'red',
   },
   scheduleContainer: {
     flexDirection: 'row',
@@ -139,13 +136,13 @@ const styles = {
     justifyContent: 'space-between',
     ...Platform.select({
       ios: {
-        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-        shadowOpacity: 0.5, // Slightly transparent shadow
-        shadowRadius: 8, // Blurred shadow effect
+        shadowOffset: {width: 2, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
         shadowColor: 'black',
       },
       android: {
-        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+        elevation: 10,
       },
     }),
   },

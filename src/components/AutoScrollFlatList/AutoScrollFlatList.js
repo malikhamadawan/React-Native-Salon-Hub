@@ -38,8 +38,8 @@ const AutoScrollFlatList = ({newData2}) => {
       horizontal={true}
       data={newData2}
       contentContainerStyle={{
-        marginHorizontal: 10,
-        paddingHorizontal: 10,
+        // marginHorizontal: 10,
+        // paddingHorizontal: 3,
         marginTop: 15,
       }}
       keyExtractor={(item, index) => index.toString()}

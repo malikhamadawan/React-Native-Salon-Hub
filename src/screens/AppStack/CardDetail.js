@@ -7,18 +7,19 @@ import {
   TouchableOpacity,
   Platform,
   StyleSheet,
-  ScrollView,
   ImageBackground,
 } from 'react-native';
 import {Input} from '../../components/input';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const CardDetail = ({navigation}) => {
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() =>
@@ -101,7 +102,7 @@ const CardDetail = ({navigation}) => {
           />
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 

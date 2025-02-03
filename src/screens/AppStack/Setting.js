@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   Text,
@@ -11,6 +12,8 @@ import CustomButton from '../../components/customButton';
 import {CustomView} from '../../components/mainContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const Setting = ({navigation}) => {
   const logout = async () => {
@@ -32,9 +35,9 @@ const Setting = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
       <CustomView marginTop={'15%'}>
         <ProfileHeader
           onPress={() =>
@@ -124,7 +127,7 @@ const Setting = ({navigation}) => {
           </Text>
         </TouchableOpacity>
       </CustomView>
-    </ImageBackground>
+    </View>
   );
 };
 

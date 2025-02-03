@@ -1,51 +1,48 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Platform,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, Platform} from 'react-native';
 import CustomButton from '../../components/customButton';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const CheckOut = ({navigation}) => {
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require('../../assets/checkOutPic.png')}
-            style={styles.image}
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
+      <View style={{flex: 1}}>
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../../assets/checkOutPic.png')}
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.mainText}>Your Order was placed</Text>
+            <Text style={styles.successText}>Successfully!</Text>
+          </View>
+          <View style={styles.orderIdContainer}>
+            <Text style={styles.orderIdLabel}>Your Order ID :</Text>
+            <Text style={styles.orderId}># XDC178fu14Qtz31</Text>
+          </View>
+          <CustomButton
+            onPress={() => {
+              navigation.navigate('AppStack', {
+                screen: 'BottomTab',
+                params: {
+                  screen: 'Home',
+                },
+              });
+            }}
+            text="Continue Shopping"
+            btnColor="#2158FF"
+            justi="center"
+            txtColor="white"
+            marginTop={30}
           />
         </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.mainText}>Order was placed</Text>
-          <Text style={styles.successText}>Successfully!</Text>
-        </View>
-        <View style={styles.orderIdContainer}>
-          <Text style={styles.orderIdLabel}>Your Order ID :</Text>
-          <Text style={styles.orderId}># XDC178fu14Qtz31</Text>
-        </View>
-        <CustomButton
-          onPress={() => {
-            navigation.navigate('AppStack', {
-              screen: 'BottomTab',
-              params: {
-                screen: 'Home',
-              },
-            });
-          }}
-          text="Continue Shopping"
-          btnColor="#2158FF"
-          justi="center"
-          txtColor="white"
-          marginTop={30}
-        />
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     marginTop: Platform.OS === 'ios' ? 0 : 20,
   },
   orderIdLabel: {

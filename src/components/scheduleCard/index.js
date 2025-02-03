@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   Linking,
+  Platform,
 } from 'react-native';
-import CustomButton from '../../components/customButton';
+import CustomButton from '../customButton';
 import {useNavigation} from '@react-navigation/native';
-import CustomModal from '../../components/modal';
+import CustomModal from '../modal';
 
 const Index = ({
   showBtn = false,
@@ -150,6 +151,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
     alignSelf: 'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   header: {
     flexDirection: 'row',

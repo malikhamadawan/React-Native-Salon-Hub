@@ -14,6 +14,8 @@ import moment from 'moment';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
 import {useIsFocused} from '@react-navigation/native';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const BookNow = ({navigation}) => {
   const [internalDate, setInternalDate] = useState(new Date());
@@ -51,9 +53,9 @@ const BookNow = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => navigation.navigate('AppStack', {screen: 'Shop'})}>
@@ -190,7 +192,7 @@ const BookNow = ({navigation}) => {
           />
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -269,10 +271,10 @@ const styles = StyleSheet.create({
     height: '12%',
     width: '100%',
     justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: 'red',
-    // alignContent: 'center',
-    // alignSelf: 'center',
+    alignItems: 'center',
+    // backgrounddColor: 'red',
+    alignContent: 'center',
+    alignSelf: 'center',
   },
   dateCard: {
     height: '80%',
@@ -282,6 +284,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 7,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'yellow',
     ...Platform.select({
       ios: {
         shadowOffset: {width: 1, height: 1}, // Shadow offset outside

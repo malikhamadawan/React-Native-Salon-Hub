@@ -13,6 +13,8 @@ import {
 import {CustomView} from '../../components/mainContainer';
 import ScheduleCard from '../../components/scheduleCard';
 import {Input} from '../../components/input';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const Schedule = ({navigation}) => {
   const [showInput, setShowInput] = useState(false);
@@ -96,9 +98,9 @@ const Schedule = ({navigation}) => {
   ];
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
       <CustomView marginTop={'10%'}>
         <View
           style={{
@@ -266,7 +268,7 @@ const Schedule = ({navigation}) => {
           />
         )}
       </CustomView>
-    </ImageBackground>
+    </View>
   );
 };
 

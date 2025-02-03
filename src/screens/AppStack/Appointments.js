@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import ScheduleCard from '../../components/scheduleCard/index';
+import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const Appointments = ({navigation}) => {
   const data = [
@@ -61,9 +63,9 @@ const Appointments = ({navigation}) => {
   ];
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
       <View
         style={{
           marginTop: Platform.OS === 'ios' ? 50 : 30,
@@ -123,7 +125,7 @@ const Appointments = ({navigation}) => {
           data={data}
         />
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 

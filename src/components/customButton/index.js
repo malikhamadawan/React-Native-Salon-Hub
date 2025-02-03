@@ -1,6 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {TouchableOpacity, Image, Text, StyleSheet, Platform} from 'react-native';
+import {
+  TouchableOpacity,
+  Image,
+  Text,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 
 const CustomButton = ({
   text,

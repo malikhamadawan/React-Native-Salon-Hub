@@ -1,3 +1,4 @@
+// screens/BookingDetail.js
 import React, {useState} from 'react';
 import {
   View,
@@ -8,10 +9,10 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
-  ImageBackground,
 } from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
+import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation'; // Import the animation component
 
 const costData = [
   {id: 1, title: 'Hourly Price', price: '200 Rs'},
@@ -33,9 +34,10 @@ const BookingDetail = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../assets/mainBackground1122.png')}>
+    <View style={{flex: 1}}>
+      {/* Persistent background animation */}
+      <PersistentBackgroundAnimation />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.container}
@@ -91,11 +93,21 @@ const BookingDetail = ({navigation}) => {
             <>
               <View style={styles.costSummary}>
                 <Text style={styles.costSummaryText}>Sub Total Price</Text>
-                <Text style={styles.costSummaryText}>1000 Rs</Text>
+                <Text
+                  style={
+                    (styles.costSummaryText, {marginRight: 5, color: 'black'})
+                  }>
+                  1000 Rs
+                </Text>
               </View>
               <View style={styles.costSummary}>
                 <Text style={styles.costSummaryText}>Discount Price</Text>
-                <Text style={styles.costSummaryText}>100 Rs</Text>
+                <Text
+                  style={
+                    (styles.costSummaryText, {marginRight: 6, color: 'black'})
+                  }>
+                  100 Rs
+                </Text>
               </View>
             </>
           }
@@ -131,7 +143,6 @@ const BookingDetail = ({navigation}) => {
               <View style={styles.paymentItemContent}>
                 <Image source={item.image} style={styles.paymentIcon} />
                 <Text style={styles.paymentText}>{item.title}</Text>
-                {/* Reserve space for the checkbox to avoid layout shifts */}
                 <View style={styles.checkBoxContainer}>
                   {selectedPaymentMethod === item.id && (
                     <Image
@@ -160,7 +171,7 @@ const BookingDetail = ({navigation}) => {
           />
         </View>
       </ScrollView>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -176,7 +187,7 @@ const styles = StyleSheet.create({
     marginRight: '92%',
   },
   sectionHeader: {
-    width: '90%',
+    width: '95%',
     height: 50,
     marginTop: 5,
     justifyContent: 'center',
@@ -271,7 +282,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '70%',
     alignSelf: 'center',
-    // marginLeft: '10',
   },
   totalText: {
     fontSize: 18,
@@ -280,9 +290,8 @@ const styles = StyleSheet.create({
   },
   paymentList: {
     flexGrow: 1,
-    paddingHorizontal: 6,
     width: '100%',
-    height: 130,
+    height: 140,
     ...Platform.select({
       ios: {
         shadowOffset: {width: 2, height: 4}, // Shadow offset outside
@@ -306,6 +315,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
     paddingHorizontal: 10,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 4, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        // elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
+
+    elevation: 10,
   },
   paymentItemContent: {
     flexDirection: 'row',
@@ -336,7 +358,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bookButton: {
-    marginTop: Platform.OS === 'ios' ? 5 : 0,
+    marginTop: Platform.OS === 'ios' ? 5 : 20,
     ...Platform.select({
       ios: {
         shadowOffset: {width: 2, height: 4}, // Shadow offset outside
@@ -345,7 +367,8 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
       },
       android: {
-        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+        elevation: 10,
+        // Shadow with elevation on Android, giving it an "outside" effect
       },
     }),
   },
