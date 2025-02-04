@@ -23,8 +23,8 @@ const index = ({day, openTime, closeTime}) => {
           source={require('../../assets/calender.png')}
           resizeMode={'contain'}
           style={{
-            height: 22,
-            width: 22,
+            height: 19,
+            width: 19,
             marginRight: 10,
           }}
         />
@@ -43,12 +43,12 @@ const index = ({day, openTime, closeTime}) => {
           alignItems: 'center',
         }}>
         <Image
-          source={require('../../assets/clock.png')}
+          source={require('../../assets/clockIcon.png')}
           resizeMode={'contain'}
           style={{
-            height: 30,
-            width: 30,
-            tintColor: '#2158FF',
+            height: 19,
+            width: 19,
+            tintColor: '#C62300',
           }}
         />
         <Text

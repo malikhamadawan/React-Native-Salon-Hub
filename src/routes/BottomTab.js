@@ -65,7 +65,7 @@ const BottomTab = () => {
         initialRouteName="BottomTab"
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: '#2158FF',
+          tabBarActiveTintColor: '#C62300',
           tabBarLabelStyle: {marginBottom: Platform.OS === 'ios' ? 0 : 6},
         }}>
         <Tab.Screen
@@ -123,7 +123,7 @@ const BottomTab = () => {
                   width: 80,
                   height: 80,
                   marginTop: -17,
-                  backgroundColor: '#2158FF',
+                  backgroundColor: '#C62300',
                   borderRadius: 50,
                   borderWidth: 2,
                   borderColor: '#ffff',
@@ -146,7 +146,7 @@ const BottomTab = () => {
           options={{
             tabBarIcon: ({color}) => (
               <Image
-                source={require('../assets/scheduleIcon.png')}
+                source={require('../assets/calender.png')}
                 resizeMode={'contain'}
                 style={{
                   width: 25,

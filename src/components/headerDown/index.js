@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   switchButtonText: {
     fontSize: 13,
-    color: '#2158FF',
+    color: '#C62300',
     marginLeft: 2,
   },
 });

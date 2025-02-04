@@ -395,6 +395,7 @@ const Home = ({navigation}) => {
         {/* Scrollable Content */}
         {/* Search Bar */}
         <Input
+          tintcolor={'#C62300'}
           leftIcon={true}
           marginBottom={15}
           rightIcon={true}
@@ -521,7 +522,7 @@ const Home = ({navigation}) => {
                   alignItems: 'center',
                   alignContent: 'center',
                   justifyContent: 'center',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: '#fff',
                   ...Platform.select({
                     ios: {
                       shadowOffset: {width: 0, height: 2}, // Shadow offset outside
@@ -539,6 +540,7 @@ const Home = ({navigation}) => {
                   style={{
                     width: 20,
                     height: 20,
+                    tintColor: '#C62300',
                   }}
                 />
               </TouchableOpacity>
@@ -593,7 +595,7 @@ const Home = ({navigation}) => {
                   onPress={handleMorePress}
                   style={{
                     fontSize: 11,
-                    color: '#2158FF',
+                    color: '#C62300',
                   }}>
                   show more
                 </Text>
@@ -602,7 +604,7 @@ const Home = ({navigation}) => {
                   onPress={handleMorePress}
                   style={{
                     fontSize: 11,
-                    color: '#2158FF',
+                    color: '#C62300',
                   }}>
                   show less
                 </Text>
@@ -875,7 +877,7 @@ const styles = StyleSheet.create({
   closeIcon: {
     width: 24,
     height: 24,
-    tintColor: '#2158FF',
+    tintColor: '#C62300',
     marginBottom: 10,
   },
   imageContainer: {
@@ -887,7 +889,7 @@ const styles = StyleSheet.create({
     top: Platform.OS === 'ios' ? 55 : 10,
     left: 0,
     height: 4,
-    backgroundColor: '#2158FF',
+    backgroundColor: '#C62300',
     zIndex: 20,
   },
   imageBackground: {
@@ -896,8 +898,9 @@ const styles = StyleSheet.create({
   likeButton: {
     width: '11%',
     height: 40,
+    bottom: 7,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'center',

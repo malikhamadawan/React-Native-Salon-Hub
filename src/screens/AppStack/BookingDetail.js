@@ -47,6 +47,7 @@ const BookingDetail = ({navigation}) => {
             navigation.navigate('AppStack', {screen: 'BookNow'});
           }}>
           <Image
+            tintColor={'#C62300'}
             source={require('../../assets/arrowicon2.png')}
             style={styles.backIcon}
           />
@@ -63,14 +64,14 @@ const BookingDetail = ({navigation}) => {
         <View style={styles.scheduleContainer}>
           <View style={styles.scheduleItem}>
             <Image
-              source={require('../../assets/calenderIcon2.png')}
+              source={require('../../assets/calender.png')}
               style={styles.scheduleIcon}
             />
             <Text style={styles.scheduleText}>18, March</Text>
           </View>
           <View style={styles.scheduleItem}>
             <Image
-              source={require('../../assets/clockIcon2.png')}
+              source={require('../../assets/clockIcon.png')}
               style={styles.scheduleIcon}
             />
             <Text style={styles.scheduleText}>14:00</Text>
@@ -165,7 +166,7 @@ const BookingDetail = ({navigation}) => {
             width={159}
             text={'Book Now'}
             disabled={selectedPaymentMethod ? false : true}
-            btnColor={selectedPaymentMethod ? '#2158FF' : '#BBE4FB'}
+            btnColor={selectedPaymentMethod ? '#C62300' : '#D3D3D3'}
             justi={'center'}
             txtColor={'white'}
           />
@@ -226,8 +227,9 @@ const styles = StyleSheet.create({
     }),
   },
   scheduleIcon: {
-    height: 30,
-    width: 30,
+    height: 25,
+    width: 25,
+    tintColor: '#C62300',
   },
   scheduleText: {
     fontSize: 15,
@@ -347,6 +349,7 @@ const styles = StyleSheet.create({
   checkBox: {
     height: 30,
     width: 30,
+    tintColor: '#C62300',
   },
   buttonContainer: {
     height: 120,

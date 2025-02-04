@@ -157,13 +157,13 @@ const Schedule = ({navigation}) => {
             }}
             style={{
               width: '30%',
-              // backgroundColor: button === 'upComing' ? "#2158FF":"#fff",
+              // backgroundColor: button === 'upComing' ? "#C62300":"#fff",
               // borderRadius: 20,
               height: 50,
               justifyContent: 'center',
               alignItems: 'center',
               borderBottomWidth: button === 'upComing' ? 5 : 0,
-              borderColor: '#2158FF',
+              borderColor: '#C62300',
             }}>
             <Text
               style={{
@@ -184,7 +184,7 @@ const Schedule = ({navigation}) => {
               height: 50,
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: '#2158FF',
+              borderColor: '#C62300',
               borderBottomWidth: button === 'history' ? 5 : 0,
             }}>
             <Text

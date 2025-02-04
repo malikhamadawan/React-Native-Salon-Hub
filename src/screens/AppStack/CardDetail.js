@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,52 +6,61 @@ import {
   TouchableOpacity,
   Platform,
   StyleSheet,
-  ImageBackground,
 } from 'react-native';
 import {Input} from '../../components/input';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
-import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
 import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const CardDetail = ({navigation}) => {
+  const [cardHolder, setCardHolder] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvv, setCvv] = useState('');
+
+  // Check if all fields are filled
+  const isFormValid = cardHolder && cardNumber && expiryDate && cvv;
+
   return (
     <View style={{flex: 1}}>
-      {/* Persistent background animation */}
       <PersistentBackgroundAnimation />
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'BookingDetail'})
           }
-          style={{
-            marginLeft: 5,
-          }}>
+          style={{marginLeft: 5}}>
           <Image
             source={require('../../assets/arrowicon2.png')}
             style={styles.backIcon}
           />
         </TouchableOpacity>
-        <View
-          style={{
-            width: '95%',
-            alignSelf: 'center',
-          }}>
+
+        <View style={{width: '95%', alignSelf: 'center'}}>
           <ProfileCard
             showButton={false}
             text1={'Mr Cuts Hair\nSaloon\n'}
-            text2="Block F,PIA Housing Scheme,Lahore"
+            text2="Block F, PIA Housing Scheme, Lahore"
             profileImg1={require('../../assets/mrCuts.jpeg')}
           />
         </View>
+
         <View style={styles.inputLabelContainer}>
           <Text style={styles.inputLabelText}>Card Holder Name</Text>
         </View>
-        <Input width="100%" placeholder="Enter holder name" focusview={true} />
+        <Input
+          width="100%"
+          placeholder="Enter holder name"
+          focusview={true}
+          value={cardHolder}
+          onChangeText={setCardHolder}
+        />
+
         <View style={styles.inputLabelContainer}>
           <Text style={styles.inputLabelText}>Card Number</Text>
         </View>
         <Input
+          // tintcolor={'#C62300'}
           width="100%"
           img={require('../../assets/paymentmethodicon.png')}
           imgBorderRadius={6}
@@ -60,7 +68,10 @@ const CardDetail = ({navigation}) => {
           focusview={true}
           leftIcon
           placeholder="XXXX-XXXX-XXXX-XXXX"
+          value={cardNumber}
+          onChangeText={setCardNumber}
         />
+
         <View style={styles.row}>
           <View style={styles.column}>
             <Text style={styles.inputLabelText}>Expiry Date</Text>
@@ -69,14 +80,28 @@ const CardDetail = ({navigation}) => {
             <Text style={styles.inputLabelText}>CVV</Text>
           </View>
         </View>
+
         <View style={styles.row}>
           <View style={styles.column1}>
-            <Input width="100%" placeholder="XX/XX" focusview={true} />
+            <Input
+              width="100%"
+              placeholder="XX/XX"
+              focusview={true}
+              value={expiryDate}
+              onChangeText={setExpiryDate}
+            />
           </View>
           <View style={styles.cvvInput}>
-            <Input width="100%" placeholder="Xxx" focusview={true} />
+            <Input
+              width="100%"
+              placeholder="Xxx"
+              focusview={true}
+              value={cvv}
+              onChangeText={setCvv}
+            />
           </View>
         </View>
+
         <View style={styles.buttonContainer}>
           <CustomButton
             onPress={() =>
@@ -84,16 +109,17 @@ const CardDetail = ({navigation}) => {
             }
             btnColor="white"
             width={150}
-            borderColor="black"
+            borderColor="#C62300"
             borderWidth
             justi="center"
             text="Back"
             btnHeight={42}
-            txtColor="black"
+            txtColor="#C62300"
           />
           <CustomButton
+            disabled={!isFormValid} // Disable when form is not valid
             onPress={() => navigation.navigate('AppStack', {screen: 'PayNow'})}
-            btnColor="#2158FF"
+            btnColor={isFormValid ? '#C62300' : '#D3D3D3'} // Change color based on form validity
             width={150}
             text="Pay Now"
             justi="center"
@@ -110,8 +136,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'ios' ? 50 : 40,
     flex: 1,
-    // backgroundColor: 'red',
-    // paddingHorizontal: 5,
   },
   backIcon: {
     width: 24,
@@ -121,7 +145,6 @@ const styles = StyleSheet.create({
   inputLabelContainer: {
     height: 40,
     justifyContent: 'center',
-    // marginTop: Platform.OS === 'ios' ? 42 : 62,
   },
   inputLabelText: {
     fontSize: 20,
@@ -137,24 +160,18 @@ const styles = StyleSheet.create({
   },
   column: {
     width: '50%',
-    // marginBottom: 5,
-    // backgroundColor: 'orange',
   },
   column1: {
     width: '50%',
     marginTop: 5,
-    // backgroundColor: 'orange',
   },
   cvvColumn: {
     marginLeft: 13,
-    // backgroundColor: 'orange',
   },
   cvvInput: {
     width: '49%',
-    // backgroundColor: 'pink',
     height: '97%',
     marginTop: 5,
-    // justifyContent: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',

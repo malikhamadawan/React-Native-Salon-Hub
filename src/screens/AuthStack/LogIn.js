@@ -77,7 +77,7 @@ const LogIn = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1, alignItems: 'center'}}>
+    <View style={{flex: 1, alignItems: 'center', backgroundColor: '#ffff'}}>
       <Header onboarding={'login'} />
       <View style={{marginTop: 20, width: '100%'}}>
         <Input
@@ -111,7 +111,7 @@ const LogIn = ({navigation}) => {
       <Text
         style={{
           fontSize: 11,
-          color: '#2158FF',
+          color: '#C62300',
           alignSelf: 'flex-end',
           marginRight: 19,
         }}>
@@ -123,18 +123,18 @@ const LogIn = ({navigation}) => {
           text={'Sign In'}
           txtColor={'#fff'}
           justi={'center'}
-          btnColor={'#2158FF'}
+          btnColor={'#C62300'}
         />
         <OrSeprator />
         <CustomButton
           onPress={signInWithGoogle}
           text={'Sign In with Google'}
-          txtColor={'#2158FF'}
+          txtColor={'#C62300'}
           btnColor={'#fff'}
           justi={'center'}
           showImage={true}
           imgPath={require('../../assets/googleIcon.png')}
-          borderColor={'#2158FF'}
+          borderColor={'#C62300'}
           borderWidth={true}
         />
       </View>

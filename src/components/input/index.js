@@ -94,7 +94,7 @@ const Input = ({
         <TouchableOpacity>
           <Image
             source={img2}
-            tintColor={'#2158FF'}
+            tintColor={'#C62300'}
             style={[
               styles.rightIconStyle,
               {marginLeft: marginLeftImg2 ? marginLeftImg2 : 15},
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
       },
     }),
     borderWidth: 1,
-    borderColor: '#2158FF',
+    borderColor: '#C62300',
   },
   leftIconStyle: {
     height: 20,

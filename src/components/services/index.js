@@ -7,7 +7,7 @@ const index = ({title, time, details, price, isSelected, onPress}) => {
       onPress={onPress}
       style={{
         width: '100%',
-        backgroundColor: isSelected ? '#2158FF' : '#fff',
+        backgroundColor: isSelected ? '#C62300' : '#fff',
         marginTop: 10,
         paddingHorizontal: 10,
         paddingVertical: 10,

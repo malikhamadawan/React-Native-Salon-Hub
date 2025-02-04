@@ -27,7 +27,7 @@ const Bonus = () => {
       </View>
       <CustomButton
         text={'Continue'}
-        btnColor={'#2158FF'}
+        btnColor={'#C62300'}
         justi={'center'}
         txtColor={'white'}
         marginTop={'50%'}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   congratulationsText: {
     fontSize: 25,
     fontWeight: '700',
-    color: '#2158FF',
+    color: '#C62300',
     alignSelf: 'center',
   },
   discountContainer: {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   discount: {
     fontSize: 25,
     fontWeight: '700',
-    color: '#2158FF',
+    color: '#C62300',
     marginRight: 5,
   },
 });

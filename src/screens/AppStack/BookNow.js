@@ -107,14 +107,10 @@ const BookNow = ({navigation}) => {
                   styles.dateCard,
                   {
                     backgroundColor:
-                      selectedDate === item ? '#2158FF' : '#BBE4FB',
+                      selectedDate === item ? '#C62300' : '#F14A00',
                   },
                 ]}>
-                <Text
-                  style={[
-                    styles.dateText,
-                    {color: selectedDate === item ? 'white' : 'black'},
-                  ]}>
+                <Text style={[styles.dateText, {color: 'white'}]}>
                   {
                     item
                       .toLocaleDateString('en-US', {
@@ -124,11 +120,7 @@ const BookNow = ({navigation}) => {
                       .split(' ')[1]
                   }
                 </Text>
-                <Text
-                  style={[
-                    styles.dateTextSmall,
-                    {color: selectedDate === item ? 'white' : 'black'},
-                  ]}>
+                <Text style={[styles.dateTextSmall, {color: 'white'}]}>
                   {
                     item
                       .toLocaleDateString('en-US', {
@@ -158,16 +150,10 @@ const BookNow = ({navigation}) => {
                   styles.timeCard,
                   {
                     backgroundColor:
-                      selectedTime === item ? '#2158FF' : '#BBE4FB',
+                      selectedTime === item ? '#C62300' : '#F14A00',
                   },
                 ]}>
-                <Text
-                  style={[
-                    styles.timeText,
-                    {color: selectedTime === item ? 'white' : 'black'},
-                  ]}>
-                  {item}
-                </Text>
+                <Text style={[styles.timeText, {color: 'white'}]}>{item}</Text>
               </TouchableOpacity>
             )}
           />
@@ -186,7 +172,7 @@ const BookNow = ({navigation}) => {
             disabled={!selectedDate || !selectedTime}
             width={159}
             text="Next"
-            btnColor={!selectedDate || !selectedTime ? '#BBE4FB' : '#2158FF'}
+            btnColor={!selectedDate || !selectedTime ? '#D3D3D3' : '#C62300'}
             justi="center"
             txtColor="white"
           />
@@ -254,11 +240,12 @@ const styles = StyleSheet.create({
   statText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#2158FF',
+    color: '#C62300',
   },
   starIcon: {
     height: 18,
     width: 18,
+    tintColor: '#C62300',
   },
   sectionTitle: {
     width: '95%',

@@ -77,12 +77,12 @@ const AutoScrollFlatList = ({newData2}) => {
                 borderRadius: 9,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: '#BBE4FB',
+                backgroundColor: '#F14A00',
               }}>
               <Text
                 style={{
                   fontSize: 11,
-                  color: '#0D1230',
+                  color: 'white',
                 }}>
                 {item.time}
               </Text>
@@ -141,7 +141,7 @@ const AutoScrollFlatList = ({newData2}) => {
                 alignItems: 'center',
                 alignSelf: 'flex-end',
                 justifyContent: 'center',
-                backgroundColor: '#2158FF',
+                backgroundColor: '#C62300',
               }}>
               <Text
                 style={{

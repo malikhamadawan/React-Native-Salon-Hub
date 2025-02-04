@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#C62300F',
   },
   settingsIcon: {
     height: 24,

@@ -49,15 +49,15 @@ const Profile = ({navigation}) => {
           height: '25%',
           position: 'absolute',
           backgroundColor: 'white',
-          // borderColor: '#2158FF',
+          // borderColor: '#C62300',
           borderBottomWidth: 1,
-          borderBottomColor: '#2158FF',
+          borderBottomColor: '#C62300',
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           activeOpacity={0.5}
           style={{
-            backgroundColor: '#2158FF',
+            backgroundColor: '#C62300',
             width: 27,
             alignItems: 'center',
             justifyContent: 'center',
@@ -124,7 +124,7 @@ const Profile = ({navigation}) => {
           }}>
           <Image
             source={require('../../assets/icon1.png')}
-            tintColor={'grey'}
+            // tintColor={'grey'}
             style={{
               height: 20,
               width: 20,
@@ -151,7 +151,7 @@ const Profile = ({navigation}) => {
           }}>
           <Image
             source={require('../../assets/icon2.png')}
-            tintColor={'grey'}
+            tintColor={'#C62300'}
             style={{
               height: 20,
               width: 20,
@@ -178,7 +178,7 @@ const Profile = ({navigation}) => {
           }}>
           <Image
             source={require('../../assets/phoneIcon1.png')}
-            tintColor={'grey'}
+            tintColor={'#C62300'}
             style={{
               height: 20,
               width: 20,
@@ -207,6 +207,7 @@ const Profile = ({navigation}) => {
             tintColor={'grey'}
             source={require('../../assets/addressIcon.png')}
             style={{
+              tintColor: '#C62300',
               height: 20,
               width: 20,
               marginLeft: 10,
@@ -227,7 +228,7 @@ const Profile = ({navigation}) => {
         }}>
         <CustomButton
           onPress={() => navigation.goBack()}
-          btnColor="#2158FF"
+          btnColor="#C62300"
           width={150}
           text="Save"
           justi="center"
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 78,
-    borderColor: '#2158FF',
+    borderColor: '#C62300',
     borderWidth: 1,
   },
   profileImage: {

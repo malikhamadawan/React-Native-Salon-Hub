@@ -72,7 +72,7 @@ const UserOrBarber = ({navigation}) => {
             {transform: [{translateX: translateX}]},
           ]}>
           <LinearGradient
-            colors={['#AFCBFF', '#2158FF', '#AFCBFF']} // Add extra stops for smooth looping
+            colors={['#AFCBFF', '#C62300', '#AFCBFF']} // Add extra stops for smooth looping
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             style={styles.gradient}

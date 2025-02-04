@@ -25,7 +25,7 @@ const Start = ({navigation}) => {
         <Header splash={splash} onboarding={'onboard'} />
         <View style={styles.buttonContainer}>
           <CustomButton
-            btnColor={'#2158FF'}
+            btnColor={'#C62300'}
             text={'Next'}
             justi={'center'}
             txtColor={'#fff'}
@@ -42,7 +42,7 @@ const Start = ({navigation}) => {
               btnColor={'#fff'}
               text={'Skip'}
               justi={'center'}
-              txtColor={'#2158FF'}
+              txtColor={'#C62300'}
               onPress={() => navigation.navigate('LogIn')}
             />
           ) : null}

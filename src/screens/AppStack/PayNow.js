@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Platform,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Platform} from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
-import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
 import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const PayNow = ({navigation}) => {
@@ -17,26 +9,35 @@ const PayNow = ({navigation}) => {
     <ProfileCard
       showButton={false}
       text1={'Mr Cuts Hair\nSaloon\n'}
-      text2={'Block F,PIA Housing Scheme,Lahore'}
+      text2={'Block F, PIA Housing Scheme, Lahore'}
       profileImg1={require('../../assets/mrCuts.jpeg')}
     />
   );
+
   const renderSchedule = () => (
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>Schedule</Text>
       <View style={styles.scheduleContainer}>
         {renderScheduleItem(
           '18, March',
-          require('../../assets/calenderIcon2.png'),
+          require('../../assets/calender.png'),
+          '#C62300', // Tint color for calendar icon
         )}
-        {renderScheduleItem('14:00', require('../../assets/clockIcon2.png'))}
+        {renderScheduleItem(
+          '14:00',
+          require('../../assets/clockIcon.png'),
+          '#C62300', // Tint color for clock icon
+        )}
       </View>
     </View>
   );
 
-  const renderScheduleItem = (text, icon) => (
+  const renderScheduleItem = (text, icon, tintColor) => (
     <View style={styles.scheduleItem}>
-      <Image source={icon} style={styles.scheduleIcon} />
+      <Image
+        source={icon}
+        style={[styles.scheduleIcon, {tintColor}, {height: 25, width: 25}]}
+      />
       <Text style={styles.scheduleText}>{text}</Text>
     </View>
   );
@@ -81,7 +82,7 @@ const PayNow = ({navigation}) => {
             onPress={() =>
               navigation.navigate('AppStack', {screen: 'CheckOut'})
             }
-            btnColor={'#2158FF'}
+            btnColor={'#C62300'}
             width={150}
             text={'Check Out'}
             justi={'center'}
@@ -108,7 +109,6 @@ const styles = {
   sectionContainer: {
     width: '100%',
     marginTop: 10,
-    // backgroundColor:'blue',
     ...Platform.select({
       ios: {
         shadowOffset: {width: 2, height: 4},
@@ -158,6 +158,7 @@ const styles = {
   scheduleIcon: {
     height: 30,
     width: 30,
+    resizeMode: 'contain',
   },
   scheduleText: {
     fontSize: 15,

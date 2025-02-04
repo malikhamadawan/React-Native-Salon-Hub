@@ -82,7 +82,7 @@ const ProfileHeader = ({onPress}) => {
               marginLeft: 10,
             }}>
             <Image
-              tintColor={'#2158FF'}
+              tintColor={'#C62300'}
               source={
                 user?.image
                   ? {uri: user?.image}
@@ -127,8 +127,12 @@ const ProfileHeader = ({onPress}) => {
           }),
         }}>
         <Image
-          tintColor={'#2158FF'}
+          tintColor={'#C62300'}
           source={require('../../assets/bellIcon1.png')}
+          style={{
+            height:23,
+            width:23,
+          }}
         />
       </TouchableOpacity>
     </View>

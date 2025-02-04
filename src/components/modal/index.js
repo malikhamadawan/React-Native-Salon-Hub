@@ -38,7 +38,7 @@ const CustomModal = ({
                 }}>
                 <CustomButton
                   onPress={onServices}
-                  btnColor={'#2158FF'}
+                  btnColor={'#C62300'}
                   width={130}
                   text={'Services'}
                   justi={'center'}
@@ -48,7 +48,7 @@ const CustomModal = ({
                 />
                 <CustomButton
                   onPress={onPressButton}
-                  btnColor={'#2158FF'}
+                  btnColor={'#C62300'}
                   width={130}
                   text={'Schedule'}
                   justi={'center'}

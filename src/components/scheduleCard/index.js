@@ -60,7 +60,7 @@ const Index = ({
         <TouchableOpacity style={styles.callButton} onPress={handleCallPress}>
           <Image
             source={require('../../assets/phoneIcon1.png')}
-            style={styles.icon}
+            style={styles.icon2}
           />
         </TouchableOpacity>
       </View>
@@ -68,8 +68,8 @@ const Index = ({
       <View style={styles.details}>
         <View style={styles.detailItem}>
           <Image
-            tintColor={'#2158FF'}
-            source={require('../../assets/calendarIcon.png')}
+            tintColor={'#C62300'}
+            source={require('../../assets/calender.png')}
             style={styles.icon}
           />
           <Text style={styles.detailText}>{date}</Text>
@@ -80,7 +80,7 @@ const Index = ({
         />
         <View style={styles.detailItem}>
           <Image
-            // tintColor={'#2158FF'}
+            tintColor={'#C62300'}
             source={require('../../assets/clockIcon.png')}
             style={styles.icon}
           />
@@ -100,18 +100,19 @@ const Index = ({
             <CustomButton
               btnColor={'#fff'}
               borderWidth={1}
-              borderColor={'#737687'}
+              borderColor={'#C62300'}
               width={130}
               text={'Cancel'}
               justi={'center'}
               fontWeight={'500'}
-              txtColor={'#737687'}
+              txtColor={'#C62300'}
               btnHeight={35}
             />
             <CustomButton
               onPress={toggleModal}
+              // tintColor={'black'}
               imgPath={require('../../assets/editIcon.png')}
-              btnColor={'#2158FF'}
+              btnColor={'#C62300'}
               width={130}
               text={'Edit'}
               justi={'center'}
@@ -203,16 +204,33 @@ const styles = StyleSheet.create({
   callButton: {
     height: 30,
     width: 30,
-    backgroundColor: '#BBE4FB',
+    backgroundColor: '#C62300',
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 15,
     marginRight: 10,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   icon: {
+    height: 18,
+    width: 18,
+    tintColor: '#C62300',
+  },
+  icon2: {
     height: 20,
     width: 20,
+    tintColor: '#ffff',
   },
   details: {
     backgroundColor: '#fff',

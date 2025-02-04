@@ -35,7 +35,7 @@ const index = ({profileSymbol, profileName, stars, comment}) => {
               borderRadius: 40,
               backgroundColor: 'white',
               borderWidth: 3,
-              borderColor: '#2158FF',
+              borderColor: '#C62300',
               justifyContent: 'center',
               alignItems: 'center',
             }}>

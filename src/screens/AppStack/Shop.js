@@ -357,7 +357,7 @@ const Shop = ({navigation}) => {
             }}
             width={'95%'}
             disabled={selectedItems.length > 0 ? false : true}
-            btnColor={selectedItems.length > 0 ? '#2158FF' : '#BBE4FB'}
+            btnColor={selectedItems.length > 0 ? '#C62300' : '#D3D3D3'}
             text={'Book Now'}
             txtColor={'white'}
             justi={'center'}

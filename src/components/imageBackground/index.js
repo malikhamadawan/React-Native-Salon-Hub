@@ -81,7 +81,7 @@ const index = ({
               alignItems: 'center',
               borderBottomWidth: info === 'services' ? 5 : 0,
               borderBottomColor:
-                info === 'services' ? '#2158FF' : 'transparent',
+                info === 'services' ? '#C62300' : 'transparent',
             }}>
             <Text
               style={{
@@ -98,7 +98,7 @@ const index = ({
               justifyContent: 'center',
               alignItems: 'center',
               borderBottomWidth: info === 'info' ? 5 : 0,
-              borderBottomColor: info === 'info' ? '#2158FF' : 'transparent',
+              borderBottomColor: info === 'info' ? '#C62300' : 'transparent',
             }}>
             <Text
               style={{
@@ -115,7 +115,7 @@ const index = ({
               justifyContent: 'center',
               alignItems: 'center',
               borderBottomWidth: info === 'review' ? 5 : 0,
-              borderBottomColor: info === 'review' ? '#2158FF' : 'transparent',
+              borderBottomColor: info === 'review' ? '#C62300' : 'transparent',
             }}>
             <Text
               style={{

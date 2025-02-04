@@ -49,7 +49,7 @@ const Setting = ({navigation}) => {
             onPress={() => navigation.navigate('AppStack', {screen: 'Profile'})}
             btnColor={'#fff'}
             text={'Profile'}
-            txtColor={'#2158FF'}
+            txtColor={'#C62300'}
             imgPath={require('../../assets/icon1.png')}
             showImage={true}
             width={'95%'}
@@ -62,8 +62,8 @@ const Setting = ({navigation}) => {
             }
             btnColor={'#fff'}
             text={'Appointments'}
-            txtColor={'#2158FF'}
-            imgPath={require('../../assets/appoinment2.png')}
+            txtColor={'#C62300'}
+            imgPath={require('../../assets/calender.png')}
             showImage={true}
             width={'95%'}
             justi={'flex-start'}
@@ -72,7 +72,7 @@ const Setting = ({navigation}) => {
           <CustomButton
             btnColor={'#fff'}
             text={'Language Region'}
-            txtColor={'#2158FF'}
+            txtColor={'#C62300'}
             imgPath={require('../../assets/languageIcon.png')}
             showImage={true}
             width={'95%'}
@@ -82,7 +82,7 @@ const Setting = ({navigation}) => {
           <CustomButton
             btnColor={'#fff'}
             text={'Privacy and Security'}
-            txtColor={'#2158FF'}
+            txtColor={'#C62300'}
             imgPath={require('../../assets/securityIcon.png')}
             showImage={true}
             width={'95%'}
@@ -92,7 +92,7 @@ const Setting = ({navigation}) => {
           <CustomButton
             btnColor={'#fff'}
             text={'Feed Back and Support'}
-            txtColor={'#2158FF'}
+            txtColor={'#C62300'}
             imgPath={require('../../assets/feedbackIcon.png')}
             showImage={true}
             width={'95%'}
@@ -119,7 +119,7 @@ const Setting = ({navigation}) => {
               height: 20,
               width: 20,
               marginRight: 3,
-              tintColor: '#2158FF',
+              tintColor: '#C62300',
             }}
           />
           <Text style={{color: '#000000', fontWeight: '500', fontSize: 15}}>

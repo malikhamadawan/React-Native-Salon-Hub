@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   callButton: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#C62300',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -125,28 +125,51 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 45,
     paddingVertical: 10,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   whatsappButton: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#C62300',
     borderRadius: 10,
     height: 45,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     paddingVertical: 10,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 3}, // Shadow offset outside
+        shadowOpacity: 0.5, // Slightly transparent shadow
+        shadowRadius: 8, // Blurred shadow effect
+        shadowColor: 'black',
+      },
+      android: {
+        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+      },
+    }),
   },
   icon: {
     height: 27,
     width: 27,
     marginRight: 2,
+    tintColor: '#fff',
   },
   whatsappIcon: {
-    height: 38,
-    width: 38,
+    height: 33,
+    width: 33,
   },
   buttonText: {
-    color: 'black',
+    color: '#ffff',
     fontSize: 14,
   },
 });

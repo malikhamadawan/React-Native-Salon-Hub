@@ -140,7 +140,7 @@ const SignUp = ({navigation}) => {
                 marginTop: 5,
               }}>
               By signing up you agree to our
-              <Text style={{color: '#2158FF'}}> Term of use and privacy </Text>
+              <Text style={{color: '#C62300'}}> Term of use and privacy </Text>
               notice
             </Text>
           </View>
@@ -233,7 +233,7 @@ const SignUp = ({navigation}) => {
                 marginTop: 5,
               }}>
               By signing up you agree to our
-              <Text style={{color: '#2158FF'}}> Term of use and privacy </Text>
+              <Text style={{color: '#C62300'}}> Term of use and privacy </Text>
               notice
             </Text>
           </View>
@@ -243,14 +243,14 @@ const SignUp = ({navigation}) => {
         text={'Sign Up'}
         txtColor={'#fff'}
         justi={'center'}
-        btnColor={'#2158FF'}
+        btnColor={'#C62300'}
         onPress={handleSignUp} // Call handleSignUp function when Sign Up button is pressed
       />
       <OrSeprator />
       <CustomButton
         text={'Sign Up with Google'}
-        txtColor={'#2158FF'}
-        borderColor={'#2158FF'}
+        txtColor={'#C62300'}
+        borderColor={'#C62300'}
         justi={'center'}
         showImage={true}
         imgPath={require('../../assets/googleIcon.png')}

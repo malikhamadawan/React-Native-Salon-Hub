@@ -35,7 +35,7 @@ const CheckOut = ({navigation}) => {
               });
             }}
             text="Continue Shopping"
-            btnColor="#2158FF"
+            btnColor="#C62300"
             justi="center"
             txtColor="white"
             marginTop={30}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   successText: {
     fontSize: 30,
     marginBottom: '20%',
-    color: '#2158FF',
+    color: '#C62300',
     fontWeight: '700',
   },
   orderIdContainer: {
