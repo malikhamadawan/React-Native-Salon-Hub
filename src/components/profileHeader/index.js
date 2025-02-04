@@ -130,8 +130,8 @@ const ProfileHeader = ({onPress}) => {
           tintColor={'#C62300'}
           source={require('../../assets/bellIcon1.png')}
           style={{
-            height:23,
-            width:23,
+            height: 23,
+            width: 23,
           }}
         />
       </TouchableOpacity>
