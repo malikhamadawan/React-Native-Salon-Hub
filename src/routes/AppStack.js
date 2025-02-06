@@ -14,6 +14,7 @@ import Notifications from '../screens/AppStack/Notifications';
 import Animation from '../screens/AppStack/Animation';
 import Profile from '../screens/AppStack/Profile';
 import Appointments from '../screens/AppStack/Appointments';
+import TestCode from '../screens/AppStack/TestCode';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ function AppStack() {
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
       <Stack.Navigator
-        initialRouteName="BottomTab"
+        initialRouteName="TestCode"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Bonus" component={Bonus} />
         <Stack.Screen name="Home" component={Home} />
@@ -37,6 +38,7 @@ function AppStack() {
         <Stack.Screen name="Animation" component={Animation} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Appointments" component={Appointments} />
+        <Stack.Screen name="TestCode" component={TestCode} />
       </Stack.Navigator>
     </>
   );
