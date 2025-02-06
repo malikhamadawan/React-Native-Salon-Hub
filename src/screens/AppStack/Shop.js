@@ -15,11 +15,18 @@ import Review from '../../components/review';
 import Services from '../../components/services';
 import Info from '../../components/info';
 import CustomButton from '../../components/customButton';
-import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addService,
+  removeService,
+} from '../../components/redux/slices/selectedServicesSlice';
 import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 const Shop = ({navigation}) => {
   const [button, setButton] = useState('services');
-  const [selectedItems, setSelectedItems] = useState([]);
+  const dispatch = useDispatch();
+  const selectedServices = useSelector(
+    state => state.selectedServices.selectedServices,
+  );
 
   const data = [
     {
@@ -134,22 +141,12 @@ const Shop = ({navigation}) => {
   ];
 
   const handleSelect = item => {
-    const itemId = item.id;
-    setSelectedItems(prevSelectedItems => {
-      if (prevSelectedItems.some(selectedItem => selectedItem.id === itemId)) {
-        // If the item is already selected, remove it from the selectedItems array
-        return prevSelectedItems.filter(
-          selectedItem => selectedItem.id !== itemId,
-        );
-      } else {
-        // If the item is not selected, add it to the selectedItems array
-        return [...prevSelectedItems, item];
-      }
-    });
-    console.log(selectedItems);
+    if (selectedServices.some(service => service.id === item.id)) {
+      dispatch(removeService(item)); // Dispatch Redux action to remove the service
+    } else {
+      dispatch(addService(item)); // Dispatch Redux action to add the service
+    }
   };
-
-  console.log('selected', selectedItems);
 
   return (
     <View style={{flex: 1}}>
@@ -199,17 +196,19 @@ const Shop = ({navigation}) => {
               showsVerticalScrollIndicator={false}
               data={data}
               renderItem={({item}) => {
-                const isSelected = selectedItems.some(
-                  selectedItem => selectedItem.id === item.id,
+                const isSelected = selectedServices.some(
+                  service => service.id === item.id,
                 );
+
                 return (
                   <Services
                     onPress={() => handleSelect(item)}
+                    isSelected={isSelected}
+                    {...item}
                     time={item.time}
                     price={item.price}
                     title={item.title}
                     details={item.details}
-                    isSelected={isSelected}
                   />
                 );
               }}
@@ -352,12 +351,10 @@ const Shop = ({navigation}) => {
             marginBottom: '8%',
           }}>
           <CustomButton
-            onPress={() => {
-              navigation.navigate('AppStack', {screen: 'BookNow'});
-            }}
+            onPress={() => navigation.navigate('BookNow')}
             width={'95%'}
-            disabled={selectedItems.length > 0 ? false : true}
-            btnColor={selectedItems.length > 0 ? '#C62300' : '#D3D3D3'}
+            disabled={selectedServices.length === 0} // Disable if no services are selected
+            btnColor={selectedServices.length > 0 ? '#C62300' : '#D3D3D3'} // Change color based on selection
             text={'Book Now'}
             txtColor={'white'}
             justi={'center'}

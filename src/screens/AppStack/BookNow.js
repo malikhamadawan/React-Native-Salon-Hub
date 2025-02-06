@@ -47,9 +47,18 @@ const BookNow = ({navigation}) => {
   }, [isFocus]);
 
   const handleBooking = () => {
-    setSelectedDate(null);
-    setSelectedTime(null);
-    navigation.navigate('AppStack', {screen: 'BookingDetail'});
+    if (selectedDate && selectedTime) {
+      navigation.navigate('AppStack', {
+        screen: 'BookingDetail',
+        params: {
+          selectedDate: selectedDate.toLocaleDateString('en-US', {
+            day: '2-digit',
+            month: 'long',
+          }),
+          selectedTime: selectedTime,
+        },
+      });
+    }
   };
 
   return (

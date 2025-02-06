@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import CustomButton from '../../components/customButton';
 import {ProfileCard} from '../../components/profileCard';
+import {useSelector} from 'react-redux';
 import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation'; // Import the animation component
 
 const costData = [
-  {id: 1, title: 'Hourly Price', price: '200 Rs'},
-  {id: 2, title: 'Hair Cut', price: '800 Rs'},
+  {id: 1, title: 'Hourly Price', price: '0 Rs'},
+  {id: 2, title: 'Hair Cut', price: '0 Rs'},
 ];
 
 const paymentMethods = [
@@ -24,15 +25,15 @@ const paymentMethods = [
   {id: 2, title: 'Card', image: require('../../assets/cardIcon.png')},
 ];
 
-const BookingDetail = ({navigation}) => {
+const BookingDetail = ({navigation, route}) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
-
+  const {selectedDate, selectedTime} = route.params || {};
   const handlePaymentMethodSelect = item => {
     setSelectedPaymentMethod(
       item.id === selectedPaymentMethod ? null : item.id,
     );
   };
-
+  const totalPrice = useSelector(state => state.selectedServices.totalPrice);
   return (
     <View style={{flex: 1}}>
       {/* Persistent background animation */}
@@ -47,7 +48,7 @@ const BookingDetail = ({navigation}) => {
             navigation.navigate('AppStack', {screen: 'BookNow'});
           }}>
           <Image
-            tintColor={'#C62300'}
+            // tintColor={'#C62300'}
             source={require('../../assets/arrowicon2.png')}
             style={styles.backIcon}
           />
@@ -67,14 +68,18 @@ const BookingDetail = ({navigation}) => {
               source={require('../../assets/calender.png')}
               style={styles.scheduleIcon}
             />
-            <Text style={styles.scheduleText}>18, March</Text>
+            <Text style={styles.scheduleDate}>
+              {selectedDate || 'No date selected'}
+            </Text>
           </View>
           <View style={styles.scheduleItem}>
             <Image
               source={require('../../assets/clockIcon.png')}
               style={styles.scheduleIcon}
             />
-            <Text style={styles.scheduleText}>14:00</Text>
+            <Text style={styles.scheduleTime}>
+              {selectedTime || 'No time selected'}
+            </Text>
           </View>
         </View>
         <View style={styles.sectionHeader}>
@@ -98,7 +103,7 @@ const BookingDetail = ({navigation}) => {
                   style={
                     (styles.costSummaryText, {marginRight: 5, color: 'black'})
                   }>
-                  1000 Rs
+                  {totalPrice}
                 </Text>
               </View>
               <View style={styles.costSummary}>
@@ -107,7 +112,7 @@ const BookingDetail = ({navigation}) => {
                   style={
                     (styles.costSummaryText, {marginRight: 6, color: 'black'})
                   }>
-                  100 Rs
+                  - Rs
                 </Text>
               </View>
             </>
@@ -122,7 +127,7 @@ const BookingDetail = ({navigation}) => {
         </View>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total Price</Text>
-          <Text style={styles.totalText}>900 Rs</Text>
+          <Text style={styles.totalText}>{totalPrice}</Text>
         </View>
         <View style={styles.dividerContainer}>
           <Image
@@ -231,7 +236,12 @@ const styles = StyleSheet.create({
     width: 25,
     tintColor: '#C62300',
   },
-  scheduleText: {
+  scheduleTime: {
+    fontSize: 15,
+    color: 'black',
+    fontWeight: '500',
+  },
+  scheduleDate: {
     fontSize: 15,
     color: 'black',
     fontWeight: '500',

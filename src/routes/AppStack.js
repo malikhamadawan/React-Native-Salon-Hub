@@ -23,7 +23,7 @@ function AppStack() {
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
       <Stack.Navigator
-        initialRouteName="TestCode"
+        initialRouteName="BottomTab"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Bonus" component={Bonus} />
         <Stack.Screen name="Home" component={Home} />
