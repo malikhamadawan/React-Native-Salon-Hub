@@ -189,17 +189,11 @@ const styles = StyleSheet.create({
   },
   listItem: {
     marginVertical: 5,
-    ...Platform.select({
-      ios: {
-        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-        shadowOpacity: 0.5, // Slightly transparent shadow
-        shadowRadius: 8, // Blurred shadow effect
-        shadowColor: 'black',
-      },
-      android: {
-        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
-      },
-    }),
+    elevation: 10,
+    shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+    shadowOpacity: 0.5, // Slightly transparent shadow
+    shadowRadius: 8, // Blurred shadow effect
+    shadowColor: 'black',
   },
   listItemImage: {
     borderRadius: 15,

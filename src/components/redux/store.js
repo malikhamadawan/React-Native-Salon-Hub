@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import selectedServicesReducer from './slices/selectedServicesSlice';
-import cartReducer from './slices/cartSlice'; // Import the cart slice
+import cartReducer from './slices/cartSlice';
+import profileImageupdateReducer from './slices/profileImageupdate';
 
 const store = configureStore({
   reducer: {
-    cart: cartReducer, // Add cart reducer
+    cart: cartReducer,
     selectedServices: selectedServicesReducer,
+    profileImageupdate: profileImageupdateReducer,
   },
 });
 

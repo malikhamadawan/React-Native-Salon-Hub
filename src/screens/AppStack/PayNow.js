@@ -102,8 +102,8 @@ const styles = {
     paddingHorizontal: 10,
   },
   arrowIcon: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
     marginRight: '92%',
   },
   sectionContainer: {

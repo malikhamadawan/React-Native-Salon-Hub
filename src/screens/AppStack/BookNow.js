@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
   },
   backIcon: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
     marginRight: '92%',
   },
   infoContainer: {

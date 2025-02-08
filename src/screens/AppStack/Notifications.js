@@ -90,18 +90,11 @@ const Notifications = ({navigation}) => {
         <TouchableOpacity
           style={{
             marginLeft: 15,
-            backgroundColor: 'white',
+
             borderRadius: 12,
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
-            elevation: 1,
-            shadowOpacity: 2,
-            shadowColor: 'black',
-            shadowOffset: {
-              width: 3,
-              height: 3,
-            },
           }}
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'BottomTab'})

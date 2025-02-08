@@ -1,20 +1,30 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Platform,
   Image,
   TouchableOpacity,
   ImageBackground,
+  Platform,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Input} from '../../components/input';
 import CustomButton from '../../components/customButton';
+import {
+  setImage,
+  loadProfileImage,
+} from '../../components/redux/slices/profileImageupdate';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Profile = ({navigation}) => {
-  const [imageUri, setImageUri] = React.useState(null);
+  const dispatch = useDispatch();
+  const imageUri = useSelector(state => state.profileImageupdate.imageUri);
+
+  useEffect(() => {
+    dispatch(loadProfileImage()); // Load image from AsyncStorage when component mounts
+  }, [dispatch]);
 
   const pickImage = async () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
@@ -22,12 +32,11 @@ const Profile = ({navigation}) => {
         console.log('User cancelled image picker');
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorCode);
-      } else if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri);
+      } else if (response.assets?.length > 0) {
+        dispatch(setImage(response.assets[0].uri));
       }
     });
   };
-
   const [imagebackgroundUri, setImagebackgroundUri] = React.useState(null);
   const pickImagebackground = async () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
@@ -43,65 +52,33 @@ const Profile = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          width: '100%',
-          height: '25%',
-          position: 'absolute',
-          backgroundColor: 'white',
-          // borderColor: '#C62300',
-          borderBottomWidth: 1,
-          borderBottomColor: '#C62300',
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          activeOpacity={0.5}
-          style={{
-            backgroundColor: '#C62300',
-            width: 27,
-            alignItems: 'center',
-            justifyContent: 'center',
-            alignContent: 'center',
-            borderRadius: 5,
-            height: 27,
-            marginTop: 7,
-            marginLeft: 7,
-          }}>
-          <Image
-            source={require('../../assets/arrowicon2.png')}
-            resizeMode={'contain'}
-            style={{
-              width: 24,
-              height: 24,
-              marginRight: 1,
-              marginBottom: 1,
-            }}
-          />
-        </TouchableOpacity>
+      <View style={styles.header}>
         {imagebackgroundUri && (
           <ImageBackground
-            source={
-              imageUri
-                ? {uri: imagebackgroundUri}
-                : require('../../assets/images400.jpeg')
-            }
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
+            source={{uri: imagebackgroundUri}}
+            style={styles.backgroundImage}
             blurRadius={3}
             resizeMode="cover"
           />
         )}
         <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}>
+          <Image
+            source={require('../../assets/arrowicon2.png')}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.cameraButton}
           onPress={pickImagebackground}>
           <Image
             source={require('../../assets/cameraicon.png')}
-            style={{height: 40, width: 40}}
+            style={styles.cameraIcon}
           />
         </TouchableOpacity>
       </View>
+
       <View style={styles.imageContainer}>
         {imageUri && (
           <Image source={{uri: imageUri}} style={styles.profileImage} />
@@ -109,123 +86,23 @@ const Profile = ({navigation}) => {
         <TouchableOpacity style={styles.cameraButton} onPress={pickImage}>
           <Image
             source={require('../../assets/cameraicon.png')}
-            style={{height: 40, width: 40}}
+            style={styles.cameraIcon}
           />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          marginTop: 20,
-          height: 25,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={require('../../assets/icon1.png')}
-            // tintColor={'grey'}
-            style={{
-              height: 20,
-              width: 20,
-              marginLeft: 10,
-            }}
-          />
-          <Text style={styles.textInput}>Name</Text>
-        </View>
-        <Input
-          marginLeftImg2={45}
-          focusview={true}
-          img2={require('../../assets/editIcon1.png')}
-          rightIcon={true}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: 60,
-          height: 25,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={require('../../assets/icon2.png')}
-            tintColor={'#C62300'}
-            style={{
-              height: 20,
-              width: 20,
-              marginLeft: 10,
-            }}
-          />
-          <Text style={styles.textInput}>Email</Text>
-        </View>
-        <Input
-          marginLeftImg2={45}
-          img2={require('../../assets/editIcon1.png')}
-          rightIcon={true}
-          focusview={true}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: 60,
-          height: 25,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={require('../../assets/phoneIcon1.png')}
-            tintColor={'#C62300'}
-            style={{
-              height: 20,
-              width: 20,
-              marginLeft: 10,
-            }}
-          />
-          <Text style={styles.textInput}>Phone Number</Text>
-        </View>
-        <Input
-          img2={require('../../assets/editIcon1.png')}
-          rightIcon={true}
-          focusview={true}
-          marginLeftImg2={45}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: 60,
-          height: 25,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Image
-            tintColor={'grey'}
-            source={require('../../assets/addressIcon.png')}
-            style={{
-              tintColor: '#C62300',
-              height: 20,
-              width: 20,
-              marginLeft: 10,
-            }}
-          />
-          <Text style={styles.textInput}>Address</Text>
-        </View>
-        <Input
-          img2={require('../../assets/editIcon1.png')}
-          rightIcon={true}
-          focusview={true}
-          marginLeftImg2={45}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: '25%',
-        }}>
+
+      <ProfileInput label="Name" icon={require('../../assets/icon1.png')} />
+      <ProfileInput label="Email" icon={require('../../assets/icon2.png')} />
+      <ProfileInput
+        label="Phone Number"
+        icon={require('../../assets/phoneIcon1.png')}
+      />
+      <ProfileInput
+        label="Address"
+        icon={require('../../assets/addressIcon.png')}
+      />
+
+      <View style={{marginTop: '18%'}}>
         <CustomButton
           onPress={() => navigation.goBack()}
           btnColor="#C62300"
@@ -240,11 +117,54 @@ const Profile = ({navigation}) => {
   );
 };
 
+const ProfileInput = ({label, icon}) => (
+  <View style={styles.inputContainer}>
+    <View style={styles.inputRow}>
+      <Image source={icon} style={styles.inputIcon} />
+      <Text style={styles.textInput}>{label}</Text>
+    </View>
+    <Input
+      img2={require('../../assets/editIcon1.png')}
+      rightIcon={true}
+      focusview={true}
+      marginLeftImg2={45}
+    />
+  </View>
+);
+
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === 'ios' ? 60 : 37,
+    // marginTop: Platform.OS === 'ios' ? 60 : 37,
     flex: 1,
-    // paddingHorizontal: 10,
+  },
+  header: {
+    width: '100%',
+    height: '25%',
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderBottomWidth: 2,
+    borderBottomColor: '#C62300',
+    zIndex: 0,
+  },
+  backButton: {
+    width: 27,
+    height: 27,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    zIndex: 1,
+    marginLeft: 17,
+    top: 35,
+  },
+  backIcon: {
+    width: 30,
+    height: 30,
+  },
+  backgroundImage: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute', // Ensure it is placed correctly behind other components
+    // zIndex: 0,
   },
   imageContainer: {
     marginTop: 128,
@@ -252,30 +172,46 @@ const styles = StyleSheet.create({
     height: 155,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
     alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 78,
     borderColor: '#C62300',
-    borderWidth: 1,
+    borderWidth: 2,
+    position: 'relative',
   },
   profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: 'white',
+    width: 145,
+    height: 145,
+    borderRadius: 100,
+    zIndex: 3,
   },
   cameraButton: {
     position: 'absolute',
     bottom: 10,
     right: 10,
-    zIndex: 1,
+    zIndex: 3,
+  },
+  cameraIcon: {
+    height: 40,
+    width: 40,
+  },
+  inputContainer: {
+    // marginTop: 40,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  inputIcon: {
+    height: 20,
+    width: 20,
+    marginLeft: 10,
   },
   textInput: {
     color: 'black',
     fontSize: 18,
     marginHorizontal: 5,
-    height: 25,
   },
 });
 

@@ -75,12 +75,13 @@ const Appointments = ({navigation}) => {
           onPress={() => navigation.goBack()}
           style={{
             marginLeft: 10,
+            top: 10,
           }}>
           <Image
             source={require('../../assets/arrowicon2.png')}
             style={{
-              width: 24,
-              height: 24,
+              width: 30,
+              height: 30,
               marginRight: '92%',
             }}
           />

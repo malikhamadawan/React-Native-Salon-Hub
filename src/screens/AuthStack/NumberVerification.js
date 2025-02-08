@@ -82,8 +82,8 @@ const NumberVerification = ({navigation}) => {
         <Image
           source={require('../../assets/arrowicon2.png')}
           style={{
-            height: 32,
-            width: 32,
+            height: 30,
+            width: 30,
           }}
         />
       </TouchableOpacity>

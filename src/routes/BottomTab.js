@@ -185,7 +185,16 @@ const BottomTab = () => {
         animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>QR Modal Content</Text>
+            <Text
+              style={{
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: 20,
+                alignSelf: 'center',
+                top: 20,
+              }}>
+              Scan Your QR Code{' '}
+            </Text>
             <View
               style={{
                 flex: 1,
@@ -201,7 +210,7 @@ const BottomTab = () => {
             </View>
             <CustomButton
               title="Close"
-              btnColor={'#2158FF'}
+              btnColor={'#C62300'}
               width={150}
               marginBottom={50}
               text={'Close'}
@@ -232,7 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   camera: {
-    flex: 0.67,
+    flex: 0.57,
     width: '90%',
     borderRadius: 10,
     marginBottom: 10,

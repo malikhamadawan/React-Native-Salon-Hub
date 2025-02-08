@@ -40,6 +40,7 @@ const Setting = ({navigation}) => {
       <PersistentBackgroundAnimation />
       <CustomView marginTop={'15%'}>
         <ProfileHeader
+          navigation={navigation}
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'Notifications'})
           }

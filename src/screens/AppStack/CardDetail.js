@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backIcon: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
     marginRight: '92%',
   },
   inputLabelContainer: {

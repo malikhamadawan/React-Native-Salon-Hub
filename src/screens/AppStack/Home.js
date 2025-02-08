@@ -387,6 +387,7 @@ const Home = ({navigation}) => {
       <View style={styles.headerContainer}>
         {/* Sticky Profile Header */}
         <ProfileHeader
+          navigation={navigation}
           onPress={() =>
             navigation.navigate('AppStack', {screen: 'Notifications'})
           }
@@ -536,11 +537,10 @@ const Home = ({navigation}) => {
                   }),
                 }}>
                 <Image
-                  source={require('../../assets/Icons6.png')}
+                  source={require('../../assets/calender.png')}
                   style={{
                     width: 20,
                     height: 20,
-                    tintColor: '#C62300',
                   }}
                 />
               </TouchableOpacity>
@@ -594,7 +594,8 @@ const Home = ({navigation}) => {
                 <Text
                   onPress={handleMorePress}
                   style={{
-                    fontSize: 11,
+                    fontSize: 15,
+                    fontWeight: 'bold',
                     color: '#C62300',
                   }}>
                   show more
@@ -603,7 +604,8 @@ const Home = ({navigation}) => {
                 <Text
                   onPress={handleMorePress}
                   style={{
-                    fontSize: 11,
+                    fontSize: 15,
+                    fontWeight: 'bold',
                     color: '#C62300',
                   }}>
                   show less
