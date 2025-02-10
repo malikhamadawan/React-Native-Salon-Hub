@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {View, Modal} from 'react-native';
 import LottieView from 'lottie-react-native';
-import Loading from '../../assets/lottie/loading.json';
+import Loading from '../../assets/lottie/Cut3.json';
 
 const LoadingLottie = ({visible}) => {
   const animationRef = useRef();

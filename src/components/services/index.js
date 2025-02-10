@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import React from 'react';
 
 const index = ({title, time, details, price, isSelected, onPress}) => {

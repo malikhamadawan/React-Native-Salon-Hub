@@ -438,6 +438,7 @@ const Home = ({navigation}) => {
                 <TouchableOpacity
                   style={{
                     width: 65,
+                    elevation: 10,
                     height: 80,
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -448,18 +449,18 @@ const Home = ({navigation}) => {
                         shadowRadius: 8, // Blurred shadow effect
                         shadowColor: 'black',
                       },
-                      android: {
-                        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
-                      },
                     }),
                   }}
                   onPress={() => openModal(item.image)}>
                   <Image
                     source={item.image}
                     style={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
+                      width: 55,
+                      height: 55,
+                      borderRadius: 28,
+                      borderWidth: 1,
+                      borderColor: '#C62300',
+                      elevation: 10,
                     }}
                   />
                   <Text
@@ -583,7 +584,7 @@ const Home = ({navigation}) => {
               }}>
               <Text
                 style={{
-                  fontSize: 26,
+                  fontSize: 23,
                   color: '#0D1230',
                   fontWeight: '600',
                   marginLeft: 5,
@@ -594,8 +595,8 @@ const Home = ({navigation}) => {
                 <Text
                   onPress={handleMorePress}
                   style={{
-                    fontSize: 15,
-                    fontWeight: 'bold',
+                    fontSize: 14,
+                    fontWeight: '600',
                     color: '#C62300',
                   }}>
                   show more
@@ -604,8 +605,8 @@ const Home = ({navigation}) => {
                 <Text
                   onPress={handleMorePress}
                   style={{
-                    fontSize: 15,
-                    fontWeight: 'bold',
+                    fontSize: 14,
+                    fontWeight: '600',
                     color: '#C62300',
                   }}>
                   show less

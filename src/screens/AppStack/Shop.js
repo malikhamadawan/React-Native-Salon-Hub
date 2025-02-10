@@ -25,60 +25,64 @@ const Shop = ({navigation}) => {
   const [button, setButton] = useState('services');
   const dispatch = useDispatch();
   const selectedServices = useSelector(
-    state => state.selectedServices.selectedServices,
+    state => state.selectedServices?.selectedServices || [],
+  );
+  const totalPrice = useSelector(
+    state => state.selectedServices?.totalPrice || 0,
   );
 
   const data = [
     {
       id: 0,
       title: "Men's Haircut",
-      price: '500 Rs',
+      price: 500,
       details: 'All prices include taxes\nSkin fade add 150 Rs',
       time: '30 minutes',
     },
     {
       id: 1,
       title: 'Youth Cut',
-      price: '400 Rs',
+      price: 400,
       details: 'Between 13 to 17 years of age\nSkin fade add 150 Rs',
       time: '30 minutes',
     },
     {
       id: 2,
       title: 'Children Cut',
-      price: '350 Rs',
+      price: 350,
       details: '12 years and younger',
       time: '20 minutes',
     },
     {
       id: 3,
       title: "Senior's Cut",
-      price: '400 Rs',
+      price: 400,
       details: '65 years and older',
       time: '30 minutes',
     },
     {
       id: 4,
       title: 'Buzz Cut',
-      price: '400 Rs',
+      price: 400,
       details: 'Skin fade add 150 Rs',
       time: '20 minutes',
     },
     {
       id: 5,
       title: 'Buzz Cut & Beard Trim',
-      price: '700 Rs',
+      price: 700,
       details: 'All prices include taxes\nSkin fade add 150 Rs',
       time: '35 minutes',
     },
     {
       id: 6,
       title: 'Haircut & Beard Trim',
-      price: '1000 Rs',
+      price: 1000,
       details: 'All prices include taxes\nSkin fade add 150 Rs',
       time: '45 minutes',
     },
   ];
+
   const newData = [
     {id: 0, openTime: '10:00 AM', closeTime: '12:00 AM', day: 'Monday'},
     {id: 1, openTime: '10:00 AM', closeTime: '12:00 AM', day: 'Tuesday'},
@@ -178,19 +182,8 @@ const Shop = ({navigation}) => {
             style={{
               width: '95%',
               flex: 1,
-              borderRadius: 10,
+              // borderRadius: 10,
               marginTop: 5,
-              ...Platform.select({
-                ios: {
-                  shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-                  shadowOpacity: 0.5, // Slightly transparent shadow
-                  shadowRadius: 8, // Blurred shadow effect
-                  shadowColor: 'black',
-                },
-                android: {
-                  elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
-                },
-              }),
             }}>
             <FlatList
               showsVerticalScrollIndicator={false}
@@ -201,15 +194,20 @@ const Shop = ({navigation}) => {
                 );
 
                 return (
-                  <Services
-                    onPress={() => handleSelect(item)}
-                    isSelected={isSelected}
-                    {...item}
-                    time={item.time}
-                    price={item.price}
-                    title={item.title}
-                    details={item.details}
-                  />
+                  <View
+                    style={{
+                      elevation: 10,
+                    }}>
+                    <Services
+                      onPress={() => handleSelect(item)}
+                      isSelected={isSelected}
+                      {...item}
+                      time={item.time}
+                      price={item.price}
+                      title={item.title}
+                      details={item.details}
+                    />
+                  </View>
                 );
               }}
             />
@@ -282,17 +280,17 @@ const Shop = ({navigation}) => {
           <View
             style={{
               flex: 1,
-              ...Platform.select({
-                ios: {
-                  shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-                  shadowOpacity: 0.5, // Slightly transparent shadow
-                  shadowRadius: 8, // Blurred shadow effect
-                  shadowColor: 'black',
-                },
-                android: {
-                  elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
-                },
-              }),
+              // ...Platform.select({
+              //   ios: {
+              //     shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+              //     shadowOpacity: 0.5, // Slightly transparent shadow
+              //     shadowRadius: 8, // Blurred shadow effect
+              //     shadowColor: 'black',
+              //   },
+              //   android: {
+              //     elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+              //   },
+              // }),
             }}>
             <View
               style={{
@@ -302,6 +300,17 @@ const Shop = ({navigation}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                // ...Platform.select({
+                //   ios: {
+                //     shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+                //     shadowOpacity: 0.5, // Slightly transparent shadow
+                //     shadowRadius: 8, // Blurred shadow effect
+                //     shadowColor: 'black',
+                //   },
+                //   android: {
+                //     elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+                //   },
+                // }),
               }}>
               <View>
                 <Text

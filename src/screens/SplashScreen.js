@@ -44,12 +44,20 @@ const SplashScreen = () => {
 
   return (
     <View style={styles.container}>
-      <LottieView
-        source={require('../assets/lottie/Cut.json')}
-        autoPlay
-        loop
-        style={styles.animation}
-      />
+      <View style={{tintColor: 'red'}}>
+        <LottieView
+          source={require('../assets/lottie/Cut.json')}
+          autoPlay
+          colorFilters={[
+            {
+              keypath: 'Layer Name', // Replace with the actual layer name from your JSON
+              color: '#FF0000', // Desired color (Red in this case)
+            },
+          ]}
+          loop
+          style={styles.animation}
+        />
+      </View>
       <MaskedView
         style={styles.maskedView}
         maskElement={

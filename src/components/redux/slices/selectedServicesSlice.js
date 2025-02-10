@@ -1,4 +1,3 @@
-// slices/selectedServicesSlice.js
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
@@ -12,25 +11,16 @@ const selectedServicesSlice = createSlice({
   reducers: {
     addService: (state, action) => {
       state.selectedServices.push(action.payload);
-      state.totalPrice += parseInt(action.payload.price, 10);
+      state.totalPrice += action.payload.price;
     },
     removeService: (state, action) => {
-      const removedService = state.selectedServices.find(
-        service => service.id === action.payload.id,
-      );
       state.selectedServices = state.selectedServices.filter(
-        service => service.id !== action.payload.id,
+        service => service.id !== action.payload.id, // Ensure correct comparison
       );
-      state.totalPrice -= parseInt(removedService.price, 10);
-    },
-    clearServices: state => {
-      state.selectedServices = [];
-      state.totalPrice = 0;
+      state.totalPrice -= action.payload.price;
     },
   },
 });
 
-export const {addService, removeService, clearServices} =
-  selectedServicesSlice.actions;
-
+export const {addService, removeService} = selectedServicesSlice.actions;
 export default selectedServicesSlice.reducer;

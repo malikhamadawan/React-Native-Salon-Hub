@@ -60,6 +60,7 @@ const PayNow = ({navigation}) => {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
           <Image
+            // tintColor={'#C62300'}
             source={require('../../assets/visaCard.png')}
             style={styles.paymentMethodImage}
           />

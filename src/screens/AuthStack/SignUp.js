@@ -83,7 +83,6 @@ const SignUp = ({navigation}) => {
               placeholder={'Name'}
               value={username}
               marginBottom={15}
-              tintcolor={'grey'}
               focusview={true}
               onChangeText={setUsername}
               secureTextEntry={false}
@@ -95,7 +94,6 @@ const SignUp = ({navigation}) => {
               value={email}
               marginBottom={15}
               focusview={true}
-              tintcolor={'grey'}
               onChangeText={setEmail}
               secureTextEntry={false}
             />
@@ -104,7 +102,6 @@ const SignUp = ({navigation}) => {
               placeholder={'Phone Number'}
               img={require('../../assets/phoneIcon1.png')}
               value={phoneNumber}
-              tintcolor={'grey'}
               marginBottom={15}
               focusview={true}
               onChangeText={setPhoneNumber}
@@ -117,7 +114,6 @@ const SignUp = ({navigation}) => {
               img={require('../../assets/icon3.png')}
               value={password}
               focusview={true}
-              tintcolor={'grey'}
               marginBottom={15}
               onChangeText={setPassword}
             />
@@ -127,7 +123,6 @@ const SignUp = ({navigation}) => {
               placeholder={'Confirm Password'}
               marginBottom={15}
               focusview={true}
-              tintcolor={'grey'}
               img={require('../../assets/icon3.png')}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
@@ -159,7 +154,6 @@ const SignUp = ({navigation}) => {
               value={username}
               marginBottom={15}
               focusview={true}
-              tintcolor={'grey'}
               onChangeText={setUsername}
               secureTextEntry={false}
             />
@@ -167,7 +161,6 @@ const SignUp = ({navigation}) => {
               img={require('../../assets/shopIcon.png')}
               leftIcon={true}
               placeholder={'Shop Name'}
-              tintcolor={'grey'}
               focusview={true}
               marginBottom={15}
               secureTextEntry={false}
@@ -178,7 +171,6 @@ const SignUp = ({navigation}) => {
               img={require('../../assets/icon2.png')}
               value={email}
               focusview={true}
-              tintcolor={'grey'}
               marginBottom={15}
               onChangeText={setEmail}
               secureTextEntry={false}
@@ -189,7 +181,6 @@ const SignUp = ({navigation}) => {
               img={require('../../assets/phoneIcon1.png')}
               value={phoneNumber}
               focusview={true}
-              tintcolor={'grey'}
               marginBottom={15}
               onChangeText={setPhoneNumber}
               secureTextEntry={false}
@@ -197,7 +188,6 @@ const SignUp = ({navigation}) => {
             <Input
               img={require('../../assets/addressIcon.png')}
               leftIcon={true}
-              tintcolor={'grey'}
               focusview={true}
               placeholder={'Shop address'}
               marginBottom={15}
@@ -207,7 +197,6 @@ const SignUp = ({navigation}) => {
               leftIcon={true}
               secureTextEntry={true}
               placeholder={'Password'}
-              tintcolor={'grey'}
               focusview={true}
               img={require('../../assets/icon3.png')}
               value={password}
@@ -220,7 +209,6 @@ const SignUp = ({navigation}) => {
               placeholder={'Confirm Password'}
               marginBottom={15}
               focusview={true}
-              tintcolor={'grey'}
               img={require('../../assets/icon3.png')}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
@@ -253,6 +241,7 @@ const SignUp = ({navigation}) => {
         borderColor={'#C62300'}
         justi={'center'}
         showImage={true}
+        btnColor={'#fff'}
         imgPath={require('../../assets/googleIcon.png')}
         borderWidth={true}
         onPress={() => {}}

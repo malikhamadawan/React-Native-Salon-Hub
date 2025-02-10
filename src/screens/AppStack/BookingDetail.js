@@ -33,7 +33,13 @@ const BookingDetail = ({navigation, route}) => {
       item.id === selectedPaymentMethod ? null : item.id,
     );
   };
-  const totalPrice = useSelector(state => state.selectedServices.totalPrice);
+  const selectedServices = useSelector(
+    state => state.selectedServices?.selectedServices || [],
+  );
+  const totalPrice = useSelector(
+    state => state.selectedServices?.totalPrice || 0,
+  );
+
   return (
     <View style={{flex: 1}}>
       {/* Persistent background animation */}
@@ -86,39 +92,41 @@ const BookingDetail = ({navigation, route}) => {
           <Text style={styles.sectionHeaderText}>Cost</Text>
         </View>
         <FlatList
-          scrollEnabled={false}
+          scrollEnabled={true}
           style={styles.costList}
-          data={costData}
+          data={selectedServices} // Use selected services
           renderItem={({item}) => (
             <View style={styles.costItem}>
               <Text style={styles.costTitle}>{item.title}</Text>
-              <Text style={styles.costPrice}>{item.price}</Text>
+              <Text style={styles.costPrice}>{item.price} Rs</Text>
             </View>
           )}
           ListFooterComponent={
             <>
               <View style={styles.costSummary}>
-                <Text style={styles.costSummaryText}>Sub Total Price</Text>
-                <Text
-                  style={
-                    (styles.costSummaryText, {marginRight: 5, color: 'black'})
-                  }>
-                  {totalPrice}
-                </Text>
-              </View>
-              <View style={styles.costSummary}>
                 <Text style={styles.costSummaryText}>Discount Price</Text>
                 <Text
-                  style={
-                    (styles.costSummaryText, {marginRight: 6, color: 'black'})
-                  }>
+                  style={[
+                    styles.costSummaryText,
+                    {marginRight: 5, color: 'black'},
+                  ]}>
                   - Rs
                 </Text>
               </View>
+              {/* <View style={styles.costSummary}>
+                <Text
+                  style={[
+                    styles.costSummaryText,
+                    {marginRight: 6, color: 'black'},
+                  ]}>
+                  -
+                </Text>
+              </View> */}
             </>
           }
           keyExtractor={item => item.id.toString()}
         />
+
         <View style={styles.dividerContainer}>
           <Image
             source={require('../../assets/divionLine.png')}
@@ -127,7 +135,7 @@ const BookingDetail = ({navigation, route}) => {
         </View>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total Price</Text>
-          <Text style={styles.totalText}>{totalPrice}</Text>
+          <Text style={styles.totalText}>{totalPrice} Rs</Text>
         </View>
         <View style={styles.dividerContainer}>
           <Image
@@ -275,8 +283,9 @@ const styles = StyleSheet.create({
     marginLeft: 3,
   },
   costSummaryText: {
-    fontSize: 15,
+    fontSize: 17,
     color: 'black',
+    fontWeight:'600',
   },
   dividerContainer: {
     height: 30,
@@ -304,17 +313,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     width: '100%',
     height: 140,
-    ...Platform.select({
-      ios: {
-        shadowOffset: {width: 2, height: 4}, // Shadow offset outside
-        shadowOpacity: 0.5, // Slightly transparent shadow
-        shadowRadius: 4, // Blurred shadow effect
-        shadowColor: 'black',
-      },
-      android: {
-        elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
-      },
-    }),
+    // ...Platform.select({
+    //   ios: {
+    //     shadowOffset: {width: 2, height: 4}, // Shadow offset outside
+    //     shadowOpacity: 0.5, // Slightly transparent shadow
+    //     shadowRadius: 4, // Blurred shadow effect
+    //     shadowColor: 'black',
+    //   },
+    //   android: {
+    //     elevation: 10, // Shadow with elevation on Android, giving it an "outside" effect
+    //   },
+    // }),
   },
   paymentItem: {
     alignSelf: 'center',
@@ -362,7 +371,8 @@ const styles = StyleSheet.create({
     tintColor: '#C62300',
   },
   buttonContainer: {
-    height: 120,
+    height: 60,
+    bottom:10,
   },
   checkBoxContainer: {
     height: 30,
