@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity, Platform, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -81,7 +82,7 @@ const ProfileHeader = ({onPress, navigation}) => {
               fontWeight: '600',
               color: 'black',
               marginLeft: 10,
-              top:5,
+              top: 5,
             }}>
             Hi, {user?.username ? user?.username : 'Umair'}
           </Text>

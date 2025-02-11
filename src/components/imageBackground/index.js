@@ -13,6 +13,9 @@ const index = ({
   onPressArrow,
   onPressReview,
   onPressServices,
+  Text1,
+  Text2,
+  Text3,
 }) => {
   return (
     <ImageBackground
@@ -89,7 +92,7 @@ const index = ({
                 color: '#fff',
                 fontWeight: '600',
               }}>
-              SERVICES
+              {Text1}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -106,7 +109,7 @@ const index = ({
                 color: '#fff',
                 fontWeight: '600',
               }}>
-              INFO
+              {Text2}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -123,7 +126,7 @@ const index = ({
                 color: '#fff',
                 fontWeight: '600',
               }}>
-              REVIEWS
+              {Text3}
             </Text>
           </TouchableOpacity>
         </View>

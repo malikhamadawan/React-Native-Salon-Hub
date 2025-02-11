@@ -162,6 +162,9 @@ const Shop = ({navigation}) => {
           alignItems: 'center',
         }}>
         <Background
+          Text1={'SERVICES'}
+          Text2={'INFO'}
+          Text3={'REVIEWS'}
           onPress={() => {
             setButton('services');
           }}
