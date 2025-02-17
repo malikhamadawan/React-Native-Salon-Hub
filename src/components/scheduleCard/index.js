@@ -20,6 +20,7 @@ const Index = ({
   date,
   endTime,
   startTime,
+  text1,
   id,
   phoneNo, // Add phone number prop
 }) => {
@@ -114,7 +115,7 @@ const Index = ({
               imgPath={require('../../assets/editIcon.png')}
               btnColor={'#C62300'}
               width={130}
-              text={'Edit'}
+              text={text1}
               justi={'center'}
               fontWeight={'500'}
               txtColor={'#fff'}

@@ -1,14 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  ImageBackground,
-  Platform,
-} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import Background from '../../components/imageBackground';
 import Review from '../../components/review';

@@ -3,35 +3,27 @@
 import {
   View,
   Text,
+  StyleSheet,
   FlatList,
+  Platform,
   TouchableOpacity,
   Image,
-  ScrollView,
-  ImageBackground,
-  Platform,
-  StyleSheet,
 } from 'react-native';
 import React, {useState} from 'react';
-import Background from '../../components/imageBackground';
+import ScheduleCard from '../../components/scheduleCard/index';
 import Review from '../../components/review';
-import Services from '../../components/services';
-import Info from '../../components/info';
-import CustomButton from '../../components/customButton';
+import Background from '../../components/imageBackground';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addService,
   removeService,
 } from '../../components/redux/slices/selectedServicesSlice';
 import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
-import {ProfileHeader} from '../../components/profileHeader';
 const Shop = ({navigation}) => {
   const [button, setButton] = useState('services');
   const dispatch = useDispatch();
   const selectedServices = useSelector(
     state => state.selectedServices?.selectedServices || [],
-  );
-  const totalPrice = useSelector(
-    state => state.selectedServices?.totalPrice || 0,
   );
 
   const review = [
@@ -86,6 +78,54 @@ const Shop = ({navigation}) => {
     },
   ];
 
+  const data = [
+    {
+      id: 0,
+      title: 'Nadeem Saloon',
+      name: 'Nadeem',
+      profileImage: require('../../assets/profile1.png'),
+      date: 'Monday,26 May',
+      startTime: '10:00',
+      endTime: '10:30',
+    },
+    {
+      id: 1,
+      title: 'Mr Cutts',
+      name: 'Usman',
+      profileImage: require('../../assets/profile2.jpeg'),
+      date: 'Tuesday,26 June',
+      startTime: '09:00',
+      endTime: '10:00',
+    },
+    {
+      id: 2,
+      title: 'DownTown Hair Saloon',
+      name: 'Nouman Khalid',
+      profileImage: require('../../assets/profile3.jpeg'),
+      date: 'Saturday,16 Feb',
+      startTime: '12:00',
+      endTime: '13:00',
+    },
+    {
+      id: 3,
+      title: 'Master Cuts',
+      name: 'Asad',
+      profileImage: require('../../assets/profile4.jpeg'),
+      date: 'Sunday,21 Nov',
+      startTime: '20:00',
+      endTime: '21:00',
+    },
+    {
+      id: 4,
+      title: 'Vicky Hair Saloon',
+      name: 'Vicky',
+      profileImage: require('../../assets/profile5.jpg'),
+      date: 'Wednesday,19 March',
+      startTime: '22:00',
+      endTime: '23:00',
+    },
+  ];
+
   const handleSelect = item => {
     if (selectedServices.some(service => service.id === item.id)) {
       dispatch(removeService(item)); // Dispatch Redux action to remove the service
@@ -117,7 +157,12 @@ const Shop = ({navigation}) => {
           }}
           info={button}
           onPressArrow={() => {
-            navigation.goBack();
+            navigation.navigate('AppStack', {
+              screen: 'BottomTab',
+              params: {
+                screen: 'Home',
+              },
+            });
           }}
         />
 
@@ -138,7 +183,7 @@ const Shop = ({navigation}) => {
                   <View
                     style={{
                       // height: 40,
-                      width: 120,
+                      width: 180,
                       backgroundColor: '#fff',
                       alignItems: 'center',
                       top: 8,
@@ -166,7 +211,7 @@ const Shop = ({navigation}) => {
                   <View
                     style={{
                       // height: 40,
-                      width: 130,
+                      width: 180,
                       backgroundColor: '#fff',
                       alignItems: 'center',
                       top: 8,
@@ -196,7 +241,7 @@ const Shop = ({navigation}) => {
                   <View
                     style={{
                       // height: 40,
-                      width: 120,
+                      width: 150,
                       backgroundColor: '#fff',
                       alignItems: 'center',
                       top: 8,
@@ -224,7 +269,7 @@ const Shop = ({navigation}) => {
                   <View
                     style={{
                       // height: 40,
-                      width: 80,
+                      width: 120,
                       backgroundColor: '#fff',
                       alignItems: 'center',
                       top: 8,
@@ -239,36 +284,60 @@ const Shop = ({navigation}) => {
                     </Text>
                   </View>
                 </View>
-                {/* <View style={styles.box}>
-                  <View style={styles.circle} />
-                  <View
-                    style={{
-                      // height: 40,
-                      width: 100,
-                      backgroundColor: '#fff',
-                      alignItems: 'center',
-                      top: 8,
-                    }}>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 16,
-                        fontWeight: '600',
-                      }}>
-                      Today Booking
-                    </Text>
-                  </View>
-                </View> */}
               </View>
             </View>
           </View>
         ) : button === 'info' ? (
-          <View></View>
+          <View style={{width: '100%', flex: 1, marginTop: 5}}>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                alignItems: 'center',
+              }}
+              renderItem={({item}) => {
+                return (
+                  <ScheduleCard
+                    name={item.name}
+                    title={item.title}
+                    date={item.date}
+                    startTime={item.startTime}
+                    endTime={item.endTime}
+                    profileImage={item.profileImage}
+                    showBtn={true}
+                    text1={'Accept'}
+                  />
+                );
+              }}
+              data={data}
+            />
+          </View>
         ) : (
           <View
             style={{
               flex: 1,
-            }}></View>
+              width: '100%',
+              marginTop: 5,
+            }}>
+            <FlatList
+              contentContainerStyle={{
+                flexGrow: 1,
+              }}
+              style={{
+                flex: 1,
+              }}
+              data={review}
+              renderItem={({item}) => {
+                return (
+                  <Review
+                    stars={item.stars}
+                    comment={item.comment}
+                    profileName={item.profileName}
+                    profileSymbol={item.profileSymbol}
+                  />
+                );
+              }}
+            />
+          </View>
         )}
         <View
           style={{

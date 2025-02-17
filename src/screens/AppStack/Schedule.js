@@ -227,6 +227,7 @@ const Schedule = ({navigation}) => {
                     profileImage={item.profileImage}
                     phoneNo={item.phoneNo}
                     showBtn={true}
+                    text1={'Edit'}
                   />
                 </View>
               );

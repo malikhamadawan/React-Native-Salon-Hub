@@ -6,11 +6,9 @@ import {
   Platform,
   TouchableOpacity,
   Image,
-  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import ScheduleCard from '../../components/scheduleCard/index';
-import MainImageBackground from '../../components/MainImageBackground/MainImageBackground';
 import PersistentBackgroundAnimation from '../../components/PersistentBackgroundAnimation/PersistentBackgroundAnimation';
 
 const Appointments = ({navigation}) => {
@@ -120,6 +118,7 @@ const Appointments = ({navigation}) => {
                 endTime={item.endTime}
                 profileImage={item.profileImage}
                 showBtn={true}
+                text1={'Edit'}
               />
             );
           }}
